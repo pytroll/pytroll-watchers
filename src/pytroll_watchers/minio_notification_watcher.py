@@ -1,16 +1,20 @@
-from upath import UPath
+"""Publish messages based on bucket notifications."""
+
 from contextlib import closing
+from copy import deepcopy
+
+from posttroll.message import Message
+from posttroll.publisher import create_publisher_from_dict_config
+from upath import UPath
 
 
 def file_publisher(s3_config, publisher_config, message_config):
     """Publish files coming from bucket notifications."""
-    from posttroll.publisher import create_publisher_from_dict_config
-    from posttroll.message import Message
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
     with closing(publisher):
         for file_item in file_generator(**s3_config):
-            amended_message_config = message_config.copy()
+            amended_message_config = deepcopy(message_config)
             amended_message_config["data"]["url"] = file_item.as_uri()
             amended_message_config["data"]["fs"] = file_item.fs.to_json()
             msg = Message(**amended_message_config)
@@ -19,7 +23,6 @@ def file_publisher(s3_config, publisher_config, message_config):
 
 def file_generator(endpoint_url, bucket_name, profile=None):
     """Generate UPath instances for new files in the bucket."""
-
     for record in _record_generator(endpoint_url, bucket_name, profile):
         for item in record["Records"]:
             new_bucket_name = item["s3"]["bucket"]["name"]

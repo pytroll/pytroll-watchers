@@ -5,7 +5,7 @@ description = "Utility functions and scripts to watch for new files on local or 
 authors = [
     { name = "Martin Raspaud", email = "martin.raspaud@smhi.se" }
 ]
-dependencies = []
+dependencies = ["posttroll", "universal-path", "watchdog"]
 readme = "README.md"
 requires-python = ">= 3.11"
 license = {file = "LICENSE.txt"}
@@ -23,3 +23,19 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pytroll_watchers"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# See https://docs.astral.sh/ruff/rules/
+select = ["A", "B", "D", "E", "W", "F", "I", "N", "PT", "S", "TID", "C90", "Q", "T10", "T20"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]  # assert allowed in tests
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
