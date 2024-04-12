@@ -10,7 +10,20 @@ Welcome to pytroll-watchers's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+Main interface
+--------------
+.. automodule:: pytroll_watchers
+   :members:
 
+Local watcher
+-------------
+.. automodule:: pytroll_watchers.local_watcher
+   :members:
+
+Minio bucket notification watcher
+---------------------------------
+.. automodule:: pytroll_watchers.minio_notification_watcher
+   :members:
 
 Indices and tables
 ==================
