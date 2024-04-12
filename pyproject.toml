@@ -5,9 +5,9 @@ description = "Utility functions and scripts to watch for new files on local or 
 authors = [
     { name = "Martin Raspaud", email = "martin.raspaud@smhi.se" }
 ]
-dependencies = ["posttroll", "universal-pathlib", "watchdog", "minio"]
+dependencies = ["posttroll", "universal-pathlib", "watchdog", "minio", "trollsift"]
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = ">= 3.10"
 license = {file = "LICENSE.txt"}
 
 [project.urls]
