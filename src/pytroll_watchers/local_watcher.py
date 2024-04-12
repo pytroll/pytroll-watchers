@@ -6,11 +6,10 @@ import os
 from pathlib import Path
 from urllib.parse import urlunparse
 
-from trollsift import parse
 from upath import UPath
 
 from pytroll_watchers.backends.local import listen_to_local_events
-from pytroll_watchers.publisher import file_publisher_from_generator
+from pytroll_watchers.publisher import file_publisher_from_generator, fix_times, parse_metadata
 
 
 def file_publisher(fs_config, publisher_config, message_config):
@@ -59,13 +58,13 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
 
     """
     file_metadata = {}
-
+    pattern = os.path.join(directory, file_pattern) if file_pattern is not None else None
     with listen_to_local_events(directory, file_pattern, observer_type) as events:
         for path in events:
-            if file_pattern is not None:
-                file_metadata = parse(os.path.join(directory, file_pattern), path)
-            else:
-                file_metadata = {}
+            try:
+                file_metadata = parse_metadata(pattern, path)
+            except ValueError:
+                continue
             if protocol is not None:
                 uri = urlunparse((protocol, None, path, None, None, None))
                 yield UPath(uri, **storage_options), file_metadata
