@@ -25,6 +25,11 @@ Minio bucket notification watcher
 .. automodule:: pytroll_watchers.minio_notification_watcher
    :members:
 
+Testing utilities
+-----------------
+.. automodule:: pytroll_watchers.testing
+   :members:
+
 Indices and tables
 ==================
 
