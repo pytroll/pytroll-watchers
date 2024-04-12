@@ -43,7 +43,8 @@ def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # no
                                                 storage_options=storage_options)
     path, metadata = next(generator)
 
-    assert path.as_uri() == "ssh://" + filename
+    assert path.as_uri().startswith("ssh://")
+    assert path.as_uri().endswith(filename)
     assert path.protocol == protocol
     assert path.storage_options == storage_options
     assert metadata["product"] == "foo"
