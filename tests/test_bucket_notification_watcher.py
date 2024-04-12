@@ -12,7 +12,7 @@ sdr_file_pattern = ("sdr/SV{channel_name:3s}_{platform_name}_d{start_date:%Y%m%d
                     "e{end_time:%H%M%S%f}_b{orbit_number:d}_c{processing_datetime:%Y%m%d%H%M%S%f}_cspp_dev.h5")
 
 
-def test_generate_paths(patched_bucket_listener):
+def test_generate_paths(patched_bucket_listener):  # noqa
     """Test generating paths."""
     profile="someprofile"
     s3_config = dict(endpoint_url="someendpoint",
