@@ -1,8 +1,8 @@
 """Common functions for publishing messages."""
 
+import datetime
 from contextlib import closing, suppress
 from copy import deepcopy
-import datetime
 
 from posttroll.message import Message
 from posttroll.publisher import create_publisher_from_dict_config

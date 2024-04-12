@@ -9,7 +9,7 @@ from urllib.parse import urlunparse
 from upath import UPath
 
 from pytroll_watchers.backends.local import listen_to_local_events
-from pytroll_watchers.publisher import file_publisher_from_generator, fix_times, parse_metadata
+from pytroll_watchers.publisher import file_publisher_from_generator, parse_metadata
 
 
 def file_publisher(fs_config, publisher_config, message_config):
