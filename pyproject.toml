@@ -17,6 +17,7 @@ license = {file = "LICENSE.txt"}
 minio = ["minio", "s3fs"]
 local = ["watchdog"]
 publishing = ["posttroll"]
+ssh = ["paramiko"]
 
 [build-system]
 requires = ["hatchling"]
