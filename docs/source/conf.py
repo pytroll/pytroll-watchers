@@ -15,6 +15,7 @@ release = "0.1.0"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = ["sphinx.ext.napoleon", "sphinx.ext.autodoc"]
+autodoc_mock_imports = ["watchdog", "minio", "posttroll", "pytest"]
 
 templates_path = ["_templates"]
 exclude_patterns = []
