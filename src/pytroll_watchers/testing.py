@@ -26,8 +26,8 @@ def patched_local_events(monkeypatch):
     return _patched_local_events
 
 
-@contextmanager
-def patched_bucket_listener(records):
+@pytest.fixture(autouse=True)
+def patched_bucket_listener(monkeypatch):
     """Patch the records produced by the underlying bucket listener.
 
     Example:
@@ -38,10 +38,16 @@ def patched_bucket_listener(records):
         ...         # do something with the record
 
     """
-    from unittest import mock
-
-    import minio
-    fake_minio = mock.Mock(wraps=minio.Minio)
-    fake_minio.return_value.listen_bucket_notification.return_value = nullcontext(enter_result=records)
-    with mock.patch("minio.Minio", fake_minio):
+    @contextmanager
+    def _patched_bucket_listener(records):
+        #from unittest import mock
+        def fake_listen(*args, **kwargs):
+            return nullcontext(enter_result=records)
+        import minio
+        monkeypatch.setattr(minio.Minio, "listen_bucket_notification", fake_listen)
         yield
+        #fake_minio = mock.Mock(wraps=minio.Minio)
+        #fake_minio.return_value.listen_bucket_notification.return_value = nullcontext(enter_result=records)
+        #with mock.patch("minio.Minio", fake_minio):
+        #    yield
+    return _patched_bucket_listener

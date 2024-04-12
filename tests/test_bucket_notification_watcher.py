@@ -5,14 +5,14 @@ import datetime
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from pytroll_watchers import minio_notification_watcher
-from pytroll_watchers.testing import patched_bucket_listener
+from pytroll_watchers.testing import patched_bucket_listener  # noqa
 from upath import UPath
 
 sdr_file_pattern = ("sdr/SV{channel_name:3s}_{platform_name}_d{start_date:%Y%m%d}_t{start_time:%H%M%S%f}_"
                     "e{end_time:%H%M%S%f}_b{orbit_number:d}_c{processing_datetime:%Y%m%d%H%M%S%f}_cspp_dev.h5")
 
 
-def test_generate_paths():
+def test_generate_paths(patched_bucket_listener):
     """Test generating paths."""
     profile="someprofile"
     s3_config = dict(endpoint_url="someendpoint",
@@ -26,7 +26,7 @@ def test_generate_paths():
                          profile=profile)
 
 
-def test_generate_paths_with_pattern():
+def test_generate_paths_with_pattern(patched_bucket_listener):  # noqa
     """Test generating paths."""
     profile = "someprofile"
     s3_config = dict(endpoint_url="someendpoint",
@@ -42,7 +42,7 @@ def test_generate_paths_with_pattern():
     assert metadata["platform_name"] == "npp"
 
 
-def test_generate_paths_with_pattern_fixes_endtime():
+def test_generate_paths_with_pattern_fixes_endtime(patched_bucket_listener):  # noqa
     """Test generating paths."""
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
@@ -70,7 +70,7 @@ def test_fix_times():
     assert metadata["start_time"] < metadata["end_time"]
 
 
-def test_publish_paths():
+def test_publish_paths(patched_bucket_listener):  # noqa
     """Test publishing paths."""
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
@@ -91,7 +91,7 @@ def test_publish_paths():
                                   '"profile": "someprofile"}')
 
 
-def test_publish_paths_with_pattern():
+def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
     """Test publishing paths."""
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
