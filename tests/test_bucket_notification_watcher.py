@@ -5,6 +5,7 @@ import datetime
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from pytroll_watchers import minio_notification_watcher
+from pytroll_watchers.publisher import fix_times
 from pytroll_watchers.testing import patched_bucket_listener  # noqa
 from upath import UPath
 
@@ -65,7 +66,7 @@ def test_fix_times():
                 "orbit_number": 64498,
                 "processing_datetime": datetime.datetime(2024, 4, 8, 10, 23, 34, 392250)}
 
-    minio_notification_watcher.fix_times(metadata)
+    fix_times(metadata)
 
     assert metadata["start_time"] < metadata["end_time"]
 

@@ -1,11 +1,8 @@
 """Publish messages based on Minio bucket notifications."""
 
-import datetime
-
-from trollsift import parse
 from upath import UPath
 
-from pytroll_watchers.publisher import file_publisher_from_generator
+from pytroll_watchers.publisher import file_publisher_from_generator, parse_metadata
 
 
 def file_publisher(fs_config, publisher_config, message_config):
@@ -51,12 +48,10 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options
         for item in record["Records"]:
             new_bucket_name = item["s3"]["bucket"]["name"]
             new_file_name = item["s3"]["object"]["key"]
-            if file_pattern is not None:
-                try:
-                    file_metadata = parse(file_pattern, new_file_name)
-                    fix_times(file_metadata)
-                except ValueError:
-                    continue
+            try:
+                file_metadata = parse_metadata(file_pattern, new_file_name)
+            except ValueError:
+                continue
 
             path = UPath(f"s3://{new_bucket_name}/{new_file_name}", **storage_options)
             yield path, file_metadata
@@ -81,20 +76,3 @@ def _record_generator(endpoint_url, bucket_name, profile=None):
     ) as events:
         for event in events:
             yield event
-
-
-def fix_times(info):
-    """Fix times so that date and time components are combined."""
-    if "start_date" in info:
-        info["start_time"] = datetime.datetime.combine(info["start_date"].date(),
-                                                       info["start_time"].time())
-        if "end_date" not in info:
-            info["end_date"] = info["start_date"]
-        del info["start_date"]
-    if "end_date" in info:
-        info["end_time"] = datetime.datetime.combine(info["end_date"].date(),
-                                                     info["end_time"].time())
-        del info["end_date"]
-    if "end_time" in info:
-        while info["start_time"] > info["end_time"]:
-            info["end_time"] += datetime.timedelta(days=1)
