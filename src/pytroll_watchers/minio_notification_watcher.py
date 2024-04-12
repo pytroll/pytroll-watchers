@@ -1,33 +1,46 @@
-"""Publish messages based on bucket notifications."""
+"""Publish messages based on Minio bucket notifications."""
 
 import datetime
-from contextlib import closing
-from copy import deepcopy
 
-from posttroll.message import Message
-from posttroll.publisher import create_publisher_from_dict_config
 from trollsift import parse
 from upath import UPath
 
+from pytroll_watchers.publisher import file_publisher_from_generator
 
-def file_publisher(s3_config, publisher_config, message_config):
+
+def file_publisher(fs_config, publisher_config, message_config):
     """Publish files coming from bucket notifications."""
-    publisher = create_publisher_from_dict_config(publisher_config)
-    publisher.start()
-    with closing(publisher):
-        for file_item, file_metadata in file_generator(**s3_config):
-            amended_message_config = deepcopy(message_config)
-            amended_message_config["data"]["uri"] = file_item.as_uri()
-            amended_message_config["data"]["fs"] = file_item.fs.to_json()
-            amended_message_config["data"].update(file_metadata)
-            msg = Message(**amended_message_config)
-            publisher.send(str(msg))
+    generator = file_generator(**fs_config)
+    return file_publisher_from_generator(generator, publisher_config, message_config)
 
 
-def file_generator(endpoint_url, bucket_name, file_pattern=None, profile=None):
-    """Generate UPath instances for new files in the bucket."""
+def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options=None):
+    """Generate new files appearing in the watched directory.
+
+    Args:
+        endpoint_url: The endpoint_url to use.
+        bucket_name: The bucket to watch for changes.
+        file_pattern: The trollsift pattern to use for matching and extracting metadata from the filename.
+            This must not include the directory.
+        storage_options: The storage options for the service, for example for specifying a profile to the aws config.
+
+    Returns:
+        A tuple of UPath and file metadata.
+
+    Examples:
+        To iterate over new files in `s3:///tmp/`:
+
+        >>> for filename in file_generator("some_endpoint_url", "tmp",
+        ...                                file_pattern="{start_time:%Y%m%d_%H%M}_{product}.tif")
+        ...    print(filename)
+        UPath("s3:///tmp/20200428_1000_foo.tif")
+
+    """
     file_metadata = {}
-    for record in _record_generator(endpoint_url, bucket_name, profile):
+
+    if storage_options is None:
+        storage_options = {}
+    for record in _record_generator(endpoint_url, bucket_name, storage_options):
         for item in record["Records"]:
             new_bucket_name = item["s3"]["bucket"]["name"]
             new_file_name = item["s3"]["object"]["key"]
@@ -37,7 +50,8 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, profile=None):
                     fix_times(file_metadata)
                 except ValueError:
                     continue
-            path = UPath(f"s3://{new_bucket_name}/{new_file_name}")
+
+            path = UPath(f"s3://{new_bucket_name}/{new_file_name}", **storage_options)
             yield path, file_metadata
 
 

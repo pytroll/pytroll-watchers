@@ -1,52 +1,44 @@
 """Tests for the bucket notification watcher."""
 
 import datetime
-from contextlib import contextmanager, nullcontext
 
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from pytroll_watchers import minio_notification_watcher
+from pytroll_watchers.testing import patched_bucket_listener
 from upath import UPath
 
 sdr_file_pattern = ("sdr/SV{channel_name:3s}_{platform_name}_d{start_date:%Y%m%d}_t{start_time:%H%M%S%f}_"
                     "e{end_time:%H%M%S%f}_b{orbit_number:d}_c{processing_datetime:%Y%m%d%H%M%S%f}_cspp_dev.h5")
 
 
-@contextmanager
-def fake_bucket_listener():
-    """Create a fake bucket listener."""
-    from unittest import mock
-
-    import minio
-    fake_minio = mock.Mock(wraps=minio.Minio)
-    fake_minio.return_value.listen_bucket_notification.return_value = nullcontext(enter_result=records)
-    with mock.patch("minio.Minio", fake_minio):
-        yield
-
-
 def test_generate_paths():
     """Test generating paths."""
+    profile="someprofile"
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
-                     profile="someprofile")
-    with fake_bucket_listener():
+                     storage_options=dict(profile=profile))
+    with patched_bucket_listener(records):
         files = list(minio_notification_watcher.file_generator(**s3_config))
     assert len(files) == len(records)
     path, _ = files[0]
-    assert path == UPath("s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5")
+    assert path == UPath("s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5",
+                         profile=profile)
 
 
 def test_generate_paths_with_pattern():
     """Test generating paths."""
+    profile = "someprofile"
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
                      file_pattern=sdr_file_pattern,
-                     profile="someprofile")
-    with fake_bucket_listener():
+                     storage_options=dict(profile=profile))
+    with patched_bucket_listener(records):
         files = list(minio_notification_watcher.file_generator(**s3_config))
     assert len(files) == 10
     path, metadata = files[0]
-    assert path == UPath("s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5")
+    assert path == UPath("s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5",
+                         profile=profile)
     assert metadata["platform_name"] == "npp"
 
 
@@ -55,8 +47,8 @@ def test_generate_paths_with_pattern_fixes_endtime():
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
                      file_pattern=sdr_file_pattern,
-                     profile="someprofile")
-    with fake_bucket_listener():
+                     storage_options=dict(profile="someprofile"))
+    with patched_bucket_listener(records):
         files = list(minio_notification_watcher.file_generator(**s3_config))
     _, metadata = files[0]
     assert metadata["end_time"] == datetime.datetime(2024, 4, 8, 10, 7, 46, 900000)
@@ -82,12 +74,12 @@ def test_publish_paths():
     """Test publishing paths."""
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
-                     profile="someprofile")
+                     storage_options=dict(profile="someprofile"))
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
     with patched_publisher() as messages:
-       with fake_bucket_listener():
-              minio_notification_watcher.file_publisher(s3_config=s3_config,
+       with patched_bucket_listener(records):
+              minio_notification_watcher.file_publisher(fs_config=s3_config,
                                                         publisher_config=publisher_settings,
                                                         message_config=message_settings)
     assert "uri" not in message_settings["data"]
@@ -95,7 +87,8 @@ def test_publish_paths():
     message = Message(rawstr=messages[0])
     assert message.data["uri"] == "s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5"
     assert message.data["sensor"] == "viirs"
-    assert message.data["fs"] == '{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": []}'
+    assert message.data["fs"] == ('{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], '
+                                  '"profile": "someprofile"}')
 
 
 def test_publish_paths_with_pattern():
@@ -103,12 +96,12 @@ def test_publish_paths_with_pattern():
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
                      file_pattern=sdr_file_pattern,
-                     profile="someprofile")
+                     storage_options=dict(profile="someprofile"))
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
     with patched_publisher() as messages:
-       with fake_bucket_listener():
-              minio_notification_watcher.file_publisher(s3_config=s3_config,
+       with patched_bucket_listener(records):
+              minio_notification_watcher.file_publisher(fs_config=s3_config,
                                                         publisher_config=publisher_settings,
                                                         message_config=message_settings)
     message = Message(rawstr=messages[0])
