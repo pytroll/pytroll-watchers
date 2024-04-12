@@ -14,7 +14,14 @@ from pytroll_watchers.publisher import file_publisher_from_generator
 
 
 def file_publisher(fs_config, publisher_config, message_config):
-    """Publish files coming from local filesystem events."""
+    """Publish files coming from local filesystem events.
+
+    Args:
+        fs_config: the configuration for the filesystem watching, will be passed as argument to `file_generator`.
+        publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
+        message_config: The information needed to complete the posttroll message generation. Will be amended
+             with the file metadata, and passed directly to posttroll's Message constructor.
+    """
     generator = file_generator(**fs_config)
     return file_publisher_from_generator(generator, publisher_config, message_config)
 
