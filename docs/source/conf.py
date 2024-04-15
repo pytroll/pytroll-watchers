@@ -5,11 +5,12 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+from pytroll_watchers.version import version
 
 project = "pytroll-watchers"
 copyright = "2024, Martin Raspaud"
 author = "Martin Raspaud"
-release = "0.1.0"
+release = version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
