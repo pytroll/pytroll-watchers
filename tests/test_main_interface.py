@@ -89,6 +89,7 @@ def test_pass_config_to_file_publisher_for_spurious_backend():
     with pytest.raises(ValueError, match="Unknown backend"):
         publish_from_config(config)
 
+
 def test_cli(tmp_path, patched_local_events):  # noqa
     """Test the command-line interface."""
     local_settings = dict(directory=str(tmp_path))
@@ -109,3 +110,48 @@ def test_cli(tmp_path, patched_local_events):  # noqa
             cli([str(config_file)])
             assert len(msgs) == 1
             assert str(filename) in msgs[0]
+
+
+def test_cli_with_logging(tmp_path, patched_local_events):  # noqa
+    """Test the command-line interface with logging."""
+    local_settings = dict(directory=str(tmp_path))
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+    config = dict(backend="local",
+                  fs_config=local_settings,
+                  publisher_config=publisher_settings,
+                  message_config=message_settings)
+
+    config_file = tmp_path / "config.yaml"
+    with open(config_file, "w") as fd:
+        fd.write(yaml.dump(config))
+
+    log_config_file = tmp_path / "log_config.yaml"
+    handler_name = "console123"
+    log_config = {
+        "version": 1,
+        "handlers": {
+            handler_name: {
+                "class": "logging.StreamHandler",
+                "level": "INFO",
+            },
+        },
+        "loggers": {
+            "": {
+                "level": "INFO",
+                "handlers": [handler_name],
+            },
+        },
+    }
+    with open(log_config_file, "w") as fd:
+        fd.write(yaml.dump(log_config))
+
+    import logging
+
+    with patched_publisher():
+        filename = tmp_path / "bla"
+        with patched_local_events([filename]):
+            cli([str(config_file), "-l", str(log_config_file)])
+            root = logging.getLogger()
+            assert len(root.handlers) == 1
+            assert root.handlers[0].name == handler_name

@@ -1,6 +1,7 @@
 """Tests for the bucket notification watcher."""
 
 import datetime
+from unittest import mock
 
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
@@ -25,6 +26,21 @@ def test_generate_paths(patched_bucket_listener):  # noqa
     path, _ = files[0]
     assert path == UPath("s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5",
                          profile=profile)
+
+def test_generate_paths_uses_credentials_from_profile(patched_bucket_listener, monkeypatch):  # noqa
+    """Test generating paths."""
+    import minio
+    fake_minio = mock.MagicMock()
+    monkeypatch.setattr(minio, "Minio", fake_minio)
+
+    profile="someprofile"
+    s3_config = dict(endpoint_url="someendpoint",
+                     bucket_name="viirs-data",
+                     storage_options=dict(profile=profile))
+
+    with patched_bucket_listener(records):
+       _ = list(minio_notification_watcher.file_generator(**s3_config))
+    assert fake_minio.mock_calls[0][2]["credentials"] is not None
 
 
 def test_generate_paths_with_pattern(patched_bucket_listener):  # noqa
@@ -71,13 +87,15 @@ def test_fix_times():
     assert metadata["start_time"] < metadata["end_time"]
 
 
-def test_publish_paths(patched_bucket_listener):  # noqa
+def test_publish_paths(patched_bucket_listener, caplog):  # noqa
     """Test publishing paths."""
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
                      storage_options=dict(profile="someprofile"))
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+
+    caplog.set_level("INFO")
     with patched_publisher() as messages:
        with patched_bucket_listener(records):
               minio_notification_watcher.file_publisher(fs_config=s3_config,
@@ -90,6 +108,7 @@ def test_publish_paths(patched_bucket_listener):  # noqa
     assert message.data["sensor"] == "viirs"
     assert message.data["fs"] == ('{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], '
                                   '"profile": "someprofile"}')
+    assert "Starting watch on 'viirs-data'" in caplog.text
 
 
 def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
@@ -108,6 +127,25 @@ def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
     message = Message(rawstr=messages[0])
     assert message.data["sensor"] == "viirs"
     assert message.data["platform_name"] == "npp"
+
+
+def test_publish_paths_with_pattern_and_aliases(patched_bucket_listener):  # noqa
+    """Test publishing paths."""
+    s3_config = dict(endpoint_url="someendpoint",
+                     bucket_name="viirs-data",
+                     file_pattern=sdr_file_pattern,
+                     storage_options=dict(profile="someprofile"))
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"),
+                            aliases={"platform_name": {"npp": "Suomi-NPP"}})
+    with patched_publisher() as messages:
+       with patched_bucket_listener(records):
+              minio_notification_watcher.file_publisher(fs_config=s3_config,
+                                                        publisher_config=publisher_settings,
+                                                        message_config=message_settings)
+    message = Message(rawstr=messages[0])
+    assert message.data["sensor"] == "viirs"
+    assert message.data["platform_name"] == "Suomi-NPP"
 
 
 records = \

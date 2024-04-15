@@ -1,6 +1,7 @@
 """Main interface functions."""
 
 import argparse
+import logging.config
 
 import yaml
 
@@ -60,6 +61,7 @@ def publish_from_config(config):
     else:
         raise ValueError(f"Unknown backend {config['backend']}")
 
+
 def cli(args=None):
     """Command-line interface for pytroll-watchers."""
     parser = argparse.ArgumentParser(
@@ -68,8 +70,13 @@ def cli(args=None):
                     epilog="Thanks for using pytroll-watchers!")
 
     parser.add_argument("config", type=str, help="The yaml config file.")
+    parser.add_argument("-l", "--log-config", type=str, help="The yaml config file for logging.", default=None)
 
     parsed = parser.parse_args(args)
+
+
+    log_config_filename = parsed.log_config
+    configure_logging(log_config_filename)
 
     config_file = parsed.config
 
@@ -77,3 +84,35 @@ def cli(args=None):
         config_dict = yaml.safe_load(fd.read())
 
     return publish_from_config(config_dict)
+
+
+def configure_logging(log_config_filename):
+    """Configure logging from a yaml file."""
+    if log_config_filename is not None:
+        with open(log_config_filename) as fd:
+            log_config = yaml.safe_load(fd.read())
+    else:
+        log_config = {
+            "version": 1,
+            "formatters": {
+                "pytroll": {
+                    "format": "[%(asctime)s %(levelname)-8s %(name)s] %(message)s"
+                }
+            },
+            "handlers": {
+                "console": {
+                    "class": "logging.StreamHandler",
+                    "level": "INFO",
+                    "formatter": "pytroll",
+                },
+            },
+            "disable_existing_loggers": False,
+            "loggers": {
+                "": {
+                    "level": "INFO",
+                    "handlers": ["console"],
+                    "propagate": True
+                },
+            },
+        }
+    logging.config.dictConfig(log_config)

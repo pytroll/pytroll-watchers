@@ -27,10 +27,24 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             amended_message_config["data"]["uri"] = file_item.as_uri()
             with suppress(AttributeError):
                 amended_message_config["data"]["fs"] = file_item.fs.to_json()
-
+            aliases = amended_message_config.pop("aliases", {})
+            apply_aliases(aliases, file_metadata)
             amended_message_config["data"].update(file_metadata)
             msg = Message(**amended_message_config)
             publisher.send(str(msg))
+
+
+def apply_aliases(aliases, metadata):
+    """Apply aliases to the metadata.
+
+    Args:
+        aliases: a dict containing dicts for each key to be aliases. For example
+            `{"platform_name": {"npp": "Suomi-NPP}}` will replace the `platform_name` "npp" with "Suomi-NPP".
+        metadata: the metadata to fix
+    """
+    for key, val in metadata.items():
+        if key in aliases:
+            metadata[key] = aliases[key].get(val, val)
 
 
 def fix_times(info):
