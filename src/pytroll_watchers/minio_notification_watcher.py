@@ -1,8 +1,12 @@
 """Publish messages based on Minio bucket notifications."""
 
+from logging import getLogger
+
 from upath import UPath
 
 from pytroll_watchers.publisher import file_publisher_from_generator, parse_metadata
+
+logger = getLogger(__name__)
 
 
 def file_publisher(fs_config, publisher_config, message_config):
@@ -14,6 +18,7 @@ def file_publisher(fs_config, publisher_config, message_config):
         message_config: The information needed to complete the posttroll message generation. Will be amended
              with the file metadata, and passed directly to posttroll's Message constructor.
     """
+    logger.info(f"Starting watch on '{fs_config['bucket_name']}'")
     generator = file_generator(**fs_config)
     return file_publisher_from_generator(generator, publisher_config, message_config)
 

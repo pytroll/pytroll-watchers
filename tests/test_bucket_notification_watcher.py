@@ -87,13 +87,15 @@ def test_fix_times():
     assert metadata["start_time"] < metadata["end_time"]
 
 
-def test_publish_paths(patched_bucket_listener):  # noqa
+def test_publish_paths(patched_bucket_listener, caplog):  # noqa
     """Test publishing paths."""
     s3_config = dict(endpoint_url="someendpoint",
                      bucket_name="viirs-data",
                      storage_options=dict(profile="someprofile"))
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+
+    caplog.set_level("INFO")
     with patched_publisher() as messages:
        with patched_bucket_listener(records):
               minio_notification_watcher.file_publisher(fs_config=s3_config,
@@ -106,6 +108,7 @@ def test_publish_paths(patched_bucket_listener):  # noqa
     assert message.data["sensor"] == "viirs"
     assert message.data["fs"] == ('{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], '
                                   '"profile": "someprofile"}')
+    assert "Starting watch on 'viirs-data'" in caplog.text
 
 
 def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa

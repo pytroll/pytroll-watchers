@@ -2,6 +2,7 @@
 
 Either using OS-based envents (like inotify on linux), or polling.
 """
+import logging
 import os
 from pathlib import Path
 from urllib.parse import urlunparse
@@ -10,6 +11,8 @@ from upath import UPath
 
 from pytroll_watchers.backends.local import listen_to_local_events
 from pytroll_watchers.publisher import file_publisher_from_generator, parse_metadata
+
+logger = logging.getLogger(__name__)
 
 
 def file_publisher(fs_config, publisher_config, message_config):
@@ -21,6 +24,7 @@ def file_publisher(fs_config, publisher_config, message_config):
         message_config: The information needed to complete the posttroll message generation. Will be amended
              with the file metadata, and passed directly to posttroll's Message constructor.
     """
+    logger.info(f"Starting watch on '{fs_config['directory']}'")
     generator = file_generator(**fs_config)
     return file_publisher_from_generator(generator, publisher_config, message_config)
 

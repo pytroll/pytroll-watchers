@@ -75,7 +75,7 @@ def test_watchdog_generator_with_something_else(tmp_path):
         next(generator)
 
 
-def test_publish_paths(tmp_path, patched_local_events):  # noqa
+def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
     """Test publishing paths."""
     filename = os.fspath(tmp_path / "foo.txt")
 
@@ -83,6 +83,7 @@ def test_publish_paths(tmp_path, patched_local_events):  # noqa
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
 
+    caplog.set_level("INFO")
     with patched_local_events([filename]):
         with patched_publisher() as messages:
             local_watcher.file_publisher(fs_config=local_settings,
@@ -95,3 +96,4 @@ def test_publish_paths(tmp_path, patched_local_events):  # noqa
     assert message.data["uri"] == f"file://{str(tmp_path)}/foo.txt"
     assert message.data["sensor"] == "viirs"
     assert "fs" not in message.data
+    assert f"Starting watch on '{local_settings['directory']}'" in caplog.text
