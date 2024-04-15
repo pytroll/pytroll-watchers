@@ -1,4 +1,4 @@
-"""Utilities for testing code that uses pytroll watchers."""
+"""Pytest fixtures for testing code that uses pytroll watchers."""
 
 from contextlib import contextmanager, nullcontext
 
@@ -46,8 +46,4 @@ def patched_bucket_listener(monkeypatch):
         import minio
         monkeypatch.setattr(minio.Minio, "listen_bucket_notification", fake_listen)
         yield
-        #fake_minio = mock.Mock(wraps=minio.Minio)
-        #fake_minio.return_value.listen_bucket_notification.return_value = nullcontext(enter_result=records)
-        #with mock.patch("minio.Minio", fake_minio):
-        #    yield
     return _patched_bucket_listener
