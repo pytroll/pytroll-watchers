@@ -106,6 +106,6 @@ def test_cli(tmp_path, patched_local_events):  # noqa
     with patched_publisher() as msgs:
         filename = tmp_path / "bla"
         with patched_local_events([filename]):
-            cli(["-c", str(config_file)])
+            cli([str(config_file)])
             assert len(msgs) == 1
             assert str(filename) in msgs[0]
