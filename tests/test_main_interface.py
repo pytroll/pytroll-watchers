@@ -3,10 +3,14 @@
 import pytest
 import yaml
 from posttroll.testing import patched_publisher
-from pytroll_watchers import get_generator_for_backend, get_publisher_for_backend, publish_from_config
 from pytroll_watchers.local_watcher import file_generator as local_generator
 from pytroll_watchers.local_watcher import file_publisher as local_publisher
-from pytroll_watchers.main_interface import cli
+from pytroll_watchers.main_interface import (
+    cli,
+    get_generator_for_backend,
+    get_publisher_for_backend,
+    publish_from_config,
+)
 from pytroll_watchers.minio_notification_watcher import file_generator as minio_generator
 from pytroll_watchers.minio_notification_watcher import file_publisher as minio_publisher
 from pytroll_watchers.testing import patched_bucket_listener, patched_local_events  # noqa
