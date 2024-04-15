@@ -57,13 +57,15 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options
             yield path, object_metadata
 
 
-def _record_generator(endpoint_url, bucket_name, profile=None):
+def _record_generator(endpoint_url, bucket_name, storage_options):
     """Generate records for new objects in the bucket."""
     from minio import Minio
     from minio.credentials.providers import AWSConfigProvider
 
-    if profile is not None:
-        credentials = AWSConfigProvider(profile=profile)
+    if "profile" in storage_options:
+        credentials = AWSConfigProvider(profile=storage_options["profile"])
+    else:
+        credentials = None
 
     client = Minio(endpoint_url,
         credentials=credentials

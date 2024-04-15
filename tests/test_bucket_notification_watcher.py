@@ -1,6 +1,7 @@
 """Tests for the bucket notification watcher."""
 
 import datetime
+from unittest import mock
 
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
@@ -25,6 +26,21 @@ def test_generate_paths(patched_bucket_listener):  # noqa
     path, _ = files[0]
     assert path == UPath("s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5",
                          profile=profile)
+
+def test_generate_paths_uses_credentials_from_profile(patched_bucket_listener, monkeypatch):  # noqa
+    """Test generating paths."""
+    import minio
+    fake_minio = mock.MagicMock()
+    monkeypatch.setattr(minio, "Minio", fake_minio)
+
+    profile="someprofile"
+    s3_config = dict(endpoint_url="someendpoint",
+                     bucket_name="viirs-data",
+                     storage_options=dict(profile=profile))
+
+    with patched_bucket_listener(records):
+       _ = list(minio_notification_watcher.file_generator(**s3_config))
+    assert fake_minio.mock_calls[0][2]["credentials"] is not None
 
 
 def test_generate_paths_with_pattern(patched_bucket_listener):  # noqa
