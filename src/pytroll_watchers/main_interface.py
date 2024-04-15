@@ -91,4 +91,28 @@ def configure_logging(log_config_filename):
     if log_config_filename is not None:
         with open(log_config_filename) as fd:
             log_config = yaml.safe_load(fd.read())
-            logging.config.dictConfig(log_config)
+    else:
+        log_config = {
+            "version": 1,
+            "formatters": {
+                "pytroll": {
+                    "format": "[%(asctime)s %(levelname)-8s %(name)s] %(message)s"
+                }
+            },
+            "handlers": {
+                "console": {
+                    "class": "logging.StreamHandler",
+                    "level": "INFO",
+                    "formatter": "pytroll",
+                },
+            },
+            "disable_existing_loggers": False,
+            "loggers": {
+                "": {
+                    "level": "INFO",
+                    "handlers": ["console"],
+                    "propagate": True
+                },
+            },
+        }
+    logging.config.dictConfig(log_config)
