@@ -6,7 +6,7 @@ from pytroll_watchers.publisher import file_publisher_from_generator, parse_meta
 
 
 def file_publisher(fs_config, publisher_config, message_config):
-    """Publish files coming from bucket notifications.
+    """Publish objects coming from bucket notifications.
 
     Args:
         fs_config: the configuration for the filesystem watching, will be passed as argument to `file_generator`.
@@ -19,17 +19,17 @@ def file_publisher(fs_config, publisher_config, message_config):
 
 
 def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options=None):
-    """Generate new files appearing in the watched directory.
+    """Generate new objects appearing in the watched bucket.
 
     Args:
         endpoint_url: The endpoint_url to use.
         bucket_name: The bucket to watch for changes.
-        file_pattern: The trollsift pattern to use for matching and extracting metadata from the filename.
-            This must not include the directory.
+        file_pattern: The trollsift pattern to use for matching and extracting metadata from the object name.
+            This must not include the prefix.
         storage_options: The storage options for the service, for example for specifying a profile to the aws config.
 
     Returns:
-        A tuple of UPath and file metadata.
+        A tuple of UPath and metadata.
 
     Examples:
         To iterate over new files in `s3:///tmp/`:
@@ -40,25 +40,25 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options
         UPath("s3:///tmp/20200428_1000_foo.tif")
 
     """
-    file_metadata = {}
+    object_metadata = {}
 
     if storage_options is None:
         storage_options = {}
     for record in _record_generator(endpoint_url, bucket_name, storage_options):
         for item in record["Records"]:
             new_bucket_name = item["s3"]["bucket"]["name"]
-            new_file_name = item["s3"]["object"]["key"]
+            object_name = item["s3"]["object"]["key"]
             try:
-                file_metadata = parse_metadata(file_pattern, new_file_name)
+                object_metadata = parse_metadata(file_pattern, object_name)
             except ValueError:
                 continue
 
-            path = UPath(f"s3://{new_bucket_name}/{new_file_name}", **storage_options)
-            yield path, file_metadata
+            path = UPath(f"s3://{new_bucket_name}/{object_name}", **storage_options)
+            yield path, object_metadata
 
 
 def _record_generator(endpoint_url, bucket_name, profile=None):
-    """Generate records for new files in the bucket."""
+    """Generate records for new objects in the bucket."""
     from minio import Minio
     from minio.credentials.providers import AWSConfigProvider
 
