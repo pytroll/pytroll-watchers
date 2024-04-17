@@ -29,7 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install ruff pytest pytest-cov freezegun
+        python -m pip install ruff pytest pytest-cov freezegun responses
         python -m pip install git+https://github.com/gorakhargosh/watchdog
         python -m pip install -e .[local,minio,publishing,ssh]
     - name: Lint with ruff
