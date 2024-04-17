@@ -144,10 +144,17 @@ def run_every(interval):
 
 def update_last_publication_date(last_publication_date, metadata):
     """Update the last publication data based on the metadata."""
-    publication_date = datetime.datetime.fromisoformat(metadata["PublicationDate"])
+    publication_date = _fromisoformat(metadata)
     if publication_date > last_publication_date:
         last_publication_date = publication_date
     return last_publication_date
+
+def _fromisoformat(metadata):
+    try:
+        return datetime.datetime.fromisoformat(metadata["PublicationDate"])
+    except ValueError:
+        # for python 3.9
+        return datetime.datetime.strptime(metadata["PublicationDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
 
 
 def generate_download_links_since(filter_string, oauth, last_publication_date, storage_options):
