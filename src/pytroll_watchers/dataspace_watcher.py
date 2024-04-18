@@ -171,10 +171,7 @@ class CopernicusOAuth2Session():
             return response
 
         self._oauth.register_compliance_hook("access_token_response", sentinelhub_compliance_hook)
-        try:
-            self._token_user, self._token_pass = dataspace_credentials
-        except ValueError:
-            self._token_user, _, self._token_pass = netrc.netrc().authenticators(dataspace_credentials)
+        self._token_user, self._token_pass = dataspace_credentials
 
     def get(self, filter_string):
         """Run a get request."""
