@@ -115,7 +115,7 @@ def _fromisoformat(metadata):
     try:
         return datetime.datetime.fromisoformat(metadata["PublicationDate"])
     except ValueError:
-        # for python 3.9
+        # for python 3.10
         return datetime.datetime.strptime(metadata["PublicationDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
 
 
