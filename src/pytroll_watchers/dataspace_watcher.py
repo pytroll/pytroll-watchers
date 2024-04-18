@@ -120,7 +120,20 @@ def _fromisoformat(metadata):
 
 
 def generate_download_links_since(filter_string, dataspace_auth, last_publication_date, storage_options):
-    """Generate download links for data that was published since a given `last publication_date`."""
+    """Generate download links for data that was published since a given `last publication_date`.
+
+    Example:
+        To fetch download link since yesterday, using netrc-stored credentials, and an aws s3 profile:
+
+        >>> from pytroll_watchers.dataspace_watcher import generate_download_links_since
+        >>> filter_string = "contains(Name,'OL_1_EFR')"
+        >>> dataspace_auth = dict(netrc_host="dataspace.copernicus.eu")
+        >>> last_publication_date = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=24)
+        >>> storage_options = dict(profile="my_copernicus_s3_profile")
+        >>> generator = generate_download_links_since(filter_string, dataspace_auth, last_publication_date,
+        ...                                           storage_options)
+
+    """
     pub_limit = f"PublicationDate gt {last_publication_date.strftime('%Y-%m-%dT%H:%M:%S.%fZ')}"
     filter_string_with_pub_limit = f"{filter_string} and {pub_limit}"
 
