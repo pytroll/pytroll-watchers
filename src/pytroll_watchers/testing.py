@@ -1,8 +1,12 @@
-"""Pytest fixtures for testing code that uses pytroll watchers."""
+"""Pytest fixtures and utilities for testing code that uses pytroll watchers."""
 
+import datetime
+import os
 from contextlib import contextmanager, nullcontext
 
 import pytest
+import responses
+import yaml
 
 
 @pytest.fixture(autouse=True)
@@ -47,3 +51,37 @@ def patched_bucket_listener(monkeypatch):
         monkeypatch.setattr(minio.Minio, "listen_bucket_notification", fake_listen)
         yield
     return _patched_bucket_listener
+
+
+@contextmanager
+def load_oauth_responses(*responses_to_load, response_file=None):
+    """Load the oauth responses for mocking the requests to copernicus dataspace.
+
+    Args:
+        responses_to_load: The responses to load.
+        response_file: The file where the responses are stored. Defaults to tests/dataspace_responses.yaml
+
+    Example:
+        To get fake response for the watcher and test the generator, one could use::
+
+            with load_oauth_responses("token", "filtered_yesterday"):
+                files = list(file_generator(filter_string, check_interval, timedelta(hours=24)))
+    """
+    today = datetime.datetime.now(datetime.timezone.utc)
+    yesterday = today - datetime.timedelta(hours=24)
+
+    if response_file is None:
+        response_file = os.path.join("tests", "dataspace_responses.yaml")
+
+    with responses.RequestsMock() as rsps:
+
+        with open(response_file) as fd:
+            contents = yaml.safe_load(fd.read())
+        for response_to_load in responses_to_load:
+            for response in contents["responses"][response_to_load]:
+                resp = response["response"]
+                resp["url"] = resp["url"].replace("{yesterday}", yesterday.strftime("%Y-%m-%dT%H:%M:%S.%fZ"))
+                resp["url"] = resp["url"].replace("{today}", today.strftime("%Y-%m-%dT%H:%M:%S.%fZ"))
+                rsps.add(**response["response"])
+
+        yield
