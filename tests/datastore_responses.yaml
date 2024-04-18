@@ -1,0 +1,1612 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"access_token":"eceba4e1-95e6-3526-8c42-c3c9dc14ff5c","scope":"am_application_scope
+      default","token_type":"Bearer","expires_in":2244}'
+    content_type: text/plain
+    method: POST
+    status: 200
+    url: https://api.eumetsat.int/token
+- response:
+    auto_calculate_content_length: false
+    body: "\n  { \"id\" : \"https:\\/\\/api.eumetsat.int\\/data\\/search-products\\\
+      /1.0.0\\/os?pi=EO:EUM:DAT:0407&geo=POLYGON((9.08 60.00,16.25 59.77,17.50 63.06,21.83\
+      \ 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01,20.20 53.57,9.06 53.50,9.08\
+      \ 60.00))&publication=%5B2024-04-17T15%3A37%3A44.957%2B00%3A00&si=0&c=100&\"\
+      ,\n    \"type\" : \"FeatureCollection\",\n    \"totalResults\" : 5,\n    \"\
+      itemsPerPage\" : 100,\n    \"startIndex\" : 0,\n    \"queries\" : \n    { \"\
+      request\" : \n      [ \n        { \"count\" : 100,\n          \"startIndex\"\
+      \ : 0,\n          \"geo:geometry\" : \"POLYGON((9.08 60.00,16.25 59.77,17.50\
+      \ 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01,20.20 53.57,9.06\
+      \ 53.50,9.08 60.00))\",\n          \"eo:parentIdentifier\" : \"EO:EUM:DAT:0407\"\
+      ,\n          \"eo:publicationDate\" : \"[2024-04-17T15:37:44.957+00:00\" } ]\
+      \ },\n    \"properties\" : \n    { \"type\" : \"Properties\",\n      \"title\"\
+      \ : \"EUMETSAT EOP OpenSearch (EOPOS) results feed for EO:EUM:DAT:0407\",\n\
+      \      \"subTitle\" : \"Search results for your query pi=EO:EUM:DAT:0407&geo=POLYGON((9.08\
+      \ 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54\
+      \ 60.01,20.20 53.57,9.06 53.50,9.08 60.00))&publication=%5B2024-04-17T15%3A37%3A44.957%2B00%3A00&si=0&c=100&\"\
+      ,\n      \"rights\" : \"Copyright\",\n      \"updated\" : \"2024-04-18T09:37:45.239Z\"\
+      ,\n      \"subject\" : \"climatologyMeteorologyAtmosphere\",\n      \"creator\"\
+      \ : \"EUMETSAT\",\n      \"lang\" : \"en\",\n      \"parameters\" : \n     \
+      \ [ \n        { \"name\" : \"sat\",\n          \"value\" : \"platformShortName\"\
+      ,\n          \"title\" : \"Mission \\/ Satellite\",\n          \"minimum\" :\
+      \ 0,\n          \"options\" : \n          [ \n            { \"value\" : \"Sentinel-3A\"\
+      ,\n              \"results\" : 2 },\n            \n            { \"value\" :\
+      \ \"Sentinel-3B\",\n              \"results\" : 3 } ] },\n        \n       \
+      \ { \"name\" : \"type\",\n          \"value\" : \"productType\",\n         \
+      \ \"title\" : \"Product Type\",\n          \"minimum\" : 0,\n          \"options\"\
+      \ : \n          [ \n            { \"value\" : \"OL_2_WFR___\",\n           \
+      \   \"results\" : 5 } ] },\n        \n        { \"name\" : \"dtstart\",\n  \
+      \        \"value\" : \"start\",\n          \"title\" : \"Temporal Start\",\n\
+      \          \"minimum\" : 0,\n          \"minInclusive\" : \"2024-04-16T08:58:17.775Z\"\
+      ,\n          \"maxInclusive\" : \"2024-04-16T10:42:16.954Z\" },\n        \n\
+      \        { \"name\" : \"dtend\",\n          \"value\" : \"end\",\n         \
+      \ \"title\" : \"Temporal End\",\n          \"minimum\" : 0,\n          \"minInclusive\"\
+      \ : \"2024-04-16T09:01:17.775Z\",\n          \"maxInclusive\" : \"2024-04-16T10:45:16.954Z\"\
+      \ },\n        \n        { \"name\" : \"publication\",\n          \"value\" :\
+      \ \"publicationDate\",\n          \"title\" : \"publication date\",\n      \
+      \    \"minimum\" : 0,\n          \"minInclusive\" : \"2024-04-17T16:12:47.148Z\"\
+      ,\n          \"maxInclusive\" : \"2024-04-17T18:42:01.192Z\" },\n        \n\
+      \        { \"name\" : \"zone\",\n          \"value\" : \"tileZone\",\n     \
+      \     \"title\" : \"Equi7grid main continental zone\",\n          \"minimum\"\
+      \ : 0,\n          \"options\" : \n          [ \n            { \"value\" : \"\
+      EU\",\n              \"results\" : 5 } ] },\n        \n        { \"name\" :\
+      \ \"t6\",\n          \"value\" : \"tile600km\",\n          \"title\" : \"Equi7grid\
+      \ 600km tile\",\n          \"minimum\" : 0,\n          \"options\" : \n    \
+      \      [ \n            { \"value\" : \"EU-030_024\",\n              \"results\"\
+      \ : 1 },\n            \n            { \"value\" : \"EU-030_030\",\n        \
+      \      \"results\" : 1 },\n            \n            { \"value\" : \"EU-036_018\"\
+      ,\n              \"results\" : 1 },\n            \n            { \"value\" :\
+      \ \"EU-036_024\",\n              \"results\" : 1 },\n            \n        \
+      \    { \"value\" : \"EU-036_030\",\n              \"results\" : 1 },\n     \
+      \       \n            { \"value\" : \"EU-036_036\",\n              \"results\"\
+      \ : 1 },\n            \n            { \"value\" : \"EU-042_018\",\n        \
+      \      \"results\" : 2 },\n            \n            { \"value\" : \"EU-042_024\"\
+      ,\n              \"results\" : 2 },\n            \n            { \"value\" :\
+      \ \"EU-042_030\",\n              \"results\" : 3 },\n            \n        \
+      \    { \"value\" : \"EU-042_036\",\n              \"results\" : 1 },\n     \
+      \       \n            { \"value\" : \"EU-048_018\",\n              \"results\"\
+      \ : 2 },\n            \n            { \"value\" : \"EU-048_024\",\n        \
+      \      \"results\" : 3 },\n            \n            { \"value\" : \"EU-048_030\"\
+      ,\n              \"results\" : 5 },\n            \n            { \"value\" :\
+      \ \"EU-048_036\",\n              \"results\" : 2 },\n            \n        \
+      \    { \"value\" : \"EU-048_042\",\n              \"results\" : 1 },\n     \
+      \       \n            { \"value\" : \"EU-054_012\",\n              \"results\"\
+      \ : 1 },\n            \n            { \"value\" : \"EU-054_018\",\n        \
+      \      \"results\" : 2 },\n            \n            { \"value\" : \"EU-054_024\"\
+      ,\n              \"results\" : 3 },\n            \n            { \"value\" :\
+      \ \"EU-054_030\",\n              \"results\" : 4 },\n            \n        \
+      \    { \"value\" : \"EU-054_036\",\n              \"results\" : 2 },\n     \
+      \       \n            { \"value\" : \"EU-054_042\",\n              \"results\"\
+      \ : 2 },\n            \n            { \"value\" : \"EU-060_012\",\n        \
+      \      \"results\" : 1 },\n            \n            { \"value\" : \"EU-060_018\"\
+      ,\n              \"results\" : 1 },\n            \n            { \"value\" :\
+      \ \"EU-060_024\",\n              \"results\" : 3 },\n            \n        \
+      \    { \"value\" : \"EU-060_030\",\n              \"results\" : 3 },\n     \
+      \       \n            { \"value\" : \"EU-060_036\",\n              \"results\"\
+      \ : 2 },\n            \n            { \"value\" : \"EU-060_042\",\n        \
+      \      \"results\" : 1 },\n            \n            { \"value\" : \"EU-066_030\"\
+      ,\n              \"results\" : 1 },\n            \n            { \"value\" :\
+      \ \"EU-066_036\",\n              \"results\" : 1 } ] },\n        \n        {\
+      \ \"name\" : \"timeliness\",\n          \"value\" : \"timeliness\",\n      \
+      \    \"title\" : \"Timeliness\",\n          \"minimum\" : 0,\n          \"options\"\
+      \ : \n          [ \n            { \"value\" : \"NT\",\n              \"results\"\
+      \ : 5 } ] },\n        \n        { \"name\" : \"orbit\",\n          \"value\"\
+      \ : \"eo:orbitNumber\",\n          \"title\" : \"Orbit Number, must be a positive\
+      \ integer\",\n          \"minimum\" : 0,\n          \"minInclusive\" : 31122\
+      \ },\n        \n        { \"name\" : \"relorbit\",\n          \"value\" : \"\
+      eo:relativeOrbitNumber\",\n          \"title\" : \"Relative Orbit Number, must\
+      \ be a positive integer\",\n          \"minimum\" : 0,\n          \"minInclusive\"\
+      \ : 50 },\n        \n        { \"name\" : \"orbitdir\",\n          \"value\"\
+      \ : \"orbitDirection\",\n          \"title\" : \"Orbit Direction\",\n      \
+      \    \"minimum\" : 0,\n          \"options\" : \n          [ \n            {\
+      \ \"value\" : \"DESCENDING\",\n              \"results\" : 5 } ] },\n      \
+      \  \n        { \"name\" : \"cycle\",\n          \"value\" : \"eum:cycleNumber\"\
+      ,\n          \"title\" : \"Cycle Number, must be a positive integer\",\n   \
+      \       \"minimum\" : 0,\n          \"minInclusive\" : 92 } ],\n      \"links\"\
+      \ : \n      { \"type\" : \"Links\",\n        \"search\" : \n        { \"type\"\
+      \ : \"application\\/opensearchdescription+xml\",\n          \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/search-products\\/1.0.0\\/osdd?pi=EO:EUM:DAT:0407\"\
+      ,\n          \"title\" : \"OpenSearch Description Document\" },\n        \"\
+      self\" : \n        { \"type\" : \"application\\/json\",\n          \"href\"\
+      \ : \"https:\\/\\/api.eumetsat.int\\/data\\/search-products\\/1.0.0\\/os?pi=EO:EUM:DAT:0407&geo=POLYGON((9.08\
+      \ 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54\
+      \ 60.01,20.20 53.57,9.06 53.50,9.08 60.00))&publication=%5B2024-04-17T15%3A37%3A44.957%2B00%3A00&si=0&c=100&format=json\"\
+      ,\n          \"title\" : \"this search\" },\n        \"first\" : \n        {\
+      \ \"type\" : \"application\\/json\",\n          \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/search-products\\/1.0.0\\/os?pi=EO:EUM:DAT:0407&geo=POLYGON((9.08 60.00,16.25\
+      \ 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01,20.20\
+      \ 53.57,9.06 53.50,9.08 60.00))&publication=%5B2024-04-17T15%3A37%3A44.957%2B00%3A00&c=100&format=json\"\
+      ,\n          \"title\" : \"first result page\" },\n        \"last\" : \n   \
+      \     { \"type\" : \"application\\/json\",\n          \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/search-products\\/1.0.0\\/os?pi=EO:EUM:DAT:0407&geo=POLYGON((9.08\
+      \ 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54\
+      \ 60.01,20.20 53.57,9.06 53.50,9.08 60.00))&publication=%5B2024-04-17T15%3A37%3A44.957%2B00%3A00&si=0&c=100&format=json\"\
+      ,\n          \"title\" : \"last result page\" } },\n      \"profiles\" : \n\
+      \      [ \n        { \"href\" : \"http:\\/\\/www.opengis.net\\/spec\\/owc-geojson\\\
+      /1.0\\/req\\/core\" },\n        \n        { \"href\" : \"http:\\/\\/www.opengis.net\\\
+      /spec\\/os-geojson\\/1.0\\/req\\/core\" } ] },\n    \"features\" : \n    [ \n\
+      \      { \"type\" : \"Feature\",\n        \"id\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\"\
+      ,\n        \"geometry\" : \n        { \"type\" : \"Polygon\",\n          \"\
+      coordinates\" : \n          [ \n            [ \n              [ -14.3786,\n\
+      \                52.4516 ],\n              \n              [ -13.3611,\n   \
+      \             52.3909 ],\n              \n              [ -12.3581,\n      \
+      \          52.3208 ],\n              \n              [ -11.3527,\n         \
+      \       52.2418 ],\n              \n              [ -10.3551,\n            \
+      \    52.1573 ],\n              \n              [ -9.35666,\n               \
+      \ 52.0614 ],\n              \n              [ -8.36523,\n                51.9574\
+      \ ],\n              \n              [ -7.37617,\n                51.8444 ],\n\
+      \              \n              [ -6.3914,\n                51.7233 ],\n    \
+      \          \n              [ -5.4137,\n                51.597 ],\n         \
+      \     \n              [ -4.44551,\n                51.4585 ],\n            \
+      \  \n              [ -3.47863,\n                51.3136 ],\n              \n\
+      \              [ -2.51813,\n                51.1634 ],\n              \n   \
+      \           [ -1.56596,\n                51.0015 ],\n              \n      \
+      \        [ -0.619504,\n                50.8334 ],\n              \n        \
+      \      [ 0.318837,\n                50.6579 ],\n              \n           \
+      \   [ 1.25076,\n                50.4744 ],\n              \n              [\
+      \ 2.17422,\n                50.2841 ],\n              \n              [ 3.09401,\n\
+      \                50.0855 ],\n              \n              [ 4.00346,\n    \
+      \            49.8819 ],\n              \n              [ 5.48599,\n        \
+      \        52.4268 ],\n              \n              [ 7.14221,\n            \
+      \    54.9604 ],\n              \n              [ 9.0061,\n                57.4703\
+      \ ],\n              \n              [ 11.1274,\n                59.9515 ],\n\
+      \              \n              [ 9.99245,\n                60.2062 ],\n    \
+      \          \n              [ 8.83985,\n                60.4527 ],\n        \
+      \      \n              [ 7.67708,\n                60.6876 ],\n            \
+      \  \n              [ 6.49446,\n                60.9132 ],\n              \n\
+      \              [ 5.29929,\n                61.1271 ],\n              \n    \
+      \          [ 4.08524,\n                61.3309 ],\n              \n        \
+      \      [ 2.8522,\n                61.526 ],\n              \n              [\
+      \ 1.60763,\n                61.705 ],\n              \n              [ 0.348883,\n\
+      \                61.8752 ],\n              \n              [ -0.929397,\n  \
+      \              62.0341 ],\n              \n              [ -2.21084,\n     \
+      \           62.1808 ],\n              \n              [ -3.51383,\n        \
+      \        62.3164 ],\n              \n              [ -4.82006,\n           \
+      \     62.4393 ],\n              \n              [ -6.13913,\n              \
+      \  62.5496 ],\n              \n              [ -7.46902,\n                62.6476\
+      \ ],\n              \n              [ -8.7999,\n                62.73 ],\n \
+      \             \n              [ -10.1446,\n                62.8026 ],\n    \
+      \          \n              [ -11.501,\n                62.8626 ],\n        \
+      \      \n              [ -12.8555,\n                62.908 ],\n            \
+      \  \n              [ -13.226,\n                60.2944 ],\n              \n\
+      \              [ -13.6042,\n                57.6791 ],\n              \n   \
+      \           [ -13.9889,\n                55.0623 ],\n              \n      \
+      \        [ -14.3786,\n                52.4516 ] ] ] },\n        \"properties\"\
+      \ : \n        { \"type\" : \"Properties\",\n          \"identifier\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\"\
+      ,\n          \"parentIdentifier\" : \"EO:EUM:DAT:0407\",\n          \"title\"\
+      \ : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\"\
+      ,\n          \"date\" : \"2024-04-16T10:42:16.954262Z\\/2024-04-16T10:45:16.954262Z\"\
+      ,\n          \"updated\" : \"2024-04-17T18:42:01.192Z\",\n          \"acquisitionInformation\"\
+      \ : \n          [ \n            { \"platform\" : \n              { \"platformShortName\"\
+      \ : \"Sentinel-3B\" },\n              \"instrument\" : \n              { \"\
+      instrumentShortName\" : \"OLCI\" },\n              \"acquisitionParameters\"\
+      \ : \n              { \"orbitNumber\" : 31123,\n                \"orbitDirection\"\
+      \ : \"DESCENDING\",\n                \"relativeOrbitNumber\" : 51,\n       \
+      \         \"cycleNumber\" : 92 } } ],\n          \"productInformation\" : \n\
+      \          { \"productType\" : \"OL_2_WFR___\",\n            \"size\" : 388413,\n\
+      \            \"timeliness\" : \"NT\" },\n          \"extraInformation\" : \n\
+      \          { \"md5\" : \"9057eb08f2a4e9f4c5a8d2eeaacedaef\" },\n          \"\
+      links\" : \n          { \"type\" : \"Links\",\n            \"data\" : \n   \
+      \         [ \n              { \"type\" : \"Link\",\n                \"href\"\
+      \ : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\"\
+      ,\n                \"mediaType\" : \"application\\/zip\",\n                \"\
+      title\" : \"Product download\" } ],\n            \"alternates\" : \n       \
+      \     [ \n              { \"type\" : \"Link\",\n                \"href\" : \"\
+      https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /metadata\",\n                \"mediaType\" : \"application\\/xml\",\n     \
+      \           \"title\" : \"Metadata\" },\n              \n              { \"\
+      type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /metadata?format=json\",\n                \"mediaType\" : \"application\\/json\"\
+      ,\n                \"title\" : \"Metadata in JSON format\" } ],\n          \
+      \  \"previews\" : \n            [ \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /browse\",\n                \"mediaType\" : \"image\\/jpeg\",\n            \
+      \    \"title\" : \"Quicklook\" } ],\n            \"sip-entries\" : \n      \
+      \      [ \n              { \"type\" : \"Link\",\n                \"href\" :\
+      \ \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa09_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa09_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Ftie_geometries.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /tie_geometries.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Ftime_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /time_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa17_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa17_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Ftsm_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /tsm_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa04_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa04_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Ftie_geo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /tie_geo_coordinates.nc\" },\n              \n              { \"type\" : \"\
+      Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\\
+      /download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa21_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa21_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=manifest.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"manifest.xml\" },\n              \n \
+      \             { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa12_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa12_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa16_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa16_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Finstrument_data.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /instrument_data.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa03_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa03_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fgeo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /geo_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa07_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa07_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Ftrsp.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /trsp.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fchl_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /chl_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa11_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa11_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Ftie_meteo.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /tie_meteo.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fiop_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /iop_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa10_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa10_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa02_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa02_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fiop_lsd.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /iop_lsd.nc\" },\n              \n              { \"type\" : \"Link\",\n   \
+      \             \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=browse.jpg\",\n                \"mediaType\" : \"image\\/jpeg\"\
+      ,\n                \"title\" : \"browse.jpg\" },\n              \n         \
+      \     { \"type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa06_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa06_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=EOPMetadata.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"EOPMetadata.xml\" },\n              \n\
+      \              { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fwqsf.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /wqsf.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa08_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa08_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa05_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa05_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fchl_oc4me.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /chl_oc4me.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fpar.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /par.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa18_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa18_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2FOa01_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /Oa01_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fiwv.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /iwv.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fxfdumanifest.xml\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /xfdumanifest.xml\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3%2Fw_aer.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3\\\
+      /w_aer.nc\" } ] } } },\n      \n      { \"type\" : \"Feature\",\n        \"\
+      id\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\"\
+      ,\n        \"geometry\" : \n        { \"type\" : \"Polygon\",\n          \"\
+      coordinates\" : \n          [ \n            [ \n              [ 1.03931,\n \
+      \               52.4622 ],\n              \n              [ 2.0523,\n      \
+      \          52.4006 ],\n              \n              [ 3.06009,\n          \
+      \      52.3308 ],\n              \n              [ 4.06834,\n              \
+      \  52.2521 ],\n              \n              [ 5.06628,\n                52.168\
+      \ ],\n              \n              [ 6.06534,\n                52.0725 ],\n\
+      \              \n              [ 7.05898,\n                51.9686 ],\n    \
+      \          \n              [ 8.04628,\n                51.8569 ],\n        \
+      \      \n              [ 9.02955,\n                51.7363 ],\n            \
+      \  \n              [ 10.0039,\n                51.608 ],\n              \n \
+      \             [ 10.9779,\n                51.4709 ],\n              \n     \
+      \         [ 11.9407,\n                51.3264 ],\n              \n         \
+      \     [ 12.9,\n                51.1736 ],\n              \n              [ 13.8563,\n\
+      \                51.0124 ],\n              \n              [ 14.8002,\n    \
+      \            50.845 ],\n              \n              [ 15.7383,\n         \
+      \       50.6697 ],\n              \n              [ 16.6737,\n             \
+      \   50.4871 ],\n              \n              [ 17.5995,\n                50.2966\
+      \ ],\n              \n              [ 18.5166,\n                50.0989 ],\n\
+      \              \n              [ 19.4263,\n                49.8937 ],\n    \
+      \          \n              [ 20.909,\n                52.438 ],\n          \
+      \    \n              [ 22.5647,\n                54.972 ],\n              \n\
+      \              [ 24.429,\n                57.4817 ],\n              \n     \
+      \         [ 26.5505,\n                59.9624 ],\n              \n         \
+      \     [ 25.4177,\n                60.2183 ],\n              \n             \
+      \ [ 24.2708,\n                60.4632 ],\n              \n              [ 23.1003,\n\
+      \                60.6994 ],\n              \n              [ 21.9203,\n    \
+      \            60.9227 ],\n              \n              [ 20.7176,\n        \
+      \        61.1379 ],\n              \n              [ 19.5018,\n            \
+      \    61.3417 ],\n              \n              [ 18.2729,\n                61.5345\
+      \ ],\n              \n              [ 17.0247,\n                61.7168 ],\n\
+      \              \n              [ 15.7657,\n                61.8872 ],\n    \
+      \          \n              [ 14.4939,\n                62.0459 ],\n        \
+      \      \n              [ 13.2147,\n                62.192 ],\n             \
+      \ \n              [ 11.9148,\n                62.3271 ],\n              \n \
+      \             [ 10.6086,\n                62.4488 ],\n              \n     \
+      \         [ 9.29355,\n                62.5585 ],\n              \n         \
+      \     [ 7.96269,\n                62.6562 ],\n              \n             \
+      \ [ 6.60773,\n                62.7422 ],\n              \n              [ 5.26988,\n\
+      \                62.8113 ],\n              \n              [ 3.92078,\n    \
+      \            62.8705 ],\n              \n              [ 2.55888,\n        \
+      \        62.9173 ],\n              \n              [ 2.1892,\n             \
+      \   60.3041 ],\n              \n              [ 1.81164,\n                57.689\
+      \ ],\n              \n              [ 1.42875,\n                55.0723 ],\n\
+      \              \n              [ 1.03931,\n                52.4622 ] ] ] },\n\
+      \        \"properties\" : \n        { \"type\" : \"Properties\",\n         \
+      \ \"identifier\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\"\
+      ,\n          \"parentIdentifier\" : \"EO:EUM:DAT:0407\",\n          \"title\"\
+      \ : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\"\
+      ,\n          \"date\" : \"2024-04-16T09:40:17.889487Z\\/2024-04-16T09:43:17.889487Z\"\
+      ,\n          \"updated\" : \"2024-04-17T16:27:51.315Z\",\n          \"acquisitionInformation\"\
+      \ : \n          [ \n            { \"platform\" : \n              { \"platformShortName\"\
+      \ : \"Sentinel-3A\" },\n              \"instrument\" : \n              { \"\
+      instrumentShortName\" : \"OLCI\" },\n              \"acquisitionParameters\"\
+      \ : \n              { \"orbitNumber\" : 42516,\n                \"orbitDirection\"\
+      \ : \"DESCENDING\",\n                \"relativeOrbitNumber\" : 193,\n      \
+      \          \"cycleNumber\" : 111 } } ],\n          \"productInformation\" :\
+      \ \n          { \"productType\" : \"OL_2_WFR___\",\n            \"size\" : 244560,\n\
+      \            \"timeliness\" : \"NT\" },\n          \"extraInformation\" : \n\
+      \          { \"md5\" : \"b40e71664c87305e07058848641b9f66\" },\n          \"\
+      links\" : \n          { \"type\" : \"Links\",\n            \"data\" : \n   \
+      \         [ \n              { \"type\" : \"Link\",\n                \"href\"\
+      \ : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\"\
+      ,\n                \"mediaType\" : \"application\\/zip\",\n                \"\
+      title\" : \"Product download\" } ],\n            \"alternates\" : \n       \
+      \     [ \n              { \"type\" : \"Link\",\n                \"href\" : \"\
+      https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /metadata\",\n                \"mediaType\" : \"application\\/xml\",\n     \
+      \           \"title\" : \"Metadata\" },\n              \n              { \"\
+      type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /metadata?format=json\",\n                \"mediaType\" : \"application\\/json\"\
+      ,\n                \"title\" : \"Metadata in JSON format\" } ],\n          \
+      \  \"previews\" : \n            [ \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /browse\",\n                \"mediaType\" : \"image\\/jpeg\",\n            \
+      \    \"title\" : \"Quicklook\" } ],\n            \"sip-entries\" : \n      \
+      \      [ \n              { \"type\" : \"Link\",\n                \"href\" :\
+      \ \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=EOPMetadata.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"EOPMetadata.xml\" },\n              \n\
+      \              { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa02_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa02_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa06_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa06_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=manifest.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"manifest.xml\" },\n              \n \
+      \             { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa01_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa01_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Ftie_geometries.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /tie_geometries.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fw_aer.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /w_aer.nc\" },\n              \n              { \"type\" : \"Link\",\n     \
+      \           \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=browse.jpg\",\n                \"mediaType\" : \"image\\/jpeg\"\
+      ,\n                \"title\" : \"browse.jpg\" },\n              \n         \
+      \     { \"type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa10_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa10_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fchl_oc4me.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /chl_oc4me.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa05_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa05_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa08_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa08_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa18_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa18_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fpar.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /par.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fiwv.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /iwv.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fxfdumanifest.xml\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /xfdumanifest.xml\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Ftime_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /time_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa17_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa17_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fiop_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /iop_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fwqsf.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /wqsf.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa09_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa09_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Ftsm_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /tsm_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fgeo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /geo_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Finstrument_data.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /instrument_data.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa04_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa04_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa21_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa21_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Ftrsp.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /trsp.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa12_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa12_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Ftie_geo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /tie_geo_coordinates.nc\" },\n              \n              { \"type\" : \"\
+      Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\\
+      /download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fiop_lsd.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /iop_lsd.nc\" },\n              \n              { \"type\" : \"Link\",\n   \
+      \             \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa16_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa16_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa03_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa03_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa07_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa07_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Fchl_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /chl_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2Ftie_meteo.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /tie_meteo.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3%2FOa11_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T094018_20240416T094318_20240417T161116_0179_111_193_1980_MAR_O_NT_003.SEN3\\\
+      /Oa11_reflectance.nc\" } ] } } },\n      \n      { \"type\" : \"Feature\",\n\
+      \        \"id\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\"\
+      ,\n        \"geometry\" : \n        { \"type\" : \"Polygon\",\n          \"\
+      coordinates\" : \n          [ \n            [ \n              [ 2.55924,\n \
+      \               62.9199 ],\n              \n              [ 3.92125,\n     \
+      \           62.8731 ],\n              \n              [ 5.27046,\n         \
+      \       62.8139 ],\n              \n              [ 6.60844,\n             \
+      \   62.7448 ],\n              \n              [ 7.96342,\n                62.6588\
+      \ ],\n              \n              [ 9.29374,\n                62.5611 ],\n\
+      \              \n              [ 10.6103,\n                62.4513 ],\n    \
+      \          \n              [ 11.9159,\n                62.3296 ],\n        \
+      \      \n              [ 13.2159,\n                62.1945 ],\n            \
+      \  \n              [ 14.4953,\n                62.0484 ],\n              \n\
+      \              [ 15.7672,\n                61.8898 ],\n              \n    \
+      \          [ 17.0262,\n                61.7193 ],\n              \n        \
+      \      [ 18.2746,\n                61.537 ],\n              \n             \
+      \ [ 19.5036,\n                61.3442 ],\n              \n              [ 20.7194,\n\
+      \                61.1404 ],\n              \n              [ 21.9222,\n    \
+      \            60.9252 ],\n              \n              [ 23.1023,\n        \
+      \        60.7018 ],\n              \n              [ 24.2729,\n            \
+      \    60.4656 ],\n              \n              [ 25.4199,\n                60.2207\
+      \ ],\n              \n              [ 26.5527,\n                59.9648 ],\n\
+      \              \n              [ 28.9926,\n                62.4048 ],\n    \
+      \          \n              [ 31.8474,\n                64.802 ],\n         \
+      \     \n              [ 35.2295,\n                67.1392 ],\n             \
+      \ \n              [ 39.298,\n                69.394 ],\n              \n   \
+      \           [ 37.8416,\n                69.749 ],\n              \n        \
+      \      [ 36.3388,\n                70.0906 ],\n              \n            \
+      \  [ 34.7839,\n                70.4197 ],\n              \n              [ 33.1811,\n\
+      \                70.7335 ],\n              \n              [ 31.5269,\n    \
+      \            71.0344 ],\n              \n              [ 29.8272,\n        \
+      \        71.3194 ],\n              \n              [ 28.0747,\n            \
+      \    71.5893 ],\n              \n              [ 26.2747,\n                71.843\
+      \ ],\n              \n              [ 24.4235,\n                72.0798 ],\n\
+      \              \n              [ 22.5365,\n                72.2977 ],\n    \
+      \          \n              [ 20.5998,\n                72.4975 ],\n        \
+      \      \n              [ 18.6171,\n                72.6785 ],\n            \
+      \  \n              [ 16.5974,\n                72.8387 ],\n              \n\
+      \              [ 14.5424,\n                72.9791 ],\n              \n    \
+      \          [ 12.4714,\n                73.0977 ],\n              \n        \
+      \      [ 10.3537,\n                73.1961 ],\n              \n            \
+      \  [ 8.23619,\n                73.272 ],\n              \n              [ 6.0707,\n\
+      \                73.3242 ],\n              \n              [ 3.92326,\n    \
+      \            73.3567 ],\n              \n              [ 3.60561,\n        \
+      \        70.7483 ],\n              \n              [ 3.27016,\n            \
+      \    68.138 ],\n              \n              [ 2.91922,\n                65.5275\
+      \ ],\n              \n              [ 2.55924,\n                62.9199 ] ]\
+      \ ] },\n        \"properties\" : \n        { \"type\" : \"Properties\",\n  \
+      \        \"identifier\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\"\
+      ,\n          \"parentIdentifier\" : \"EO:EUM:DAT:0407\",\n          \"title\"\
+      \ : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\"\
+      ,\n          \"date\" : \"2024-04-16T09:37:17.889487Z\\/2024-04-16T09:40:17.889487Z\"\
+      ,\n          \"updated\" : \"2024-04-17T16:27:49.929Z\",\n          \"acquisitionInformation\"\
+      \ : \n          [ \n            { \"platform\" : \n              { \"platformShortName\"\
+      \ : \"Sentinel-3A\" },\n              \"instrument\" : \n              { \"\
+      instrumentShortName\" : \"OLCI\" },\n              \"acquisitionParameters\"\
+      \ : \n              { \"orbitNumber\" : 42516,\n                \"orbitDirection\"\
+      \ : \"DESCENDING\",\n                \"relativeOrbitNumber\" : 193,\n      \
+      \          \"cycleNumber\" : 111 } } ],\n          \"productInformation\" :\
+      \ \n          { \"productType\" : \"OL_2_WFR___\",\n            \"size\" : 255758,\n\
+      \            \"timeliness\" : \"NT\" },\n          \"extraInformation\" : \n\
+      \          { \"md5\" : \"85995f0781076ef63152d13efb26d082\" },\n          \"\
+      links\" : \n          { \"type\" : \"Links\",\n            \"data\" : \n   \
+      \         [ \n              { \"type\" : \"Link\",\n                \"href\"\
+      \ : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\"\
+      ,\n                \"mediaType\" : \"application\\/zip\",\n                \"\
+      title\" : \"Product download\" } ],\n            \"alternates\" : \n       \
+      \     [ \n              { \"type\" : \"Link\",\n                \"href\" : \"\
+      https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /metadata\",\n                \"mediaType\" : \"application\\/xml\",\n     \
+      \           \"title\" : \"Metadata\" },\n              \n              { \"\
+      type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /metadata?format=json\",\n                \"mediaType\" : \"application\\/json\"\
+      ,\n                \"title\" : \"Metadata in JSON format\" } ],\n          \
+      \  \"previews\" : \n            [ \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /browse\",\n                \"mediaType\" : \"image\\/jpeg\",\n            \
+      \    \"title\" : \"Quicklook\" } ],\n            \"sip-entries\" : \n      \
+      \      [ \n              { \"type\" : \"Link\",\n                \"href\" :\
+      \ \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=browse.jpg\",\n                \"mediaType\" : \"image\\/jpeg\"\
+      ,\n                \"title\" : \"browse.jpg\" },\n              \n         \
+      \     { \"type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa03_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa03_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa16_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa16_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Ftie_geometries.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /tie_geometries.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa08_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa08_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fw_aer.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /w_aer.nc\" },\n              \n              { \"type\" : \"Link\",\n     \
+      \           \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa07_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa07_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa11_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa11_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa10_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa10_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa09_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa09_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Ftime_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /time_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Ftrsp.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /trsp.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa02_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa02_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa06_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa06_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fxfdumanifest.xml\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /xfdumanifest.xml\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=manifest.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"manifest.xml\" },\n              \n \
+      \             { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Ftie_meteo.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /tie_meteo.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Finstrument_data.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /instrument_data.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=EOPMetadata.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"EOPMetadata.xml\" },\n              \n\
+      \              { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Ftsm_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /tsm_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa01_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa01_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa18_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa18_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Ftie_geo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /tie_geo_coordinates.nc\" },\n              \n              { \"type\" : \"\
+      Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\\
+      /download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fwqsf.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /wqsf.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa05_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa05_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fiwv.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /iwv.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fgeo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /geo_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fpar.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /par.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fchl_oc4me.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /chl_oc4me.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fiop_lsd.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /iop_lsd.nc\" },\n              \n              { \"type\" : \"Link\",\n   \
+      \             \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa17_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa17_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa04_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa04_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa12_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa12_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2FOa21_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /Oa21_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fchl_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /chl_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3%2Fiop_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3A_OL_2_WFR____20240416T093718_20240416T094018_20240417T161104_0179_111_193_1800_MAR_O_NT_003.SEN3\\\
+      /iop_nn.nc\" } ] } } },\n      \n      { \"type\" : \"Feature\",\n        \"\
+      id\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\"\
+      ,\n        \"geometry\" : \n        { \"type\" : \"Polygon\",\n          \"\
+      coordinates\" : \n          [ \n            [ \n              [ 10.8667,\n \
+      \               52.4493 ],\n              \n              [ 11.8848,\n     \
+      \           52.3885 ],\n              \n              [ 12.888,\n          \
+      \      52.3184 ],\n              \n              [ 13.8928,\n              \
+      \  52.2395 ],\n              \n              [ 14.8899,\n                52.1551\
+      \ ],\n              \n              [ 15.8872,\n                52.0593 ],\n\
+      \              \n              [ 16.8795,\n                51.9552 ],\n    \
+      \          \n              [ 17.8699,\n                51.8421 ],\n        \
+      \      \n              [ 18.8545,\n                51.721 ],\n             \
+      \ \n              [ 19.8323,\n                51.5946 ],\n              \n \
+      \             [ 20.8001,\n                51.4562 ],\n              \n     \
+      \         [ 21.7668,\n                51.3113 ],\n              \n         \
+      \     [ 22.7269,\n                51.1613 ],\n              \n             \
+      \ [ 23.6791,\n                50.9993 ],\n              \n              [ 24.6253,\n\
+      \                50.8313 ],\n              \n              [ 25.5633,\n    \
+      \            50.6559 ],\n              \n              [ 26.495,\n         \
+      \       50.4724 ],\n              \n              [ 27.4185,\n             \
+      \   50.2821 ],\n              \n              [ 28.3381,\n                50.0836\
+      \ ],\n              \n              [ 29.2481,\n                49.8799 ],\n\
+      \              \n              [ 30.7318,\n                52.4275 ],\n    \
+      \          \n              [ 32.388,\n                54.9606 ],\n         \
+      \     \n              [ 34.2516,\n                57.4711 ],\n             \
+      \ \n              [ 36.3732,\n                59.9521 ],\n              \n \
+      \             [ 35.238,\n                60.2069 ],\n              \n      \
+      \        [ 34.0894,\n                60.4526 ],\n              \n          \
+      \    [ 32.927,\n                60.6874 ],\n              \n              [\
+      \ 31.7414,\n                60.9135 ],\n              \n              [ 30.5449,\n\
+      \                61.1277 ],\n              \n              [ 29.331,\n     \
+      \           61.3315 ],\n              \n              [ 28.098,\n          \
+      \      61.5266 ],\n              \n              [ 26.8536,\n              \
+      \  61.7055 ],\n              \n              [ 25.5948,\n                61.8757\
+      \ ],\n              \n              [ 24.3168,\n                62.0346 ],\n\
+      \              \n              [ 23.0359,\n                62.1811 ],\n    \
+      \          \n              [ 21.7322,\n                62.3169 ],\n        \
+      \      \n              [ 20.4251,\n                62.4398 ],\n            \
+      \  \n              [ 19.1059,\n                62.5501 ],\n              \n\
+      \              [ 17.7769,\n                62.6481 ],\n              \n    \
+      \          [ 16.4532,\n                62.73 ],\n              \n          \
+      \    [ 15.1089,\n                62.8027 ],\n              \n              [\
+      \ 13.7624,\n                62.8624 ],\n              \n              [ 12.3898,\n\
+      \                62.9084 ],\n              \n              [ 12.0189,\n    \
+      \            60.2945 ],\n              \n              [ 11.6415,\n        \
+      \        57.6791 ],\n              \n              [ 11.2565,\n            \
+      \    55.0624 ],\n              \n              [ 10.8667,\n                52.4493\
+      \ ] ] ] },\n        \"properties\" : \n        { \"type\" : \"Properties\",\n\
+      \          \"identifier\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\"\
+      ,\n          \"parentIdentifier\" : \"EO:EUM:DAT:0407\",\n          \"title\"\
+      \ : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\"\
+      ,\n          \"date\" : \"2024-04-16T09:01:17.77586Z\\/2024-04-16T09:04:17.77586Z\"\
+      ,\n          \"updated\" : \"2024-04-17T16:12:47.586Z\",\n          \"acquisitionInformation\"\
+      \ : \n          [ \n            { \"platform\" : \n              { \"platformShortName\"\
+      \ : \"Sentinel-3B\" },\n              \"instrument\" : \n              { \"\
+      instrumentShortName\" : \"OLCI\" },\n              \"acquisitionParameters\"\
+      \ : \n              { \"orbitNumber\" : 31122,\n                \"orbitDirection\"\
+      \ : \"DESCENDING\",\n                \"relativeOrbitNumber\" : 50,\n       \
+      \         \"cycleNumber\" : 92 } } ],\n          \"productInformation\" : \n\
+      \          { \"productType\" : \"OL_2_WFR___\",\n            \"size\" : 131957,\n\
+      \            \"timeliness\" : \"NT\" },\n          \"extraInformation\" : \n\
+      \          { \"md5\" : \"02a0385db8e859c0a078dcda806ab8f9\" },\n          \"\
+      links\" : \n          { \"type\" : \"Links\",\n            \"data\" : \n   \
+      \         [ \n              { \"type\" : \"Link\",\n                \"href\"\
+      \ : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\"\
+      ,\n                \"mediaType\" : \"application\\/zip\",\n                \"\
+      title\" : \"Product download\" } ],\n            \"alternates\" : \n       \
+      \     [ \n              { \"type\" : \"Link\",\n                \"href\" : \"\
+      https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /metadata\",\n                \"mediaType\" : \"application\\/xml\",\n     \
+      \           \"title\" : \"Metadata\" },\n              \n              { \"\
+      type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /metadata?format=json\",\n                \"mediaType\" : \"application\\/json\"\
+      ,\n                \"title\" : \"Metadata in JSON format\" } ],\n          \
+      \  \"previews\" : \n            [ \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /browse\",\n                \"mediaType\" : \"image\\/jpeg\",\n            \
+      \    \"title\" : \"Quicklook\" } ],\n            \"sip-entries\" : \n      \
+      \      [ \n              { \"type\" : \"Link\",\n                \"href\" :\
+      \ \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa11_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa11_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa07_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa07_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa08_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa08_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fw_aer.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /w_aer.nc\" },\n              \n              { \"type\" : \"Link\",\n     \
+      \           \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=manifest.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"manifest.xml\" },\n              \n \
+      \             { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fiwv.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /iwv.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa02_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa02_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fpar.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /par.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa06_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa06_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Ftime_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /time_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa09_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa09_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa10_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa10_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fchl_oc4me.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /chl_oc4me.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=browse.jpg\",\n                \"mediaType\" : \"image\\/jpeg\"\
+      ,\n                \"title\" : \"browse.jpg\" },\n              \n         \
+      \     { \"type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Ftrsp.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /trsp.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa01_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa01_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa18_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa18_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa05_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa05_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Ftie_geometries.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /tie_geometries.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fxfdumanifest.xml\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /xfdumanifest.xml\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa21_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa21_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fgeo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /geo_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Finstrument_data.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /instrument_data.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fiop_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /iop_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Ftsm_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /tsm_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa04_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa04_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa17_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa17_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fchl_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /chl_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fiop_lsd.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /iop_lsd.nc\" },\n              \n              { \"type\" : \"Link\",\n   \
+      \             \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Ftie_meteo.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /tie_meteo.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa12_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa12_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=EOPMetadata.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"EOPMetadata.xml\" },\n              \n\
+      \              { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Ftie_geo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /tie_geo_coordinates.nc\" },\n              \n              { \"type\" : \"\
+      Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\\
+      /download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2Fwqsf.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /wqsf.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa03_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa03_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3%2FOa16_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T090118_20240416T090418_20240417T155713_0179_092_050_1980_MAR_O_NT_003.SEN3\\\
+      /Oa16_reflectance.nc\" } ] } } },\n      \n      { \"type\" : \"Feature\",\n\
+      \        \"id\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\"\
+      ,\n        \"geometry\" : \n        { \"type\" : \"Polygon\",\n          \"\
+      coordinates\" : \n          [ \n            [ \n              [ 12.3901,\n \
+      \               62.9109 ],\n              \n              [ 13.763,\n      \
+      \          62.8649 ],\n              \n              [ 15.1096,\n          \
+      \      62.8052 ],\n              \n              [ 16.4541,\n              \
+      \  62.7325 ],\n              \n              [ 17.7777,\n                62.6506\
+      \ ],\n              \n              [ 19.1069,\n                62.5527 ],\n\
+      \              \n              [ 20.4261,\n                62.4424 ],\n    \
+      \          \n              [ 21.7333,\n                62.3194 ],\n        \
+      \      \n              [ 23.0372,\n                62.1837 ],\n            \
+      \  \n              [ 24.3182,\n                62.0371 ],\n              \n\
+      \              [ 25.5963,\n                61.8782 ],\n              \n    \
+      \          [ 26.8552,\n                61.708 ],\n              \n         \
+      \     [ 28.0997,\n                61.5291 ],\n              \n             \
+      \ [ 29.3328,\n                61.334 ],\n              \n              [ 30.5467,\n\
+      \                61.1302 ],\n              \n              [ 31.7433,\n    \
+      \            60.916 ],\n              \n              [ 32.929,\n          \
+      \      60.6899 ],\n              \n              [ 34.0915,\n              \
+      \  60.455 ],\n              \n              [ 35.2402,\n                60.2093\
+      \ ],\n              \n              [ 36.3754,\n                59.9545 ],\n\
+      \              \n              [ 38.8148,\n                62.3945 ],\n    \
+      \          \n              [ 41.6687,\n                64.7926 ],\n        \
+      \      \n              [ 45.0504,\n                67.1296 ],\n            \
+      \  \n              [ 49.1173,\n                69.3849 ],\n              \n\
+      \              [ 47.6586,\n                69.7387 ],\n              \n    \
+      \          [ 46.1586,\n                70.0801 ],\n              \n        \
+      \      [ 44.6077,\n                70.4087 ],\n              \n            \
+      \  [ 43.0051,\n                70.7244 ],\n              \n              [ 41.3535,\n\
+      \                71.025 ],\n              \n              [ 39.6496,\n     \
+      \           71.311 ],\n              \n              [ 37.8992,\n          \
+      \      71.5825 ],\n              \n              [ 36.096,\n               \
+      \ 71.8335 ],\n              \n              [ 34.2549,\n                72.0689\
+      \ ],\n              \n              [ 32.3639,\n                72.2894 ],\n\
+      \              \n              [ 30.4196,\n                72.4875 ],\n    \
+      \          \n              [ 28.4431,\n                72.6682 ],\n        \
+      \      \n              [ 26.4312,\n                72.8292 ],\n            \
+      \  \n              [ 24.3812,\n                72.9697 ],\n              \n\
+      \              [ 22.2984,\n                73.0895 ],\n              \n    \
+      \          [ 20.1842,\n                73.1883 ],\n              \n        \
+      \      [ 18.0523,\n                73.2625 ],\n              \n            \
+      \  [ 15.9185,\n                73.3171 ],\n              \n              [ 13.76,\n\
+      \                73.3485 ],\n              \n              [ 13.4409,\n    \
+      \            70.7399 ],\n              \n              [ 13.1027,\n        \
+      \        68.1296 ],\n              \n              [ 12.7513,\n            \
+      \    65.5183 ],\n              \n              [ 12.3901,\n                62.9109\
+      \ ] ] ] },\n        \"properties\" : \n        { \"type\" : \"Properties\",\n\
+      \          \"identifier\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\"\
+      ,\n          \"parentIdentifier\" : \"EO:EUM:DAT:0407\",\n          \"title\"\
+      \ : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\"\
+      ,\n          \"date\" : \"2024-04-16T08:58:17.77586Z\\/2024-04-16T09:01:17.77586Z\"\
+      ,\n          \"updated\" : \"2024-04-17T16:12:47.148Z\",\n          \"acquisitionInformation\"\
+      \ : \n          [ \n            { \"platform\" : \n              { \"platformShortName\"\
+      \ : \"Sentinel-3B\" },\n              \"instrument\" : \n              { \"\
+      instrumentShortName\" : \"OLCI\" },\n              \"acquisitionParameters\"\
+      \ : \n              { \"orbitNumber\" : 31122,\n                \"orbitDirection\"\
+      \ : \"DESCENDING\",\n                \"relativeOrbitNumber\" : 50,\n       \
+      \         \"cycleNumber\" : 92 } } ],\n          \"productInformation\" : \n\
+      \          { \"productType\" : \"OL_2_WFR___\",\n            \"size\" : 130885,\n\
+      \            \"timeliness\" : \"NT\" },\n          \"extraInformation\" : \n\
+      \          { \"md5\" : \"83f2b89596ebf76630d1eede6b83520e\" },\n          \"\
+      links\" : \n          { \"type\" : \"Links\",\n            \"data\" : \n   \
+      \         [ \n              { \"type\" : \"Link\",\n                \"href\"\
+      \ : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\"\
+      ,\n                \"mediaType\" : \"application\\/zip\",\n                \"\
+      title\" : \"Product download\" } ],\n            \"alternates\" : \n       \
+      \     [ \n              { \"type\" : \"Link\",\n                \"href\" : \"\
+      https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /metadata\",\n                \"mediaType\" : \"application\\/xml\",\n     \
+      \           \"title\" : \"Metadata\" },\n              \n              { \"\
+      type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /metadata?format=json\",\n                \"mediaType\" : \"application\\/json\"\
+      ,\n                \"title\" : \"Metadata in JSON format\" } ],\n          \
+      \  \"previews\" : \n            [ \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /browse\",\n                \"mediaType\" : \"image\\/jpeg\",\n            \
+      \    \"title\" : \"Quicklook\" } ],\n            \"sip-entries\" : \n      \
+      \      [ \n              { \"type\" : \"Link\",\n                \"href\" :\
+      \ \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fchl_oc4me.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /chl_oc4me.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa01_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa01_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fgeo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /geo_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Ftsm_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /tsm_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fiop_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /iop_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Finstrument_data.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /instrument_data.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa18_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa18_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa05_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa05_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fw_aer.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /w_aer.nc\" },\n              \n              { \"type\" : \"Link\",\n     \
+      \           \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa21_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa21_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Ftrsp.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /trsp.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fchl_nn.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /chl_nn.nc\" },\n              \n              { \"type\" : \"Link\",\n    \
+      \            \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=EOPMetadata.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"EOPMetadata.xml\" },\n              \n\
+      \              { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa17_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa17_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa08_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa08_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa04_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa04_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=browse.jpg\",\n                \"mediaType\" : \"image\\/jpeg\"\
+      ,\n                \"title\" : \"browse.jpg\" },\n              \n         \
+      \     { \"type\" : \"Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\\
+      /S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa12_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa12_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fiop_lsd.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /iop_lsd.nc\" },\n              \n              { \"type\" : \"Link\",\n   \
+      \             \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Ftie_geo_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /tie_geo_coordinates.nc\" },\n              \n              { \"type\" : \"\
+      Link\",\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\\
+      /download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fwqsf.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /wqsf.nc\" },\n              \n              { \"type\" : \"Link\",\n      \
+      \          \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Ftie_geometries.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /tie_geometries.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Ftime_coordinates.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /time_coordinates.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fxfdumanifest.xml\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /xfdumanifest.xml\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Ftie_meteo.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /tie_meteo.nc\" },\n              \n              { \"type\" : \"Link\",\n \
+      \               \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa16_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa16_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa09_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa09_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fiwv.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /iwv.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa03_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa03_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=manifest.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"manifest.xml\" },\n              \n \
+      \             { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\\
+      /products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2Fpar.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /par.nc\" },\n              \n              { \"type\" : \"Link\",\n       \
+      \         \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\\
+      /collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa07_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa07_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa10_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa10_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa11_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa11_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa02_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa02_reflectance.nc\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3A0407\\/products\\/S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /entry?name=S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3%2FOa06_reflectance.nc\"\
+      ,\n                \"mediaType\" : \"application\\/x-netcdf\",\n           \
+      \     \"title\" : \"S3B_OL_2_WFR____20240416T085818_20240416T090118_20240417T155702_0179_092_050_1800_MAR_O_NT_003.SEN3\\\
+      /Oa06_reflectance.nc\" } ] } } } ] }"
+    content_type: text/plain
+    method: GET
+    status: 200
+    url: https://api.eumetsat.int/data/search-products/1.0.0/os?format=json&pi=EO%3AEUM%3ADAT%3A0407&si=0&c=100&geo=POLYGON%28%289.08+60.00%2C16.25+59.77%2C17.50+63.06%2C21.83+66.02%2C26.41+65.75%2C22.22+60.78%2C28.90+60.82%2C30.54+60.01%2C20.20+53.57%2C9.06+53.50%2C9.08+60.00%29%29&publication=%5B{yesterday}
