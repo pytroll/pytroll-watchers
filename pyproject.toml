@@ -21,7 +21,7 @@ minio = ["minio", "s3fs"]
 local = ["watchdog"]
 publishing = ["posttroll"]
 ssh = ["paramiko"]
-dataspace = ["oauthlib", "requests_oauthlib","s3fs"]
+dataspace = ["oauthlib", "requests_oauthlib", "s3fs"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
