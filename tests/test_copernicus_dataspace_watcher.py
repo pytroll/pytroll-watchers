@@ -14,8 +14,8 @@ def test_dataspace_watcher():
     check_interval = datetime.timedelta(0)  # run once and avoid the infinite loop
     filter_string = "contains(Name,'OL_1_EFR')"
     storage_options = dict(profile="mycopernicus")
-    username = "user"
-    password = "pass"  # noqa
+    username = "user1"
+    password = "pass1"  # noqa
     auth = dict(username=username, password=password)
     with load_oauth_responses("token", "filtered_yesterday"):
         files = list(file_generator(filter_string, check_interval, auth, datetime.timedelta(hours=24),
@@ -32,8 +32,8 @@ def test_dataspace_watcher_without_storage_options():
     """Check that not providing storage options work."""
     check_interval = datetime.timedelta(0)
     filter_string = "contains(Name,'OL_1_EFR')"
-    username = "user"
-    password = "pass"  # noqa
+    username = "user2"
+    password = "pass2"  # noqa
     auth = dict(username=username, password=password)
     with load_oauth_responses("token", "filtered_yesterday"):
         files = list(file_generator(filter_string, check_interval, auth, start_from=datetime.timedelta(hours=24)))
@@ -46,8 +46,8 @@ def test_dataspace_watcher_default_start_time():
     """Test that the dataspace watcher uses now as the default start time."""
     check_interval = datetime.timedelta(0)  # run once and avoid the infinite loop
     filter_string = "contains(Name,'OL_1_EFR')"
-    username = "user"
-    password = "pass"  # noqa
+    username = "user3"
+    password = "pass3"  # noqa
     auth = dict(username=username, password=password)
     with load_oauth_responses("token", "filtered_today"):
         files = list(file_generator(filter_string, check_interval, auth))
@@ -79,8 +79,8 @@ def test_dataspace_watcher_logs(caplog):
     caplog.set_level("INFO")
     check_interval = datetime.timedelta(0)
     filter_string = "contains(Name,'OL_1_EFR')"
-    username = "user"
-    password = "pass"  # noqa
+    username = "user4"
+    password = "pass4"  # noqa
     auth = dict(username=username, password=password)
     with load_oauth_responses("token", "filtered_yesterday"):
         list(file_generator(filter_string, check_interval, auth, start_from=datetime.timedelta(hours=24)))
@@ -101,7 +101,7 @@ def test_publish_paths(caplog):
             ds_config = dict(filter_string=filter_string,
                             polling_interval=dict(minutes=0),
                             start_from=dict(hours=24),
-                            dataspace_auth=dict(username="user", password="pass"),  # noqa
+                            dataspace_auth=dict(username="user5", password="pass5"),  # noqa
                             storage_options=dict(profile="someprofile"))
 
 

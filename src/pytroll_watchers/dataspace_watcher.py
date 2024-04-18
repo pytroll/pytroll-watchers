@@ -13,6 +13,7 @@ import logging
 import netrc
 import time
 from contextlib import suppress
+from functools import lru_cache
 
 from oauthlib.oauth2 import LegacyApplicationClient
 from requests_oauthlib import OAuth2Session
@@ -64,9 +65,6 @@ def file_generator(filter_string,
         Tuples of UPath (s3) and metadata.
 
     """
-    creds = _get_credentials(dataspace_auth)
-    oauth = CopernicusOAuth2Session(client_id, creds)
-
     with suppress(TypeError):
         polling_interval = datetime.timedelta(**polling_interval)
     with suppress(TypeError):
@@ -77,50 +75,13 @@ def file_generator(filter_string,
     last_pub_date = datetime.datetime.now(datetime.timezone.utc) - start_from
 
     for next_check in run_every(polling_interval):
-        generator = generate_download_links_since(filter_string, oauth, last_pub_date, storage_options)
+        generator = generate_download_links_since(filter_string, dataspace_auth, last_pub_date, storage_options)
         for s3path, metadata in generator:
             last_pub_date = update_last_publication_date(last_pub_date, metadata)
             yield s3path, metadata
         logger.info("Finished polling.")
         if next_check > datetime.datetime.now(datetime.timezone.utc):
             logger.info(f"next iteration at {next_check}")
-
-
-def _get_credentials(ds_auth):
-    """Get credentials from the ds_auth dictionary."""
-    try:
-        creds = ds_auth["username"], ds_auth["password"]
-    except KeyError:
-        username, _, password = netrc.netrc(ds_auth.get("netrc_file")).authenticators(ds_auth["netrc_host"])
-        creds = (username, password)
-    return creds
-
-
-class CopernicusOAuth2Session:
-    """An oauth2 session for copernicus dataspace."""
-
-
-    def __init__(self, client_id, dataspace_credentials):
-        """Set up the session."""
-        self._oauth = OAuth2Session(client=LegacyApplicationClient(client_id=client_id))
-        def sentinelhub_compliance_hook(response):
-            response.raise_for_status()
-            return response
-
-        self._oauth.register_compliance_hook("access_token_response", sentinelhub_compliance_hook)
-        try:
-            self._token_user, self._token_pass = dataspace_credentials
-        except ValueError:
-            self._token_user, _, self._token_pass = netrc.netrc().authenticators(dataspace_credentials)
-
-    def get(self, url):
-        """Run a get request."""
-        return self._oauth.get(url)
-
-    def fetch_token(self):
-        """Fetch the token."""
-        if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
-            self._oauth.fetch_token(token_url=token_url, username=self._token_user, password=self._token_pass)
 
 
 def run_every(interval):
@@ -149,6 +110,7 @@ def update_last_publication_date(last_publication_date, metadata):
         last_publication_date = publication_date
     return last_publication_date
 
+
 def _fromisoformat(metadata):
     try:
         return datetime.datetime.fromisoformat(metadata["PublicationDate"])
@@ -157,20 +119,67 @@ def _fromisoformat(metadata):
         return datetime.datetime.strptime(metadata["PublicationDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
 
 
-def generate_download_links_since(filter_string, oauth, last_publication_date, storage_options):
+def generate_download_links_since(filter_string, dataspace_auth, last_publication_date, storage_options):
     """Generate download links for data that was published since a given `last publication_date`."""
     pub_limit = f"PublicationDate gt {last_publication_date.strftime('%Y-%m-%dT%H:%M:%S.%fZ')}"
     filter_string_with_pub_limit = f"{filter_string} and {pub_limit}"
 
-    return generate_download_links(oauth, filter_string_with_pub_limit, storage_options)
+    return generate_download_links(filter_string_with_pub_limit, dataspace_auth, storage_options)
 
-def generate_download_links(oauth, filter_string, storage_options):
+
+def generate_download_links(filter_string, dataspace_auth, storage_options):
     """Generate download links for a given filter_string."""
     if storage_options is None:
         storage_options = {}
-    oauth.fetch_token()
-    resp = oauth.get(f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter={filter_string}&$expand=Attributes").json()
+    oauth = _get_auth(**dataspace_auth)
+    resp = oauth.get(filter_string)
     metadatas = resp.get("value", [])
     for metadata in metadatas:
         s3path = UPath("s3://" + metadata["S3Path"], **storage_options)
         yield s3path, metadata
+
+
+@lru_cache(maxsize=1)
+def _get_auth(**dataspace_auth):
+    oauth = CopernicusOAuth2Session(dataspace_auth)
+    return oauth
+
+
+class CopernicusOAuth2Session():
+    """An oauth2 session for copernicus dataspace."""
+
+
+    def __init__(self, dataspace_auth):
+        """Set up the session."""
+        dataspace_credentials = _get_credentials(dataspace_auth)
+        self._oauth = OAuth2Session(client=LegacyApplicationClient(client_id=client_id))
+        def sentinelhub_compliance_hook(response):
+            response.raise_for_status()
+            return response
+
+        self._oauth.register_compliance_hook("access_token_response", sentinelhub_compliance_hook)
+        try:
+            self._token_user, self._token_pass = dataspace_credentials
+        except ValueError:
+            self._token_user, _, self._token_pass = netrc.netrc().authenticators(dataspace_credentials)
+
+    def get(self, filter_string):
+        """Run a get request."""
+        self.fetch_token()
+        url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter={filter_string}&$expand=Attributes"
+        return self._oauth.get(url).json()
+
+    def fetch_token(self):
+        """Fetch the token."""
+        if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
+            self._oauth.fetch_token(token_url=token_url, username=self._token_user, password=self._token_pass)
+
+
+def _get_credentials(ds_auth):
+    """Get credentials from the ds_auth dictionary."""
+    try:
+        creds = ds_auth["username"], ds_auth["password"]
+    except KeyError:
+        username, _, password = netrc.netrc(ds_auth.get("netrc_file")).authenticators(ds_auth["netrc_host"])
+        creds = (username, password)
+    return creds
