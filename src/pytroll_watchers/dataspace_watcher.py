@@ -81,7 +81,7 @@ def file_generator(filter_string,
             yield s3path, metadata
         logger.info("Finished polling.")
         if next_check > datetime.datetime.now(datetime.timezone.utc):
-            logger.info(f"next iteration at {next_check}")
+            logger.info(f"Next iteration at {next_check}")
 
 
 def run_every(interval):
