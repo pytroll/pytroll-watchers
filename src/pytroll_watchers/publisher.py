@@ -1,12 +1,15 @@
 """Common functions for publishing messages."""
 
 import datetime
+import logging
 from contextlib import closing, suppress
 from copy import deepcopy
 
 from posttroll.message import Message
 from posttroll.publisher import create_publisher_from_dict_config
 from trollsift import parse
+
+logger = logging.getLogger(__name__)
 
 
 def file_publisher_from_generator(generator, publisher_config, message_config):
@@ -31,6 +34,7 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             apply_aliases(aliases, file_metadata)
             amended_message_config["data"].update(file_metadata)
             msg = Message(**amended_message_config)
+            logger.info(f"Sending {str(msg)}")
             publisher.send(str(msg))
 
 
