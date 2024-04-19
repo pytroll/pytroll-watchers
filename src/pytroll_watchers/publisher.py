@@ -29,6 +29,7 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
             amended_message_config["data"]["uri"] = file_item.as_uri()
+            amended_message_config["data"]["uid"] = file_item.name
             with suppress(AttributeError):
                 amended_message_config["data"]["fs"] = json.loads(file_item.fs.to_json())
             aliases = amended_message_config.pop("aliases", {})
