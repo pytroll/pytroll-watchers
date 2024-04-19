@@ -113,6 +113,6 @@ def test_publish_paths(caplog):
     message = Message(rawstr=messages[0])
     assert message.data["uri"] == "s3:///eodata/Sentinel-3/OLCI/OL_1_EFR___/2024/04/15/S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3"
     assert message.data["sensor"] == "olci"
-    assert message.data["fs"] == ('{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], '
-                                  '"profile": "someprofile"}')
+    assert message.data["fs"] == {"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [],
+                                  "profile": "someprofile"}
     assert f"Starting watch on dataspace for '{filter_string}'" in caplog.text

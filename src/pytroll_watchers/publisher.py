@@ -1,6 +1,7 @@
 """Common functions for publishing messages."""
 
 import datetime
+import json
 import logging
 from contextlib import closing, suppress
 from copy import deepcopy
@@ -29,7 +30,7 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             amended_message_config = deepcopy(message_config)
             amended_message_config["data"]["uri"] = file_item.as_uri()
             with suppress(AttributeError):
-                amended_message_config["data"]["fs"] = file_item.fs.to_json()
+                amended_message_config["data"]["fs"] = json.loads(file_item.fs.to_json())
             aliases = amended_message_config.pop("aliases", {})
             apply_aliases(aliases, file_metadata)
             amended_message_config["data"].update(file_metadata)
