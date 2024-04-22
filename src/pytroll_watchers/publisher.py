@@ -31,7 +31,8 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             amended_message_config["data"]["uri"] = file_item.as_uri()
             amended_message_config["data"]["uid"] = file_item.name
             with suppress(AttributeError):
-                amended_message_config["data"]["fs"] = json.loads(file_item.fs.to_json())
+                amended_message_config["data"]["filesystem"] = json.loads(file_item.fs.to_json())
+                amended_message_config["data"]["path"] = file_item.path
             aliases = amended_message_config.pop("aliases", {})
             apply_aliases(aliases, file_metadata)
             amended_message_config["data"].update(file_metadata)

@@ -107,7 +107,7 @@ def test_publish_paths(patched_bucket_listener, caplog):  # noqa
     assert message.data["uri"] == "s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5"
     assert message.data["uid"] == "SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5"
     assert message.data["sensor"] == "viirs"
-    assert message.data["fs"] == {"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [],
+    assert message.data["filesystem"] == {"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [],
                                   "profile": "someprofile"}
     assert "Starting watch on 'viirs-data'" in caplog.text
 
