@@ -6,6 +6,7 @@ import pytest
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from pytroll_watchers import local_watcher
+from pytroll_watchers.publisher import SecurityError
 from pytroll_watchers.testing import patched_local_events  # noqa
 
 
@@ -34,13 +35,13 @@ def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # no
 
         protocol = "ssh"
         storage_options = {"parameter": "value",
-                        "host": "somehost.pytroll.org"}
+                           "host": "somehost.pytroll.org"}
 
 
         generator = local_watcher.file_generator(tmp_path,
-                                                file_pattern=fname_pattern,
-                                                protocol=protocol,
-                                                storage_options=storage_options)
+                                                 file_pattern=fname_pattern,
+                                                 protocol=protocol,
+                                                 storage_options=storage_options)
     path, metadata = next(generator)
 
     assert path.as_uri().startswith("ssh://")
@@ -97,3 +98,22 @@ def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
     assert message.data["sensor"] == "viirs"
     assert "fs" not in message.data
     assert f"Starting watch on '{local_settings['directory']}'" in caplog.text
+
+
+def test_publish_paths_forbids_passing_password(tmp_path, patched_local_events, caplog):  # noqa
+    """Test publishing paths."""
+    filename = os.fspath(tmp_path / "foo.txt")
+    password = "very strong"  # noqa
+
+    local_settings = dict(directory=tmp_path, protocol="ssh",
+                          storage_options=dict(host="myhost.pytroll.org", username="user", password=password))
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+
+    caplog.set_level("INFO")
+    with patched_local_events([filename]):
+        with patched_publisher():
+            with pytest.raises(SecurityError):
+                local_watcher.file_publisher(fs_config=local_settings,
+                                            publisher_config=publisher_settings,
+                                            message_config=message_settings)
