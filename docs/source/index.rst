@@ -82,7 +82,7 @@ Example of filesystem:
 
  - `{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], "profile": "someprofile"}`
 
-Note:
+.. warning::
 
    Pytroll-watchers tries to prevent publishing of sensitive information such as passwords and secret keys, and will
    raise an error in most cases when this is done. However, always double-check your pytroll-watchers configuration so
