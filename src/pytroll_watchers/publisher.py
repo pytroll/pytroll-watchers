@@ -13,6 +13,10 @@ from trollsift import parse
 logger = logging.getLogger(__name__)
 
 
+class SecurityError(Exception):
+    """An exception for breaking security rules."""
+
+
 def file_publisher_from_generator(generator, publisher_config, message_config):
     """Publish files coming from local filesystem events.
 

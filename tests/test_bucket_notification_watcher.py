@@ -3,10 +3,11 @@
 import datetime
 from unittest import mock
 
+import pytest
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from pytroll_watchers import minio_notification_watcher
-from pytroll_watchers.publisher import fix_times
+from pytroll_watchers.publisher import SecurityError, fix_times
 from pytroll_watchers.testing import patched_bucket_listener  # noqa
 from upath import UPath
 
@@ -112,6 +113,24 @@ def test_publish_paths(patched_bucket_listener, caplog):  # noqa
     assert "Starting watch on 'viirs-data'" in caplog.text
 
 
+def test_publish_paths_forbids_passing_secret_key(patched_bucket_listener):  # noqa
+    """Test publishing paths forbids passing a secret key."""
+    secret_key = "very secret"  # noqa
+    s3_config = dict(endpoint_url="someendpoint",
+                     bucket_name="viirs-data",
+                     file_pattern=sdr_file_pattern,
+                     storage_options=dict(access_key="my access key",
+                                          secret_key=secret_key))
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+    with patched_publisher():
+        with patched_bucket_listener(records):
+            with pytest.raises(SecurityError):
+                minio_notification_watcher.file_publisher(fs_config=s3_config,
+                                                        publisher_config=publisher_settings,
+                                                        message_config=message_settings)
+
+
 def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
     """Test publishing paths."""
     s3_config = dict(endpoint_url="someendpoint",
@@ -121,10 +140,10 @@ def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
     with patched_publisher() as messages:
-       with patched_bucket_listener(records):
-              minio_notification_watcher.file_publisher(fs_config=s3_config,
-                                                        publisher_config=publisher_settings,
-                                                        message_config=message_settings)
+        with patched_bucket_listener(records):
+            minio_notification_watcher.file_publisher(fs_config=s3_config,
+                                                      publisher_config=publisher_settings,
+                                                      message_config=message_settings)
     message = Message(rawstr=messages[0])
     assert message.data["sensor"] == "viirs"
     assert message.data["platform_name"] == "npp"

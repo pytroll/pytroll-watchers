@@ -7,7 +7,7 @@ from logging import getLogger
 
 from upath import UPath
 
-from pytroll_watchers.publisher import file_publisher_from_generator, parse_metadata
+from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator, parse_metadata
 
 logger = getLogger(__name__)
 
@@ -22,6 +22,8 @@ def file_publisher(fs_config, publisher_config, message_config):
              with the file metadata, and passed directly to posttroll's Message constructor.
     """
     logger.info(f"Starting watch on '{fs_config['bucket_name']}'")
+    if "secret_key" in fs_config.get("storage_options", []):
+        raise SecurityError("A secret key cannot be published safely.")
     generator = file_generator(**fs_config)
     return file_publisher_from_generator(generator, publisher_config, message_config)
 
