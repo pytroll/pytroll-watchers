@@ -87,6 +87,9 @@ Example of filesystem:
    Pytroll-watchers tries to prevent publishing of sensitive information such as passwords and secret keys, and will
    raise an error in most cases when this is done. However, always double-check your pytroll-watchers configuration so
    that secrets are not passed to the library to start with.
+   Solutions include ssh-agent for ssh-based filesystems, storing credentials in .aws config files for s3 filesystems.
+   For http-based filesystems implemented in pytroll-watchers, the username and password are used to generate a token
+   prior to publishing, and will thus not be published.
 
 path
 ----
