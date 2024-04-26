@@ -137,7 +137,7 @@ def generate_download_links_since(filter_string, dataspace_auth, last_publicatio
     pub_limit = f"PublicationDate gt {last_publication_date.strftime('%Y-%m-%dT%H:%M:%S.%fZ')}"
     filter_string_with_pub_limit = f"{filter_string} and {pub_limit}"
 
-    return generate_download_links(filter_string_with_pub_limit, dataspace_auth, storage_options)
+    yield from generate_download_links(filter_string_with_pub_limit, dataspace_auth, storage_options)
 
 
 def generate_download_links(filter_string, dataspace_auth, storage_options):
@@ -166,11 +166,11 @@ class CopernicusOAuth2Session():
         """Set up the session."""
         dataspace_credentials = _get_credentials(dataspace_auth)
         self._oauth = OAuth2Session(client=LegacyApplicationClient(client_id=client_id))
-        def sentinelhub_compliance_hook(response):
+        def compliance_hook(response):
             response.raise_for_status()
             return response
 
-        self._oauth.register_compliance_hook("access_token_response", sentinelhub_compliance_hook)
+        self._oauth.register_compliance_hook("access_token_response", compliance_hook)
         self._token_user, self._token_pass = dataspace_credentials
 
     def get(self, filter_string):
@@ -182,7 +182,9 @@ class CopernicusOAuth2Session():
     def fetch_token(self):
         """Fetch the token."""
         if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
-            self._oauth.fetch_token(token_url=token_url, username=self._token_user, password=self._token_pass)
+            self._oauth.fetch_token(token_url=token_url,
+                                    username=self._token_user,
+                                    password=self._token_pass)
 
 
 def _get_credentials(ds_auth):
