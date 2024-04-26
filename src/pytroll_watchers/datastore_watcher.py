@@ -109,7 +109,6 @@ class DatastoreOAuth2Session():
 
         self._oauth.register_compliance_hook("access_token_response", compliance_hook)
         self._token_secret = client_secret
-        self.token = None
 
     def get(self, params):
         """Run a get request."""
@@ -123,10 +122,9 @@ class DatastoreOAuth2Session():
     def fetch_token(self):
         """Fetch the token."""
         if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
-            self.token = self._oauth.fetch_token(token_url=token_url,
-                                                 client_secret=self._token_secret,
-                                                 include_client_id=True)
-            # self._oauth.token["access_token"]
+            self._oauth.fetch_token(token_url=token_url,
+                                    client_secret=self._token_secret,
+                                    include_client_id=True)
 
 
 def _get_credentials(ds_auth):

@@ -35,11 +35,6 @@ def test_datastore_get_download_links_since():
 
         features = generate_download_links_since(search_params, ds_auth, yesterday)
         features = list(features)
-    # ds_auth = dict(netrc_host="api.eumetsat.int")
-    # search_params = dict(collection=collection, geo=polygon)
-    # features = generate_download_links_since(search_params, ds_auth, yesterday)
-    # features = list(features)
-    # breakpoint()
 
     expected_token = "eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"  # noqa
 
@@ -141,7 +136,11 @@ def test_publish_paths(caplog):
     uri = "https://api.eumetsat.int/data/download/1.0.0/collections/EO%3AEUM%3ADAT%3A0407/products/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3"
     assert message.data["uri"] == uri
     assert message.data["sensor"] == "olci"
-    assert message.data["fs"] == ('{"cls": "fsspec.implementations.http.HTTPFileSystem", "protocol": "https", '
-                                  '"args": [], "encoded": true, "client_kwargs": {"headers": {"Authorization": "Bearer'
-                                  ' eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"}}}')
+    assert message.data["filesystem"] == {
+        "cls": "fsspec.implementations.http.HTTPFileSystem",
+        "protocol": "https",
+        "args": [],
+        "encoded": True,
+        "client_kwargs": {"headers": {"Authorization": "Bearer eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"}},
+    }
     assert f"Starting watch on datastore for '{search_params}'" in caplog.text

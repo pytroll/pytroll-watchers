@@ -182,7 +182,9 @@ class CopernicusOAuth2Session():
     def fetch_token(self):
         """Fetch the token."""
         if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
-            self._oauth.fetch_token(token_url=token_url, username=self._token_user, password=self._token_pass)
+            self._oauth.fetch_token(token_url=token_url,
+                                    username=self._token_user,
+                                    password=self._token_pass)
 
 
 def _get_credentials(ds_auth):
