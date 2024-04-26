@@ -119,12 +119,18 @@ class DatastoreOAuth2Session():
 
         return self._oauth.get(search_url, params=params, headers=headers).json()
 
+    @property
+    def token(self):
+        """Return the current token."""
+        return self.fetch_token()
+
     def fetch_token(self):
         """Fetch the token."""
         if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
             self._oauth.fetch_token(token_url=token_url,
                                     client_secret=self._token_secret,
                                     include_client_id=True)
+        return self._oauth.token
 
 
 def _get_credentials(ds_auth):

@@ -143,4 +143,5 @@ def test_publish_paths(caplog):
         "encoded": True,
         "client_kwargs": {"headers": {"Authorization": "Bearer eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"}},
     }
+    assert message.data["path"] == uri
     assert f"Starting watch on datastore for '{search_params}'" in caplog.text
