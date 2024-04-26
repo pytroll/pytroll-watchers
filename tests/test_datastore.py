@@ -3,6 +3,7 @@
 import datetime
 from contextlib import contextmanager
 
+import pytest
 import responses
 import yaml
 from freezegun import freeze_time
@@ -11,14 +12,19 @@ from posttroll.testing import patched_publisher
 from pytroll_watchers.datastore_watcher import file_generator, file_publisher, generate_download_links_since
 
 
-@freeze_time(datetime.datetime.now(datetime.timezone.utc))
-def test_datastore_get_download_links_since():
-    """Test downloading links from the datastore."""
-    ds_auth = dict(username="user", password="pass")  # noqa
-
+@pytest.fixture()
+def search_params():
+    """Generate the search parameters for the tests."""
     polygon = ("POLYGON((9.08 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01"
                ",20.20 53.57,9.06 53.50,9.08 60.00))")
     collection = "EO:EUM:DAT:0407"
+    return dict(collection=collection, geo=polygon)
+
+
+@freeze_time(datetime.datetime.now(datetime.timezone.utc))
+def test_datastore_get_download_links_since(search_params):
+    """Test downloading links from the datastore."""
+    ds_auth = dict(username="user", password="pass")  # noqa
 
     now = datetime.datetime.now(datetime.timezone.utc)
     yesterday = now - datetime.timedelta(hours=24)
@@ -31,7 +37,7 @@ def test_datastore_get_download_links_since():
 
     with loaded_responses(str_pub_start, response_file):
 
-        search_params = dict(collection=collection, geo=polygon)
+        search_params = dict(collection=search_params["collection"], geo=search_params["geo"])
 
         features = generate_download_links_since(search_params, ds_auth, yesterday)
         features = list(features)
@@ -58,15 +64,10 @@ def loaded_responses(since, response_file):
 
         yield
 
+
 @freeze_time(datetime.datetime.now(datetime.timezone.utc))
-def test_datastore_file_generator(tmp_path):
+def test_datastore_file_generator(tmp_path, search_params):
     """Test the file generator."""
-    polygon = ("POLYGON((9.08 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01"
-               ",20.20 53.57,9.06 53.50,9.08 60.00))")
-    collection = "EO:EUM:DAT:0407"
-    search_params = dict(collection=collection, geo=polygon)
-
-
     netrc_host = "myitem"
     netrc_file = tmp_path / "netrc"
 
@@ -101,14 +102,8 @@ def test_datastore_file_generator(tmp_path):
 
 
 @freeze_time(datetime.datetime.now(datetime.timezone.utc))
-def test_publish_paths(caplog):
+def test_publish_paths(caplog, search_params):
     """Test publishing paths."""
-    polygon = ("POLYGON((9.08 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01"
-               ",20.20 53.57,9.06 53.50,9.08 60.00))")
-    collection = "EO:EUM:DAT:0407"
-    search_params = dict(collection=collection, geo=polygon)
-
-
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/olci/l2/", atype="file", data=dict(sensor="olci"))
 
