@@ -1,5 +1,7 @@
 """Tests for the gathered publisher functions."""
 
+import logging
+
 import pytest
 import yaml
 from posttroll.testing import patched_publisher
@@ -145,8 +147,6 @@ def test_cli_with_logging(tmp_path, patched_local_events):  # noqa
     }
     with open(log_config_file, "w") as fd:
         fd.write(yaml.dump(log_config))
-
-    import logging
 
     with patched_publisher():
         filename = tmp_path / "bla"

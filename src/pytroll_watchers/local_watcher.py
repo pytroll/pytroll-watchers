@@ -10,7 +10,7 @@ from urllib.parse import urlunparse
 from upath import UPath
 
 from pytroll_watchers.backends.local import listen_to_local_events
-from pytroll_watchers.publisher import file_publisher_from_generator, parse_metadata
+from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator, parse_metadata
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +25,8 @@ def file_publisher(fs_config, publisher_config, message_config):
              with the file metadata, and passed directly to posttroll's Message constructor.
     """
     logger.info(f"Starting watch on '{fs_config['directory']}'")
+    if "password" in fs_config.get("storage_options", []):
+        raise SecurityError("A password cannot be published safely.")
     generator = file_generator(**fs_config)
     return file_publisher_from_generator(generator, publisher_config, message_config)
 
