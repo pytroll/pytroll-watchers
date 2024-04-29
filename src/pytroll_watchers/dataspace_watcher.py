@@ -105,7 +105,7 @@ def run_every(interval):
 
 def update_last_publication_date(last_publication_date, metadata):
     """Update the last publication data based on the metadata."""
-    publication_date = _fromisoformat(metadata["PublicationDate"])
+    publication_date = _fromisoformat(metadata.pop("PublicationDate"))
     if publication_date > last_publication_date:
         last_publication_date = publication_date
     return last_publication_date
@@ -149,7 +149,31 @@ def generate_download_links(filter_string, dataspace_auth, storage_options):
     metadatas = resp.get("value", [])
     for metadata in metadatas:
         s3path = UPath("s3://" + metadata["S3Path"], **storage_options)
-        yield s3path, metadata
+        mda = dict()
+        attributes = construct_attributes_dict(metadata)
+        mda["platform_name"] = attributes["platformShortName"].capitalize() + attributes["platformSerialIdentifier"]
+        mda["sensor"] = attributes["instrumentShortName"].lower()
+        mda["PublicationDate"] = metadata["PublicationDate"]
+        mda["boundary"] = metadata["GeoFootprint"]
+        mda["product_type"] = attributes["productType"]
+        mda["start_time"] = _fromisoformat(attributes["beginningDateTime"])
+        mda["end_time"] = _fromisoformat(attributes["endingDateTime"])
+        mda["orbit_number"] = int(attributes["orbitNumber"])
+
+        for checksum in metadata["Checksum"]:
+            if checksum["Algorithm"] == "MD5":
+                mda["checksum"] = dict(algorithm=checksum["Algorithm"], hash=checksum["Value"])
+                break
+        mda["size"] = int(metadata["ContentLength"])
+
+        yield s3path, mda
+
+
+def construct_attributes_dict(entry):
+    """Construct a dict from then "results" item in entry."""
+    results = entry["Attributes"]
+    attributes = {result["Name"]: result["Value"] for result in results}
+    return attributes
 
 
 @lru_cache(maxsize=1)

@@ -23,7 +23,7 @@ def test_generate_download_links():
     assert len(links) == 5
     path, mda = links[0]
     assert path.as_uri() == "https://colhub.met.no/odata/v1/Products('e49f8de5-1647-4a7b-ba69-268f9aa77f42')/$value"
-    assert mda["boundary"]["coordinates"][0] == [-4.545108, 57.399067]
+    assert mda["boundary"]["coordinates"][0][0] == [-4.545108, 57.399067]
 
     assert mda["platform_name"] == "Sentinel-1A"
     assert mda["sensor"] == "SAR"

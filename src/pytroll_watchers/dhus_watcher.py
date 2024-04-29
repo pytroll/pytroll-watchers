@@ -131,7 +131,7 @@ def extract_boundary(entry):
     gml, nsmap = read_gml(entry["ContentGeometry"])
     boundary_text = gml.find("gml:outerBoundaryIs/gml:LinearRing/gml:coordinates", namespaces=nsmap).text
     boundary_list = (coords.split(",") for coords in boundary_text.strip().split(" "))
-    boundary = Polygon([(float(lon), float(lat)) for (lat, lon) in boundary_list])
+    boundary = Polygon([[(float(lon), float(lat)) for (lat, lon) in boundary_list]])
     return boundary
 
 def read_gml(gml_string):

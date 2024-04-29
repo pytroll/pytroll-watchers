@@ -24,7 +24,13 @@ def test_dataspace_watcher():
         s3path, metadata = files[0]
         assert s3path.storage_options == storage_options
         fname = "S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3"
-        assert metadata["Name"] == fname
+        assert s3path.as_uri().endswith(fname)
+        assert metadata["platform_name"] == "Sentinel-3B"
+        assert metadata["sensor"] == "olci"
+        assert metadata["start_time"] == datetime.datetime(2024, 4, 15, 7, 40, 29, 480000, tzinfo=datetime.timezone.utc)
+        assert metadata["end_time"] == datetime.datetime(2024, 4, 15, 7, 43, 29, 480000, tzinfo=datetime.timezone.utc)
+        assert metadata["boundary"]["coordinates"][0][0] == [67.8172, 69.3862]
+        assert metadata["orbit_number"] == 31107
 
 
 @freeze_time(datetime.datetime.now(datetime.timezone.utc))
