@@ -29,6 +29,7 @@ local = ["watchdog"]
 publishing = ["posttroll"]
 ssh = ["paramiko"]
 dataspace = ["oauthlib", "requests_oauthlib", "s3fs"]
+datastore = ["oauthlib", "requests_oauthlib"]
 dhus = ["defusedxml"]
 
 [build-system]
