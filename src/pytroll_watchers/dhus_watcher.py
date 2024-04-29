@@ -64,14 +64,14 @@ def file_generator(server, filter_params, polling_interval, start_from=None):
     for next_check in run_every(polling_interval):
         generator = generate_download_links_since(server, filter_params, last_pub_date)
         for path, metadata in generator:
-            last_pub_date = update_last_publication_date(last_pub_date, metadata)
+            last_pub_date = _update_last_publication_date(last_pub_date, metadata)
             yield path, metadata
         logger.info("Finished polling.")
         if next_check > dt.datetime.now(dt.timezone.utc):
             logger.info(f"Next iteration at {next_check}")
 
 
-def update_last_publication_date(last_publication_date, metadata):
+def _update_last_publication_date(last_publication_date, metadata):
     """Update the last publication data based on the metadata."""
     publication_date = metadata.pop("ingestion_date")
     if publication_date > last_publication_date:
@@ -105,28 +105,28 @@ def generate_download_links(server, filter_params):
     for entry in entries["d"]["results"]:
         mda = dict()
         path = UPath(entry["__metadata"]["media_src"])
-        mda["boundary"] = extract_boundary(entry)
-        results_dict = construct_results_dict(entry)
-        mda["platform_name"] = results_dict["Satellite name"].capitalize() + results_dict["Satellite number"]
-        mda["sensor"] = results_dict["Instrument"]
-        mda["ingestion_date"] = _fromisoformat(results_dict["Ingestion Date"])
-        mda["product_type"] = results_dict["Product type"]
-        mda["start_time"] = _fromisoformat(results_dict["Sensing start"])
-        mda["end_time"] = _fromisoformat(results_dict["Sensing stop"])
-        mda["orbit_number"] = int(results_dict["Orbit number (start)"])
+        mda["boundary"] = _extract_boundary_as_geojson(entry)
+        attributes = _construct_attributes_dict(entry)
+        mda["platform_name"] = attributes["Satellite name"].capitalize() + attributes["Satellite number"]
+        mda["sensor"] = attributes["Instrument"]
+        mda["ingestion_date"] = _fromisoformat(attributes["Ingestion Date"])
+        mda["product_type"] = attributes["Product type"]
+        mda["start_time"] = _fromisoformat(attributes["Sensing start"])
+        mda["end_time"] = _fromisoformat(attributes["Sensing stop"])
+        mda["orbit_number"] = int(attributes["Orbit number (start)"])
 
         mda["checksum"] = dict(algorithm=entry["Checksum"]["Algorithm"], hash=entry["Checksum"]["Value"])
         mda["size"] = int(entry["ContentLength"])
         yield path, mda
 
-def construct_results_dict(entry):
+def _construct_attributes_dict(entry):
     """Construct a dict from then "results" item in entry."""
     results = entry["Attributes"]["results"]
-    results_dict = {result["Id"]: result["Value"] for result in results}
+    results_dict = {result["Name"]: result["Value"] for result in results}
     return results_dict
 
 
-def extract_boundary(entry):
+def _extract_boundary_as_geojson(entry):
     """Extract the boundary from the entry metadata."""
     gml, nsmap = read_gml(entry["ContentGeometry"])
     boundary_text = gml.find("gml:outerBoundaryIs/gml:LinearRing/gml:coordinates", namespaces=nsmap).text

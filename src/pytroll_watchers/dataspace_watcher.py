@@ -77,7 +77,7 @@ def file_generator(filter_string,
     for next_check in run_every(polling_interval):
         generator = generate_download_links_since(filter_string, dataspace_auth, last_pub_date, storage_options)
         for s3path, metadata in generator:
-            last_pub_date = update_last_publication_date(last_pub_date, metadata)
+            last_pub_date = _update_last_publication_date(last_pub_date, metadata)
             yield s3path, metadata
         logger.info("Finished polling.")
         if next_check > datetime.datetime.now(datetime.timezone.utc):
@@ -103,7 +103,7 @@ def run_every(interval):
            break
 
 
-def update_last_publication_date(last_publication_date, metadata):
+def _update_last_publication_date(last_publication_date, metadata):
     """Update the last publication data based on the metadata."""
     publication_date = _fromisoformat(metadata.pop("PublicationDate"))
     if publication_date > last_publication_date:
@@ -150,7 +150,7 @@ def generate_download_links(filter_string, dataspace_auth, storage_options):
     for metadata in metadatas:
         s3path = UPath("s3://" + metadata["S3Path"], **storage_options)
         mda = dict()
-        attributes = construct_attributes_dict(metadata)
+        attributes = _construct_attributes_dict(metadata)
         mda["platform_name"] = attributes["platformShortName"].capitalize() + attributes["platformSerialIdentifier"]
         mda["sensor"] = attributes["instrumentShortName"].lower()
         mda["PublicationDate"] = metadata["PublicationDate"]
@@ -169,7 +169,7 @@ def generate_download_links(filter_string, dataspace_auth, storage_options):
         yield s3path, mda
 
 
-def construct_attributes_dict(entry):
+def _construct_attributes_dict(entry):
     """Construct a dict from then "results" item in entry."""
     results = entry["Attributes"]
     attributes = {result["Name"]: result["Value"] for result in results}
