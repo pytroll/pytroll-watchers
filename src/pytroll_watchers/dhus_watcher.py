@@ -13,7 +13,7 @@ import requests
 from geojson import Polygon
 from upath import UPath
 
-from pytroll_watchers.dataspace_watcher import run_every
+from pytroll_watchers.dataspace_watcher import _fromisoformat, run_every
 from pytroll_watchers.publisher import file_publisher_from_generator
 
 logger = logging.getLogger(__name__)
@@ -109,10 +109,10 @@ def generate_download_links(server, filter_params):
         results_dict = construct_results_dict(entry)
         mda["platform_name"] = results_dict["Satellite name"].capitalize() + results_dict["Satellite number"]
         mda["sensor"] = results_dict["Instrument"]
-        mda["ingestion_date"] = dt.datetime.fromisoformat(results_dict["Ingestion Date"])
+        mda["ingestion_date"] = _fromisoformat(results_dict["Ingestion Date"])
         mda["product_type"] = results_dict["Product type"]
-        mda["start_time"] = dt.datetime.fromisoformat(results_dict["Sensing start"])
-        mda["end_time"] = dt.datetime.fromisoformat(results_dict["Sensing stop"])
+        mda["start_time"] = _fromisoformat(results_dict["Sensing start"])
+        mda["end_time"] = _fromisoformat(results_dict["Sensing stop"])
         mda["orbit_number"] = int(results_dict["Orbit number (start)"])
 
         mda["checksum"] = dict(algorithm=entry["Checksum"]["Algorithm"], hash=entry["Checksum"]["Value"])
