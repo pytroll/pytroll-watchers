@@ -13,6 +13,13 @@ license = {file = "LICENSE.txt"}
 [project.scripts]
 pytroll-watcher = "pytroll_watchers.main_interface:cli"
 
+[project.entry-points."pytroll_watchers.backends"]
+local = "pytroll_watchers.local_watcher"
+minio = "pytroll_watchers.minio_notification_watcher"
+dataspace = "pytroll_watchers.dataspace_watcher"
+datastore = "pytroll_watchers.datastore_watcher"
+dhus = "pytroll_watchers.dhus_watcher"
+
 [project.urls]
 "Documentation" = "https://pytroll-watchers.readthedocs.io/en/latest/"
 
