@@ -30,8 +30,8 @@ Examples of uris:
  - `https://someplace.com/files/S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3/Oa02_radiances.nc`
 
 
- filesystem
- ----------
+filesystem
+----------
 
  Sometimes the URI is not enough to gain access to the resource, for example when the hosting service requires
  authentification. This is why pytroll-watchers with also provide the filesystem and the path items. The filesystem
