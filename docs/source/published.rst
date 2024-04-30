@@ -4,6 +4,9 @@ Published messages
 The published messages will contain information on how to access the resource advertized. The following parameters will
 be present in the message.
 
+Resource location information
+=============================
+
 uid
 ---
 
@@ -25,6 +28,7 @@ Examples of uris:
  - `s3://viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5`
  - `zip://sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5::s3://viirs-data/viirs_sdr_npp_d20240408_t1006227_e1007469_b64498.zip`
  - `https://someplace.com/files/S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3/Oa02_radiances.nc`
+
 
  filesystem
  ----------
@@ -63,3 +67,17 @@ Examples of paths:
  - `/viirs-data/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5`
  - `/sdr/SVM13_npp_d20240408_t1006227_e1007469_b64498_c20240408102334392250_cspp_dev.h5`
  - `/files/S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3/Oa02_radiances.nc`
+
+Other metadata
+==============
+
+Other metadata items are provided when possible:
+
+* boundary: the geojson boundary of the data
+* platform_name
+* sensor
+* orbit_number
+* start_time
+* end_time
+* product_type
+* checksum
