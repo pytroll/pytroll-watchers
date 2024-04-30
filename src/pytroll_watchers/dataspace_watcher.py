@@ -19,6 +19,7 @@ from oauthlib.oauth2 import LegacyApplicationClient
 from requests_oauthlib import OAuth2Session
 from upath import UPath
 
+from pytroll_watchers.common import fromisoformat, run_every
 from pytroll_watchers.publisher import file_publisher_from_generator
 
 client_id = "cdse-public"
@@ -84,39 +85,12 @@ def file_generator(filter_string,
             logger.info(f"Next iteration at {next_check}")
 
 
-def run_every(interval):
-    """Generator that ticks every `interval`.
-
-    Args:
-        interval: the timedelta object giving the amount of time to wait between ticks. An interval of 0 will just make
-        tick once, then return (and thus busy loops aren't allowed).
-
-    Yields:
-        The time of the next tick.
-    """
-    while True:
-        next_check = datetime.datetime.now(datetime.timezone.utc) + interval
-        yield next_check
-        to_wait = max(next_check.timestamp() - time.time(), 0)
-        time.sleep(to_wait)
-        if not interval:  # interval is 0
-           break
-
-
 def _update_last_publication_date(last_publication_date, metadata):
     """Update the last publication data based on the metadata."""
-    publication_date = _fromisoformat(metadata.pop("PublicationDate"))
+    publication_date = fromisoformat(metadata.pop("PublicationDate"))
     if publication_date > last_publication_date:
         last_publication_date = publication_date
     return last_publication_date
-
-
-def _fromisoformat(datestring):
-    try:
-        return datetime.datetime.fromisoformat(datestring)
-    except ValueError:
-        # for python 3.10
-        return datetime.datetime.strptime(datestring, "%Y-%m-%dT%H:%M:%S.%f%z")
 
 
 def generate_download_links_since(filter_string, dataspace_auth, last_publication_date, storage_options):
@@ -156,8 +130,8 @@ def generate_download_links(filter_string, dataspace_auth, storage_options):
         mda["PublicationDate"] = metadata["PublicationDate"]
         mda["boundary"] = metadata["GeoFootprint"]
         mda["product_type"] = attributes["productType"]
-        mda["start_time"] = _fromisoformat(attributes["beginningDateTime"])
-        mda["end_time"] = _fromisoformat(attributes["endingDateTime"])
+        mda["start_time"] = fromisoformat(attributes["beginningDateTime"])
+        mda["end_time"] = fromisoformat(attributes["endingDateTime"])
         mda["orbit_number"] = int(attributes["orbitNumber"])
 
         for checksum in metadata["Checksum"]:

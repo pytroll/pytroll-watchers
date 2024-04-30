@@ -18,7 +18,7 @@ from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 from upath import UPath
 
-from pytroll_watchers.dataspace_watcher import run_every
+from pytroll_watchers.common import fromisoformat, run_every
 from pytroll_watchers.publisher import file_publisher_from_generator
 
 logger = logging.getLogger(__name__)
@@ -99,8 +99,8 @@ def generate_download_links(search_params, ds_auth):
         mda["sensor"] = acq_info["instrument"]["instrumentShortName"].lower()
         mda["orbit_number"] = acq_info["acquisitionParameters"]["orbitNumber"]
         start_string, end_string = feature["properties"]["date"].split("/")
-        mda["start_time"] = datetime.datetime.fromisoformat(start_string)
-        mda["end_time"] = datetime.datetime.fromisoformat(end_string)
+        mda["start_time"] = fromisoformat(start_string)
+        mda["end_time"] = fromisoformat(end_string)
         mda["product_type"] = str(collection)
         mda["checksum"] = dict(algorithm="md5", hash=feature["properties"]["extraInformation"]["md5"])
         yield path, mda
