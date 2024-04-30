@@ -102,7 +102,7 @@ def test_datastore_file_generator(tmp_path, search_params):
     expected_token = "eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"  # noqa
 
     assert len(features) == 5
-    path, mda = features[0]
+    path, _ = features[0]
     assert str(path) == "https://api.eumetsat.int/data/download/1.0.0/collections/EO%3AEUM%3ADAT%3A0407/products/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3"
     assert expected_token in path.storage_options["client_kwargs"]["headers"]["Authorization"]
 
