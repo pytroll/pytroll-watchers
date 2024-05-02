@@ -2,6 +2,31 @@
 
 For more information about DHuS, check out
 https://sentineldatahub.github.io/DataHubSystem/about.html
+
+
+An example configuration file to retrieve Sentinel 1 data from a DHuS instance::
+
+  .. code-block:: yaml
+
+  backend: dhus
+  fs_config:
+    server: https://myhub.someplace.org/
+    filter_params:
+        - substringof('IW_GRDH',Name)
+    polling_interval:
+        seconds: 10
+    start_from:
+        hours: 6
+  publisher_config:
+    name: s1_watcher
+  message_config:
+    subject: /segment/s1/l1b/
+    atype: file
+    aliases:
+        sensor:
+          SAR: SAR-C
+
+
 """
 
 import datetime as dt
