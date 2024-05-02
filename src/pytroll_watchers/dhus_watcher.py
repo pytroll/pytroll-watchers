@@ -4,9 +4,9 @@ For more information about DHuS, check out
 https://sentineldatahub.github.io/DataHubSystem/about.html
 
 
-An example configuration file to retrieve Sentinel 1 data from a DHuS instance::
+An example configuration file to retrieve Sentinel 1 data from a DHuS instance:
 
-  .. code-block:: yaml
+.. code-block:: yaml
 
   backend: dhus
   fs_config:
