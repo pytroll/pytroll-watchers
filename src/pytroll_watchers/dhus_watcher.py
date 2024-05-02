@@ -117,6 +117,7 @@ def generate_download_links(server, filter_params):
 
         mda["checksum"] = dict(algorithm=entry["Checksum"]["Algorithm"], hash=entry["Checksum"]["Value"])
         mda["size"] = int(entry["ContentLength"])
+        mda["uid"] = attributes["Filename"]
         yield path, mda
 
 def _construct_attributes_dict(entry):

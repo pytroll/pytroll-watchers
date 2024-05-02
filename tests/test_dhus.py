@@ -6,7 +6,14 @@ import datetime as dt
 import responses
 import responses._recorder
 from freezegun import freeze_time
-from pytroll_watchers.dhus_watcher import file_generator, generate_download_links, generate_download_links_since
+from posttroll.message import Message
+from posttroll.testing import patched_publisher
+from pytroll_watchers.dhus_watcher import (
+    file_generator,
+    file_publisher,
+    generate_download_links,
+    generate_download_links_since,
+)
 
 server = "https://colhub.met.no"
 
@@ -65,3 +72,31 @@ def test_file_generator():
     assert path.as_uri() == "https://colhub.met.no/odata/v1/Products('a6b214dd-fe39-4f50-aa94-f84d8510cedc')/$value"
     assert mda["start_time"] == dt.datetime(2024, 4, 29, 6, 54, 18, 105000, tzinfo=dt.timezone.utc)
     assert "ingestion_date" not in mda
+    assert mda["uid"] == "S1A_IW_GRDH_1SDV_20240429T065418_20240429T065443_053645_0683C0_8D1D.SAFE"
+
+
+@freeze_time(dt.datetime(2024, 4, 29, 8, 33, tzinfo=dt.timezone.utc))
+@responses.activate
+def test_publish_paths():
+    """Test publishing paths."""
+    responses._add_from_file(file_path="tests/dhus_responses.yaml")
+
+    filter_params = ["substringof('IW_GRDH',Name)"]
+
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/olci/l1b/", atype="file", aliases=dict(sensor={"SAR": "SAR-C"}))
+
+    with patched_publisher() as messages:
+        fs_config = dict(server=server,
+                         filter_params=filter_params,
+                         polling_interval=dict(minutes=0),
+                         start_from=dict(hours=1))
+
+
+        file_publisher(fs_config=fs_config,
+                        publisher_config=publisher_settings,
+                        message_config=message_settings)
+    message = Message(rawstr=messages[3])
+
+    assert message.data["uid"] == "S1A_IW_GRDH_1SDV_20240429T065418_20240429T065443_053645_0683C0_8D1D.SAFE"
+    assert message.data["sensor"] == "SAR-C"
