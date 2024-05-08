@@ -35,7 +35,7 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options
         endpoint_url: The endpoint_url to use.
         bucket_name: The bucket to watch for changes.
         file_pattern: The trollsift pattern to use for matching and extracting metadata from the object name.
-            This must not include the prefix.
+            This can include the prefix if needed.
         storage_options: The storage options for the service, for example for specifying a profile to the aws config.
 
     Returns:
@@ -45,9 +45,9 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options
         To iterate over new files in `s3:///tmp/`:
 
         >>> for filename in file_generator("some_endpoint_url", "tmp",
-        ...                                file_pattern="{start_time:%Y%m%d_%H%M}_{product}.tif")
+        ...                                file_pattern="data/{start_time:%Y%m%d_%H%M}_{product}.tif")
         ...    print(filename)
-        UPath("s3:///tmp/20200428_1000_foo.tif")
+        UPath("s3:///tmp/data/20200428_1000_foo.tif")
 
     """
     object_metadata = {}
