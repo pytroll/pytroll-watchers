@@ -47,7 +47,7 @@ def file_generator(endpoint_url, bucket_name, file_pattern=None, storage_options
         >>> for filename in file_generator("some_endpoint_url", "tmp",
         ...                                file_pattern="data/{start_time:%Y%m%d_%H%M}_{product}.tif")
         ...    print(filename)
-        UPath("s3:///tmp/20200428_1000_foo.tif")
+        UPath("s3:///tmp/data/20200428_1000_foo.tif")
 
     """
     object_metadata = {}
