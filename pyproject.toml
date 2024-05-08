@@ -9,6 +9,14 @@ dependencies = ["universal-pathlib", "trollsift", "pyyaml", "geojson"]
 readme = "README.md"
 requires-python = ">= 3.10"
 license = {file = "LICENSE.txt"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Communications"
+]
 
 [project.scripts]
 pytroll-watcher = "pytroll_watchers.main_interface:cli"
