@@ -17,7 +17,7 @@ release = version
 
 extensions = ["sphinx.ext.napoleon", "sphinx.ext.autodoc"]
 autodoc_mock_imports = ["watchdog", "minio", "posttroll", "pytest", "trollsift", "universal_path",
-                        "freezegun", "responses", "oauthlib", "requests_oauthlib"]
+                        "freezegun", "responses", "oauthlib", "requests_oauthlib", "defusedxml"]
 
 templates_path = ["_templates"]
 exclude_patterns = []

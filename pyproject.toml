@@ -5,13 +5,20 @@ description = "Utility functions and scripts to watch for new files on local or 
 authors = [
     { name = "Martin Raspaud", email = "martin.raspaud@smhi.se" }
 ]
-dependencies = ["universal-pathlib", "trollsift", "pyyaml"]
+dependencies = ["universal-pathlib", "trollsift", "pyyaml", "geojson"]
 readme = "README.md"
 requires-python = ">= 3.10"
 license = {file = "LICENSE.txt"}
 
 [project.scripts]
 pytroll-watcher = "pytroll_watchers.main_interface:cli"
+
+[project.entry-points."pytroll_watchers.backends"]
+local = "pytroll_watchers.local_watcher"
+minio = "pytroll_watchers.minio_notification_watcher"
+dataspace = "pytroll_watchers.dataspace_watcher"
+datastore = "pytroll_watchers.datastore_watcher"
+dhus = "pytroll_watchers.dhus_watcher"
 
 [project.urls]
 "Documentation" = "https://pytroll-watchers.readthedocs.io/en/latest/"
@@ -22,6 +29,8 @@ local = ["watchdog"]
 publishing = ["posttroll"]
 ssh = ["paramiko"]
 dataspace = ["oauthlib", "requests_oauthlib", "s3fs"]
+datastore = ["oauthlib", "requests_oauthlib"]
+dhus = ["defusedxml"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]

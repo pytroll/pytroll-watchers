@@ -48,7 +48,14 @@ def test_datastore_get_download_links_since(search_params):
     path, mda = features[0]
     assert str(path) == "https://api.eumetsat.int/data/download/1.0.0/collections/EO%3AEUM%3ADAT%3A0407/products/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3"
     assert expected_token in path.storage_options["client_kwargs"]["headers"]["Authorization"]
-    assert "sip-entries" in mda["properties"]["links"]
+    assert mda["boundary"]["coordinates"][0][0] == [-14.3786, 52.4516]
+    assert mda["platform_name"] == "Sentinel-3B"
+    assert mda["sensor"] == "olci"
+    assert mda["start_time"] == datetime.datetime(2024, 4, 16, 10, 42, 16, 954262, tzinfo=datetime.timezone.utc)
+    assert mda["end_time"] == datetime.datetime(2024, 4, 16, 10, 45, 16, 954262, tzinfo=datetime.timezone.utc)
+    assert mda["orbit_number"] == 31123
+    assert mda["product_type"] == "EO:EUM:DAT:0407"
+    assert mda["checksum"] == dict(algorithm="md5", hash="9057eb08f2a4e9f4c5a8d2eeaacedaef")
 
 
 @contextmanager
@@ -95,10 +102,9 @@ def test_datastore_file_generator(tmp_path, search_params):
     expected_token = "eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"  # noqa
 
     assert len(features) == 5
-    path, mda = features[0]
+    path, _ = features[0]
     assert str(path) == "https://api.eumetsat.int/data/download/1.0.0/collections/EO%3AEUM%3ADAT%3A0407/products/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3"
     assert expected_token in path.storage_options["client_kwargs"]["headers"]["Authorization"]
-    assert "sip-entries" in mda["properties"]["links"]
 
 
 @freeze_time(datetime.datetime.now(datetime.timezone.utc))

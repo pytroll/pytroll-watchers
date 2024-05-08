@@ -46,6 +46,7 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
     with closing(publisher):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
+            amended_message_config.setdefault("data", {})
             amended_message_config["data"]["uri"] = file_item.as_uri()
             amended_message_config["data"]["uid"] = file_item.name
             with suppress(AttributeError):

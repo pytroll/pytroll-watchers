@@ -2,13 +2,9 @@
 
 import argparse
 import logging.config
+from importlib.metadata import entry_points
 
 import yaml
-
-from pytroll_watchers.local_watcher import file_generator as local_generator
-from pytroll_watchers.local_watcher import file_publisher as local_publisher
-from pytroll_watchers.minio_notification_watcher import file_generator as minio_generator
-from pytroll_watchers.minio_notification_watcher import file_publisher as minio_publisher
 
 
 def get_publisher_for_backend(backend):
@@ -21,12 +17,17 @@ def get_publisher_for_backend(backend):
         >>> file_publisher(fs_config, publisher_config, message_config)
 
     """
-    if backend == "minio":
-        return minio_publisher
-    elif backend == "local":
-        return local_publisher
-    else:
-        raise ValueError(f"Unknown backend {backend}.")
+    return get_backend(backend).file_publisher
+
+
+def get_backend(backend):
+    """Get the module for a given backend."""
+    eps = entry_points(group="pytroll_watchers.backends")
+    for ep in eps:
+        if backend == ep.name:
+            return ep.load()
+    raise ValueError(f"Unknown backend {backend}.")
+
 
 def get_generator_for_backend(backend):
     """Get the right generator for the given backend.
@@ -39,12 +40,7 @@ def get_generator_for_backend(backend):
         ...     # do something with filename and file_metadata
 
     """
-    if backend == "minio":
-        return minio_generator
-    elif backend == "local":
-        return local_generator
-    else:
-        raise ValueError(f"Unknown backend {backend}.")
+    return get_backend(backend).file_generator
 
 
 def publish_from_config(config):
@@ -54,12 +50,10 @@ def publish_from_config(config):
         config: a dictionary containing the `backend` string (`local` or `minio`), and `fs_config`, `publisher_config`
             and `message_config` dictionaries.
     """
-    if config["backend"] == "local":
-        return local_publisher(config["fs_config"], config["publisher_config"], config["message_config"])
-    elif config["backend"] == "minio":
-        return minio_publisher(config["fs_config"], config["publisher_config"], config["message_config"])
-    else:
-        raise ValueError(f"Unknown backend {config['backend']}")
+    backend = config["backend"]
+    publisher = get_publisher_for_backend(backend)
+    return publisher(config["fs_config"], config["publisher_config"], config["message_config"])
+
 
 
 def cli(args=None):
