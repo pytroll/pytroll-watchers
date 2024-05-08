@@ -1,3 +1,16 @@
+## Version 0.2.1 (2024/05/08)
+
+
+### Pull Requests Merged
+
+#### Bugs fixed
+
+* [PR 12](https://github.com/pytroll/pytroll-watchers/pull/12) - Fix documentation to match reality
+* [PR 11](https://github.com/pytroll/pytroll-watchers/pull/11) - Add classifiers and sdist build requirement
+
+In this release 2 pull requests were closed.
+
+
 ## Version 0.2.0 (2024/05/08)
 
 
