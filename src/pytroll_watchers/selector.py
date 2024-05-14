@@ -109,7 +109,7 @@ def running_selector(selector_config, subscriber_config):
     Args:
         selector_config: a dictionary of arguments to pass to the underlying redis instance, see
           :py:class:`~redis.Redis`. You can also provide a ttl as an int
-          (seconds) or timedelta instance.
+          (seconds) or timedelta instance, otherwise it defaults to 300 seconds (5 minutes).
         subscriber_config: a dictionary of arguments to pass to
           :py:func:`~posttroll.subscriber.create_subscriber_from_dict_config`.
 
@@ -153,6 +153,7 @@ def run_selector(selector_config, subscriber_config, publisher_config):
         selector_config: a dictionary of arguments to pass to the underlying redis instance, see
           :py:class:`~redis.Redis`. You can also provide a *ttl* for the
           selector as an int (seconds) or timedelta instance, so that incoming messages are forgotten after that time.
+          If not provided, the ttl defaults to 300 seconds (5 minutes).
           Also, you can provide a *directory* for the underlying datastructure to store the data in.
         subscriber_config: a dictionary of arguments to pass to
           :py:func:`~posttroll.subscriber.create_subscriber_from_dict_config`. The subscribtion is used as a source for
