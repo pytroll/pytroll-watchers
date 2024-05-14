@@ -12,6 +12,7 @@ At the moment, this module makes use of redis as a refined dictionary for keepin
 import time
 from contextlib import closing, contextmanager
 from functools import cache
+from pathlib import Path
 from subprocess import Popen
 
 import redis
@@ -23,6 +24,7 @@ from posttroll.subscriber import create_subscriber_from_dict_config
 @cache
 def _connect_to_redis(**kwargs):
     return redis.Redis(**kwargs)
+
 
 class TTLDict:
     """A simple dictionary-like object that discards items older than a time-to-live.
@@ -117,12 +119,16 @@ def run_selector(selector_config, subscriber_config, publisher_config):
 
 
 @contextmanager
-def _running_redis_server(port=None):
+def _running_redis_server(port=None, directory=None):
     command = ["redis-server"]
     if port:
         port = str(int(port))  # using int first here prevents arbitrary strings to be passed to Popen
         command += ["--port", port]
-    proc = Popen(command)  # noqa:S603  port is validated
+    if directory:
+        directory = Path(directory)
+        directory.mkdir(parents=True, exist_ok=True)
+        command += ["--dir", directory]
+    proc = Popen(command)  # noqa:S603  port is validated and directory is a Path
     time.sleep(.25)
     try:
         yield

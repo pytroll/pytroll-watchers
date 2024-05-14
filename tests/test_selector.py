@@ -11,6 +11,32 @@ from pytroll_watchers.selector import (
 )
 
 
+def test_ttldict_multiple_redis_instances(tmp_path):
+    """Test the TTLDict."""
+    ttl = 300
+    key = "uid_multiple"
+    value = b"some stuff"
+    other_value = b"some other important stuff"
+    port = 7321
+    with _running_redis_server(port=port, directory=tmp_path / "redis_1"):
+        sel = TTLDict(ttl, port=port)
+
+        sel[key] = value
+        assert sel[key] == value
+        sel[key] = other_value
+        assert sel[key] == value
+    with _running_redis_server(port=port, directory=tmp_path / "redis_2"):
+        with pytest.raises(KeyError):
+            sel[key]
+
+
+def test_redis_server_validates_directory(tmp_path):
+    """Test the TTLDict."""
+    port = 7321
+    with _running_redis_server(port=port, directory=str(tmp_path / "redis_1")):
+        assert True
+
+
 def test_run_selector_that_starts_redis_on_given_port(tmp_path):
     """Test running a selector that also starts a redis server."""
     uid = "IVCDB_j03_d20240419_t1114110_e1115356_b07465_c20240419113435035578_cspp_dev.h5"
@@ -106,7 +132,7 @@ def test_run_selector_on_single_file_messages(tmp_path):
 
 
 @pytest.mark.usefixtures("_redis_server")
-def test__dict():
+def test_ttldict():
     """Test the TTLDict."""
     ttl = 1
     key = "uid_1"
@@ -119,6 +145,6 @@ def test__dict():
     assert sel[key] == value
     sel[key] = other_value
     assert sel[key] == value
-    time.sleep(ttl)
+    time.sleep(ttl+1)
     sel[key] = other_value
     assert sel[key] == other_value
