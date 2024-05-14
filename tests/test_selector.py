@@ -86,7 +86,6 @@ def create_data_file(path):
         fd.write("data")
 
 
-@pytest.mark.usefixtures("_redis_server")
 def test_run_selector_on_single_file_messages(tmp_path, caplog):
     """Test running the selector on single file messages."""
     uid = "IVCDB_j02_d20240419_t1114110_e1115356_b07465_c20240419113435035578_cspp_dev.h5"
@@ -130,7 +129,8 @@ def test_run_selector_on_single_file_messages(tmp_path, caplog):
     caplog.set_level("INFO")
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
-            _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
+            with _running_redis_server(port=6309):
+                _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
     assert len(published_messages) == 2
     assert published_messages[0] == msg1
     assert published_messages[1] == msg3
@@ -154,7 +154,7 @@ def test_ttldict():
     assert sel[key] == value
     sel[key] = other_value
     assert sel[key] == value
-    time.sleep(ttl+1)
+    time.sleep(ttl)
     sel[key] = other_value
     assert sel[key] == other_value
 
