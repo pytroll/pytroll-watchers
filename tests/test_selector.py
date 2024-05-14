@@ -60,7 +60,8 @@ def test_run_selector_that_starts_redis_on_given_port(tmp_path):
                              port=3000)
 
     publisher_config = dict(address=pipe_out_address,
-                            nameservers=False)
+                            nameservers=False,
+                            port=1999)
 
     selector_config = dict(ttl=1, host="localhost", port=6388)
 
@@ -121,6 +122,7 @@ def test_run_selector_on_single_file_messages(tmp_path, caplog):
                              port=3000)
 
     publisher_config = dict(address=pipe_out_address,
+                            port=1999,
                             nameservers=False)
 
     selector_config = dict(ttl=1, host="localhost", port=6379)
@@ -177,7 +179,8 @@ def test_cli(tmp_path):
                              port=3000)
 
     publisher_config = dict(address=pipe_out_address,
-                            nameservers=False)
+                            nameservers=False,
+                            port=1999)
 
     redis_dir = tmp_path / "redis_dir"
 
