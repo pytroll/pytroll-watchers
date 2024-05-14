@@ -149,7 +149,7 @@ def test_ttldict():
     assert sel[key] == value
     sel[key] = other_value
     assert sel[key] == value
-    time.sleep(ttl)
+    time.sleep(ttl + 0.1)
     sel[key] = other_value
     assert sel[key] == other_value
 
