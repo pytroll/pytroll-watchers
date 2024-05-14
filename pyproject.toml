@@ -20,6 +20,7 @@ classifiers = [
 
 [project.scripts]
 pytroll-watcher = "pytroll_watchers.main_interface:cli"
+pytroll-selector = "pytroll_watchers.selector:cli"
 
 [project.entry-points."pytroll_watchers.backends"]
 local = "pytroll_watchers.local_watcher"
