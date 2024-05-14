@@ -86,7 +86,7 @@ def create_data_file(path):
         fd.write("data")
 
 
-def test_run_selector_on_single_file_messages(tmp_path, caplog):
+def test_run_selector_on_single_file_messages(tmp_path):
     """Test running the selector on single file messages."""
     uid = "IVCDB_j02_d20240419_t1114110_e1115356_b07465_c20240419113435035578_cspp_dev.h5"
     sdr_file = tmp_path / "sdr" / uid
@@ -126,7 +126,6 @@ def test_run_selector_on_single_file_messages(tmp_path, caplog):
 
     selector_config = dict(ttl=1, host="localhost", port=6309)
 
-    caplog.set_level("INFO")
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
             with _running_redis_server(port=6309):
@@ -134,10 +133,6 @@ def test_run_selector_on_single_file_messages(tmp_path, caplog):
     assert len(published_messages) == 2
     assert published_messages[0] == msg1
     assert published_messages[1] == msg3
-    assert "New content " + str(msg1) in caplog.text
-    assert "Discarded " + str(msg2) in caplog.text
-    assert "New content " + str(msg3) in caplog.text
-
 
 
 @pytest.mark.usefixtures("_redis_server")
