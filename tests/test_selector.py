@@ -125,7 +125,7 @@ def test_run_selector_on_single_file_messages(tmp_path, caplog):
                             port=1999,
                             nameservers=False)
 
-    selector_config = dict(ttl=1, host="localhost", port=6379)
+    selector_config = dict(ttl=1, host="localhost", port=6309)
 
     caplog.set_level("INFO")
     with patched_subscriber_recv(messages):
