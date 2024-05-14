@@ -40,7 +40,7 @@ ssh = ["paramiko"]
 dataspace = ["oauthlib", "requests_oauthlib", "s3fs"]
 datastore = ["oauthlib", "requests_oauthlib"]
 dhus = ["defusedxml"]
-selector = ["redis", "redis-server"]
+selector = ["redis"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
