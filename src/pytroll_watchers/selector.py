@@ -126,19 +126,29 @@ def running_selector(selector_config, subscriber_config):
     Yields:
         JSON representations of posttroll messages.
     """
+    ttl_dict = TTLDict(**selector_config)
+
+    for msg in _data_messages(subscriber_config):
+        key = unique_key(msg)
+        msg_string = str(msg)
+
+        if key not in ttl_dict:
+            ttl_dict[key] = msg_string
+            logger.info(f"New content {msg_string}")
+            yield msg_string
+        else:
+            logger.debug(f"Discarded {msg_string}")
+
+
+def _data_messages(subscriber_config):
+    """Generate messages referring to new data from subscriber settings."""
     subscriber = create_subscriber_from_dict_config(subscriber_config)
 
     with closing(subscriber):
-        ttl_dict = TTLDict(**selector_config)
         for msg in subscriber.recv():
-            key = unique_key(msg)
-            if key not in ttl_dict:
-                msg_string = str(msg)
-                ttl_dict[key] = msg_string
-                logger.info(f"New content {str(msg)}")
-                yield msg_string
-            else:
-                logger.debug(f"Discarded {str(msg)}")
+            if msg.type != "file":
+                continue
+            yield msg
 
 
 def unique_key(msg):
