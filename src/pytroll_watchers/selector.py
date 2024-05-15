@@ -5,6 +5,8 @@ Selection in this context means making sure only one message refering to some fi
 This is useful when multiple source for the same data are sending messages (eg two reception servers for eumetcast) but
 only one of each file is needed for further processing.
 
+To check if two messages refer to the same data, the *uid* metadata of the messages is used.
+
 At the moment, this module makes use of redis as a refined dictionary for keeping track of the received files. Hence a
 redis server instance will be started along with some of the functions here, and with the cli.
 
@@ -12,7 +14,7 @@ A command-line script is also made available by this module. It is called ``pytr
 
     usage: pytroll-selector [-h] [-l LOG_CONFIG] config
 
-    Selects unique messages from multiple sources.
+    Selects unique messages (based on uid) from multiple sources.
 
     positional arguments:
       config                The yaml config file.
@@ -99,6 +101,14 @@ class TTLDict:
         if not res:
             self._redis.set(key, value, ex=self._ttl)
 
+    def __contains__(self, key):
+        """Check if key is already present."""
+        try:
+            _ = self[key]
+            return True
+        except KeyError:
+            return False
+
 
 def running_selector(selector_config, subscriber_config):
     """Generate selected messages.
@@ -119,17 +129,21 @@ def running_selector(selector_config, subscriber_config):
     subscriber = create_subscriber_from_dict_config(subscriber_config)
 
     with closing(subscriber):
-        sel = TTLDict(**selector_config)
+        ttl_dict = TTLDict(**selector_config)
         for msg in subscriber.recv():
-            key = msg.data["uid"]
-            try:
-                _ = sel[key]
-                logger.info(f"Discarded {str(msg)}")
-            except KeyError:
+            key = unique_key(msg)
+            if key not in ttl_dict:
                 msg_string = str(msg)
-                sel[key] = msg_string
+                ttl_dict[key] = msg_string
                 logger.info(f"New content {str(msg)}")
                 yield msg_string
+            else:
+                logger.debug(f"Discarded {str(msg)}")
+
+
+def unique_key(msg):
+    """Identify the content of the message with a unique key."""
+    return msg.data["uid"]
 
 
 def _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config):
@@ -163,12 +177,12 @@ def run_selector(selector_config, subscriber_config, publisher_config):
           messages.
 
     """
-    with _running_redis_server(port=selector_config.get("port"), directory=selector_config.pop("directory", None)):
+    with _started_redis_server(port=selector_config.get("port"), directory=selector_config.pop("directory", None)):
         _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
 
 
 @contextmanager
-def _running_redis_server(port=None, directory=None):
+def _started_redis_server(port=None, directory=None):
     command = ["redis-server"]
     if port:
         port = str(int(port))  # using int first here prevents arbitrary strings to be passed to Popen
@@ -190,7 +204,7 @@ def cli(args=None):
     """Command line interface."""
     parser = argparse.ArgumentParser(
                     prog="pytroll-selector",
-                    description="Selects unique messages from multiple sources.",
+                    description="Selects unique messages (based on uid) from multiple sources.",
                     epilog="Thanks for using pytroll-selector!")
 
     parser.add_argument("config", type=str, help="The yaml config file.")

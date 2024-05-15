@@ -8,7 +8,7 @@ from posttroll.testing import patched_publisher, patched_subscriber_recv
 from pytroll_watchers.selector import (
     TTLDict,
     _run_selector_with_managed_dict_server,
-    _running_redis_server,
+    _started_redis_server,
     cli,
     run_selector,
 )
@@ -21,14 +21,14 @@ def test_ttldict_multiple_redis_instances(tmp_path):
     value = b"some stuff"
     other_value = b"some other important stuff"
     port = 7321
-    with _running_redis_server(port=port, directory=tmp_path / "redis_1"):
+    with _started_redis_server(port=port, directory=tmp_path / "redis_1"):
         sel = TTLDict(ttl, port=port)
 
         sel[key] = value
         assert sel[key] == value
         sel[key] = other_value
         assert sel[key] == value
-    with _running_redis_server(port=port, directory=tmp_path / "redis_2"):
+    with _started_redis_server(port=port, directory=tmp_path / "redis_2"):
         with pytest.raises(KeyError):
             sel[key]
 
@@ -36,7 +36,7 @@ def test_ttldict_multiple_redis_instances(tmp_path):
 def test_redis_server_validates_directory(tmp_path):
     """Test the TTLDict."""
     port = 7321
-    with _running_redis_server(port=port, directory=str(tmp_path / "redis_1")):
+    with _started_redis_server(port=port, directory=str(tmp_path / "redis_1")):
         assert True
 
 
@@ -74,7 +74,7 @@ def test_run_selector_that_starts_redis_on_given_port(tmp_path):
 @pytest.fixture(scope="module")
 def _redis_server():
     """Start a redis server."""
-    with _running_redis_server():
+    with _started_redis_server():
         yield
 
 
@@ -128,7 +128,7 @@ def test_run_selector_on_single_file_messages(tmp_path):
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
-            with _running_redis_server(port=6309):
+            with _started_redis_server(port=6309):
                 _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
     assert len(published_messages) == 2
     assert published_messages[0] == msg1
