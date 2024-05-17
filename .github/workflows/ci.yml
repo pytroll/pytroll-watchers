@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python package
+name: Run unit tests
 
 on:
   push:
@@ -30,12 +30,9 @@ jobs:
       run: |
         sudo apt install -y redis-server
         python -m pip install --upgrade pip
-        python -m pip install ruff pytest pytest-cov freezegun responses
+        python -m pip install pytest pytest-cov freezegun responses
         python -m pip install git+https://github.com/gorakhargosh/watchdog
         python -m pip install -e .[local,minio,publishing,ssh,dataspace,datastore,dhus,selector]
-    - name: Lint with ruff
-      run: |
-        ruff check .
     - name: Test with pytest
       run: |
         pytest --cov=pytroll_watchers tests --cov-report=xml
