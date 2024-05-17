@@ -1,3 +1,15 @@
+## Version 0.2.2 (2024/05/17)
+
+
+### Pull Requests Merged
+
+#### Features added
+
+* [PR 13](https://github.com/pytroll/pytroll-watchers/pull/13) - Add selector feature
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.2.1 (2024/05/08)
 
 
