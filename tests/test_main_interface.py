@@ -1,9 +1,12 @@
 """Tests for the gathered publisher functions."""
 
+import json
 import logging
+from unittest import mock
 
 import pytest
 import yaml
+from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from pytroll_watchers.local_watcher import file_generator as local_generator
 from pytroll_watchers.local_watcher import file_publisher as local_publisher
@@ -16,6 +19,7 @@ from pytroll_watchers.main_interface import (
 from pytroll_watchers.minio_notification_watcher import file_generator as minio_generator
 from pytroll_watchers.minio_notification_watcher import file_publisher as minio_publisher
 from pytroll_watchers.testing import patched_bucket_listener, patched_local_events  # noqa
+from upath import UPath
 
 
 def test_getting_right_publisher():
@@ -52,6 +56,33 @@ def test_pass_config_to_file_publisher_for_local_backend(tmp_path, patched_local
             publish_from_config(config)
             assert len(msgs) == 1
             assert str(filename) in msgs[0]
+
+
+def test_pass_config_to_file_publisher_for_local_backend_with_protocol(tmp_path, patched_local_events, monkeypatch):  # noqa
+    """Test passing a config to create a file publisher from a local fs with protocol."""
+    new_fs = mock.Mock()
+    host = "myhost.pytroll.org"
+    fs = dict(cls="fsspec.implementations.sftp.SFTPFileSystem",
+              protocol="sftp",
+              args=[],
+              host=host)
+    new_fs.to_json.return_value = json.dumps(fs)
+    monkeypatch.setattr(UPath, "fs", new_fs)
+    local_settings = dict(directory=tmp_path, protocol="ssh", storage_options=dict(host=host))
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+    config = dict(backend="local",
+                  fs_config=local_settings,
+                  publisher_config=publisher_settings,
+                  message_config=message_settings)
+    with patched_publisher() as msgs:
+        filename = tmp_path / "bla"
+        with patched_local_events([filename]):
+            publish_from_config(config)
+            assert len(msgs) == 1
+            msg = Message.decode(msgs[0])
+            assert msg.data["path"] == str(filename)
+
 
 
 def test_pass_config_to_object_publisher_for_minio_backend(patched_bucket_listener):  # noqa
