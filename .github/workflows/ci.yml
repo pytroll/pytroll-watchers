@@ -28,10 +28,11 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        sudo apt install -y redis-server
         python -m pip install --upgrade pip
         python -m pip install ruff pytest pytest-cov freezegun responses
         python -m pip install git+https://github.com/gorakhargosh/watchdog
-        python -m pip install -e .[local,minio,publishing,ssh,dataspace,datastore,dhus]
+        python -m pip install -e .[local,minio,publishing,ssh,dataspace,datastore,dhus,selector]
     - name: Lint with ruff
       run: |
         ruff check .

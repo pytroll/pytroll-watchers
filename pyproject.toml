@@ -20,6 +20,7 @@ classifiers = [
 
 [project.scripts]
 pytroll-watcher = "pytroll_watchers.main_interface:cli"
+pytroll-selector = "pytroll_watchers.selector:cli"
 
 [project.entry-points."pytroll_watchers.backends"]
 local = "pytroll_watchers.local_watcher"
@@ -39,6 +40,7 @@ ssh = ["paramiko"]
 dataspace = ["oauthlib", "requests_oauthlib", "s3fs"]
 datastore = ["oauthlib", "requests_oauthlib"]
 dhus = ["defusedxml"]
+selector = ["redis"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]

@@ -15,9 +15,9 @@ release = version
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.napoleon", "sphinx.ext.autodoc"]
+extensions = ["sphinx.ext.napoleon", "sphinx.ext.autodoc", "sphinx.ext.intersphinx"]
 autodoc_mock_imports = ["watchdog", "minio", "posttroll", "pytest", "trollsift", "universal_path",
-                        "freezegun", "responses", "oauthlib", "requests_oauthlib", "defusedxml"]
+                        "freezegun", "responses", "oauthlib", "requests_oauthlib", "defusedxml", "redis"]
 
 templates_path = ["_templates"]
 exclude_patterns = []
@@ -29,3 +29,9 @@ exclude_patterns = []
 
 html_theme = "alabaster"
 html_static_path = ["_static"]
+
+# intersphinx
+intersphinx_mapping = {
+    "posttroll": ("https://posttroll.readthedocs.io/en/latest/", None),
+    "redis": ("https://redis.readthedocs.io/en/latest/", None),
+}

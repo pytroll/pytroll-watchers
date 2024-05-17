@@ -14,6 +14,7 @@ Welcome to pytroll-watchers's documentation!
    published
    backends
    other_api
+   selector
 
 Pytroll-watcher is a library and command-line tool to detect changes on a local or remote file system.
 

@@ -88,8 +88,8 @@ def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
     with patched_local_events([filename]):
         with patched_publisher() as messages:
             local_watcher.file_publisher(fs_config=local_settings,
-                                        publisher_config=publisher_settings,
-                                        message_config=message_settings)
+                                         publisher_config=publisher_settings,
+                                         message_config=message_settings)
 
     assert "uri" not in message_settings["data"]
     assert len(messages) == 1
@@ -115,5 +115,5 @@ def test_publish_paths_forbids_passing_password(tmp_path, patched_local_events, 
         with patched_publisher():
             with pytest.raises(SecurityError):
                 local_watcher.file_publisher(fs_config=local_settings,
-                                            publisher_config=publisher_settings,
-                                            message_config=message_settings)
+                                             publisher_config=publisher_settings,
+                                             message_config=message_settings)
