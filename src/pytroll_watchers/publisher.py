@@ -9,6 +9,7 @@ from copy import deepcopy
 from posttroll.message import Message
 from posttroll.publisher import create_publisher_from_dict_config
 from trollsift import parse
+from upath import UPath
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,9 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             (filename, file_metadata).
         publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
         message_config: The information needed to complete the posttroll message generation. Will be amended
-             with the file metadata, and passed directly to posttroll's Message constructor.
+            with the file metadata, and passed directly to posttroll's Message constructor.
+            If it contains "archive_format", it is expected to have the archive type, and the contents of the archive
+            will be published as a "dataset".
 
     Side effect:
         Publishes posttroll messages containing the location of the file with the following fields:
@@ -43,21 +46,44 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
     """  # noqa
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
+    archive_format = message_config.pop("archive_format", None)
     with closing(publisher):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
             amended_message_config.setdefault("data", {})
-            amended_message_config["data"]["uri"] = file_item.as_uri()
-            amended_message_config["data"]["uid"] = file_item.name
-            with suppress(AttributeError):
-                amended_message_config["data"]["filesystem"] = json.loads(file_item.fs.to_json())
-                amended_message_config["data"]["path"] = file_item.path
+
+            if archive_format:
+                dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack(file_item, archive_format)]
+                amended_message_config["data"]["dataset"] = dataset
+            else:
+                file_location = _build_file_location(file_item)
+                amended_message_config["data"].update(file_location)
+
             aliases = amended_message_config.pop("aliases", {})
             apply_aliases(aliases, file_metadata)
             amended_message_config["data"].update(file_metadata)
             msg = Message(**amended_message_config)
             logger.info(f"Sending {str(msg)}")
             publisher.send(str(msg))
+
+
+def unpack(path, archive_format):
+    """Unpack the path and yield the extracted filenames."""
+    import fsspec
+    fs = fsspec.get_filesystem_class(archive_format)(fsspec.open(path))
+    files = fs.find("/")
+    for fi in files:
+        yield UPath(fi, protocol=archive_format, target_protocol=path.protocol, fo=path.as_uri())
+
+
+def _build_file_location(file_item):
+    file_location = dict()
+    file_location["uri"] = file_item.as_uri()
+    file_location["uid"] = file_item.name
+    with suppress(AttributeError):
+        file_location["filesystem"] = json.loads(file_item.fs.to_json())
+        file_location["path"] = file_item.path
+    return file_location
 
 
 def apply_aliases(aliases, metadata):

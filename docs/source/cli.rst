@@ -19,3 +19,16 @@ The command-line tool can be used by invoking `pytroll-watcher <config-file>`. A
      aliases:
        platform_name:
          npp: Suomi-NPP
+
+Unpacking of the file into it's component and subsequent publishing is achieved by passing the archive format
+in the message config part, for example::
+
+   message_config:
+     subject: /segment/viirs/l1b/
+     atype: dataset
+     archive_format: zip
+     data:
+       sensor: viirs
+     aliases:
+       platform_name:
+         npp: Suomi-NPP
