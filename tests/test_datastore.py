@@ -138,7 +138,7 @@ def test_publish_paths(caplog, search_params):
     assert message.data["uri"] == uri
     assert message.data["sensor"] == "olci"
     assert message.data["filesystem"] == {
-        "cls": "fsspec.implementations.http.HTTPFileSystem",
+        "cls": "fsspec.implementations.http:HTTPFileSystem",
         "protocol": "https",
         "args": [],
         "encoded": True,
