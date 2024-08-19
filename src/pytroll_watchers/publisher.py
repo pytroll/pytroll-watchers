@@ -70,10 +70,14 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
 def unpack(path, archive_format):
     """Unpack the path and yield the extracted filenames."""
     import fsspec
-    fs = fsspec.get_filesystem_class(archive_format)(fsspec.open(path))
+    fs = fsspec.get_filesystem_class(archive_format)(fsspec.open(path.path, **path.storage_options))
     files = fs.find("/")
     for fi in files:
-        yield UPath(fi, protocol=archive_format, target_protocol=path.protocol, fo=path.as_uri())
+        yield UPath(fi,
+                    protocol=archive_format,
+                    target_protocol=path.protocol,
+                    target_options=path.storage_options,
+                    fo=path.as_uri())
 
 
 def _build_file_location(file_item):
