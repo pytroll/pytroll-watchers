@@ -20,6 +20,7 @@ from upath import UPath
 
 from pytroll_watchers.common import fromisoformat, run_every
 from pytroll_watchers.publisher import file_publisher_from_generator
+from pytroll_watchers.version import version
 
 logger = logging.getLogger(__name__)
 
@@ -97,7 +98,8 @@ def generate_download_links(search_params, ds_auth):
         acq_info = feature["properties"]["acquisitionInformation"][0]
         mda["platform_name"] = acq_info["platform"]["platformShortName"]
         mda["sensor"] = acq_info["instrument"]["instrumentShortName"].lower()
-        mda["orbit_number"] = acq_info["acquisitionParameters"]["orbitNumber"]
+        with suppress(KeyError):
+            mda["orbit_number"] = acq_info["acquisitionParameters"]["orbitNumber"]
         start_string, end_string = feature["properties"]["date"].split("/")
         mda["start_time"] = fromisoformat(start_string)
         mda["end_time"] = fromisoformat(end_string)
@@ -125,7 +127,7 @@ class DatastoreOAuth2Session():
         self.fetch_token()
         search_url = f"{data_url}/search-products/1.0.0/os"
         headers = {"referer": "https://github.com/pytroll/pytroll-watchers",
-                   "User-Agent": "pytroll-watchers / 0.1.0"}
+                   "User-Agent": f"pytroll-watchers / {version}"}
 
         return self._oauth.get(search_url, params=params, headers=headers).json()
 

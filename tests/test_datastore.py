@@ -9,7 +9,12 @@ import yaml
 from freezegun import freeze_time
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
-from pytroll_watchers.datastore_watcher import file_generator, file_publisher, generate_download_links_since
+from pytroll_watchers.datastore_watcher import (
+    file_generator,
+    file_publisher,
+    generate_download_links,
+    generate_download_links_since,
+)
 
 
 @pytest.fixture()
@@ -105,6 +110,43 @@ def test_datastore_file_generator(tmp_path, search_params):
     path, _ = features[0]
     assert str(path) == "https://api.eumetsat.int/data/download/1.0.0/collections/EO%3AEUM%3ADAT%3A0407/products/S3B_OL_2_WFR____20240416T104217_20240416T104517_20240417T182315_0180_092_051_1980_MAR_O_NT_003.SEN3"
     assert expected_token in path.storage_options["client_kwargs"]["headers"]["Authorization"]
+
+
+@pytest.fixture()
+def search_params_geo():
+    """Generate the search parameters for the tests."""
+    collection = "EO:EUM:DAT:MSG:HRSEVIRI"
+    publication_start = datetime.datetime(2023, 11, 11, 8, 0)
+    publication_end = datetime.datetime(2023, 11, 11, 8, 15)
+    str_pub_start = publication_start.isoformat(timespec="milliseconds")
+    str_pub_end = publication_end.isoformat(timespec="milliseconds")
+    return dict(collection=collection, publication=f"[{str_pub_start},{str_pub_end}]")
+
+
+@responses.activate
+def test_datastore_generate_download_links_geo(tmp_path, search_params_geo):
+    """Test the file generator."""
+    netrc_host = "myitem"
+    netrc_file = tmp_path / "netrc"
+
+    with open(netrc_file, "w") as fd:
+        fd.write(f"machine {netrc_host} login user@pytroll.org password mypassword")
+
+    ds_auth = dict(netrc_host=netrc_host, netrc_file=netrc_file)
+
+    response_file = "tests/datastore_responses_geo.yaml"
+    responses._add_from_file(file_path=response_file)
+
+    features = list(generate_download_links(search_params_geo, ds_auth))
+
+    assert len(features) == 1
+
+    path, mda = features[0]
+    assert "orbit_number" not in mda
+    assert str(path) == "https://api.eumetsat.int/data/download/1.0.0/collections/EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI/products/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA"
+    assert mda["start_time"] == datetime.datetime(2023, 11, 11, 8, 0, 9, 969000, tzinfo=datetime.timezone.utc)
+    assert mda["end_time"] == datetime.datetime(2023, 11, 11, 8, 12, 42, 335000, tzinfo=datetime.timezone.utc)
+
 
 
 @freeze_time(datetime.datetime.now(datetime.timezone.utc))
