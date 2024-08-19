@@ -4,7 +4,21 @@ It polls the catalogue using Opensearch for new data and generates locations for
 
 Note:
     The links produced can only be downloaded with a valid token. A token comes with the links, but
-    has only a limited validity time.
+    has only a limited validity time (maybe 5 minutes).
+
+An example for getting links to MSG data::
+
+    from pytroll_watchers.datastore_watcher import generate_download_links_since
+
+    ds_auth = dict(netrc_host="api.eumetsat.int")
+
+    collection = "EO:EUM:DAT:MSG:HRSEVIRI"
+
+    search_params = dict(collection=collection)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    yesterday = now - datetime.timedelta(hours=6)
+
+    links = list(generate_download_links_since(search_params, ds_auth, yesterday))
 
 """
 
