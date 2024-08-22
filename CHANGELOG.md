@@ -1,3 +1,21 @@
+## Version 0.3.0 (2024/08/22)
+
+
+### Pull Requests Merged
+
+#### Bugs fixed
+
+* [PR 20](https://github.com/pytroll/pytroll-watchers/pull/20) - Fix tests for new version of fsspec
+
+#### Features added
+
+* [PR 25](https://github.com/pytroll/pytroll-watchers/pull/25) - Introduce a geo example for datastore and test
+* [PR 17](https://github.com/pytroll/pytroll-watchers/pull/17) - Add unpacking possibilities to the watcher
+* [PR 14](https://github.com/pytroll/pytroll-watchers/pull/14) - Use pre-commit.ci
+
+In this release 4 pull requests were closed.
+
+
 ## Version 0.2.2 (2024/05/17)
 
 
