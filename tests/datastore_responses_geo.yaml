@@ -1,0 +1,132 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"access_token":"62f55741-7241-3d0d-ba18-0ac541e42ac3","scope":"am_application_scope
+      default","token_type":"Bearer","expires_in":187}'
+    content_type: text/plain
+    headers:
+      access-control-allow-headers: authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      access-control-allow-methods: POST
+      access-control-allow-origin: ''
+      access-control-expose-headers: ''
+      cache-control: no-store
+      #content-type: application/json
+      date: Mon, 19 Aug 2024 12:58:59 GMT
+      pragma: no-cache
+      strict-transport-security: max-age=15724800; includeSubDomains
+      transfer-encoding: chunked
+      x-content-type-options: nosniff
+      x-frame-options: DENY
+      x-xss-protection: 1; mode=block
+    method: POST
+    status: 200
+    url: https://api.eumetsat.int/token
+- response:
+    auto_calculate_content_length: false
+    body: "\n  { \"id\" : \"https:\\/\\/api.eumetsat.int\\/data\\/search-products\\\
+      /1.0.0\\/os?pi=EO:EUM:DAT:MSG:HRSEVIRI&publication=%5B2023-11-11T08%3A00%3A00.000%2C2023-11-11T08%3A15%3A00.000%5D&si=0&c=100&\"\
+      ,\n    \"type\" : \"FeatureCollection\",\n    \"totalResults\" : 1,\n    \"\
+      itemsPerPage\" : 100,\n    \"startIndex\" : 0,\n    \"queries\" : \n    { \"\
+      request\" : \n      [ \n        { \"count\" : 100,\n          \"startIndex\"\
+      \ : 0,\n          \"eo:parentIdentifier\" : \"EO:EUM:DAT:MSG:HRSEVIRI\",\n \
+      \         \"eo:publicationDate\" : \"[2023-11-11T08:00:00.000,2023-11-11T08:15:00.000]\"\
+      \ } ] },\n    \"properties\" : \n    { \"type\" : \"Properties\",\n      \"\
+      title\" : \"EUMETSAT EOP OpenSearch (EOPOS) results feed for EO:EUM:DAT:MSG:HRSEVIRI\"\
+      ,\n      \"subTitle\" : \"Search results for your query pi=EO:EUM:DAT:MSG:HRSEVIRI&publication=%5B2023-11-11T08%3A00%3A00.000%2C2023-11-11T08%3A15%3A00.000%5D&si=0&c=100&\"\
+      ,\n      \"rights\" : \"Copyright\",\n      \"updated\" : \"2024-08-19T12:58:59.802Z\"\
+      ,\n      \"subject\" : \"climatologyMeteorologyAtmosphere\",\n      \"creator\"\
+      \ : \"EUMETSAT\",\n      \"lang\" : \"en\",\n      \"parameters\" : \n     \
+      \ [ \n        { \"name\" : \"sat\",\n          \"value\" : \"platformShortName\"\
+      ,\n          \"title\" : \"Mission \\/ Satellite\",\n          \"minimum\" :\
+      \ 0,\n          \"options\" : \n          [ \n            { \"value\" : \"MSG3\"\
+      ,\n              \"results\" : 1 } ] },\n        \n        { \"name\" : \"type\"\
+      ,\n          \"value\" : \"productType\",\n          \"title\" : \"Product Type\"\
+      ,\n          \"minimum\" : 0,\n          \"options\" : \n          [ \n    \
+      \        { \"value\" : \"MSG15\",\n              \"results\" : 1 } ] },\n  \
+      \      \n        { \"name\" : \"dtstart\",\n          \"value\" : \"start\"\
+      ,\n          \"title\" : \"Temporal Start\",\n          \"minimum\" : 0,\n \
+      \         \"minInclusive\" : \"2023-11-11T08:00:09.969Z\",\n          \"maxInclusive\"\
+      \ : \"2023-11-11T08:00:09.969Z\" },\n        \n        { \"name\" : \"dtend\"\
+      ,\n          \"value\" : \"end\",\n          \"title\" : \"Temporal End\",\n\
+      \          \"minimum\" : 0,\n          \"minInclusive\" : \"2023-11-11T08:12:42.335Z\"\
+      ,\n          \"maxInclusive\" : \"2023-11-11T08:12:42.335Z\" },\n        \n\
+      \        { \"name\" : \"publication\",\n          \"value\" : \"publicationDate\"\
+      ,\n          \"title\" : \"publication date\",\n          \"minimum\" : 0,\n\
+      \          \"minInclusive\" : \"2023-11-11T08:13:42.277Z\",\n          \"maxInclusive\"\
+      \ : \"2023-11-11T08:13:42.277Z\" } ],\n      \"links\" : \n      { \"type\"\
+      \ : \"Links\",\n        \"search\" : \n        { \"type\" : \"application\\\
+      /opensearchdescription+xml\",\n          \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/search-products\\/1.0.0\\/osdd?pi=EO:EUM:DAT:MSG:HRSEVIRI\",\n     \
+      \     \"title\" : \"OpenSearch Description Document\" },\n        \"self\" :\
+      \ \n        { \"type\" : \"application\\/json\",\n          \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/search-products\\/1.0.0\\/os?pi=EO:EUM:DAT:MSG:HRSEVIRI&publication=%5B2023-11-11T08%3A00%3A00.000%2C2023-11-11T08%3A15%3A00.000%5D&si=0&c=100&format=json\"\
+      ,\n          \"title\" : \"this search\" },\n        \"first\" : \n        {\
+      \ \"type\" : \"application\\/json\",\n          \"href\" : \"https:\\/\\/api.eumetsat.int\\\
+      /data\\/search-products\\/1.0.0\\/os?pi=EO:EUM:DAT:MSG:HRSEVIRI&publication=%5B2023-11-11T08%3A00%3A00.000%2C2023-11-11T08%3A15%3A00.000%5D&c=100&format=json\"\
+      ,\n          \"title\" : \"first result page\" },\n        \"last\" : \n   \
+      \     { \"type\" : \"application\\/json\",\n          \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/search-products\\/1.0.0\\/os?pi=EO:EUM:DAT:MSG:HRSEVIRI&publication=%5B2023-11-11T08%3A00%3A00.000%2C2023-11-11T08%3A15%3A00.000%5D&si=0&c=100&format=json\"\
+      ,\n          \"title\" : \"last result page\" } },\n      \"profiles\" : \n\
+      \      [ \n        { \"href\" : \"http:\\/\\/www.opengis.net\\/spec\\/owc-geojson\\\
+      /1.0\\/req\\/core\" },\n        \n        { \"href\" : \"http:\\/\\/www.opengis.net\\\
+      /spec\\/os-geojson\\/1.0\\/req\\/core\" } ] },\n    \"features\" : \n    [ \n\
+      \      { \"type\" : \"Feature\",\n        \"id\" : \"MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\"\
+      ,\n        \"geometry\" : \n        {  },\n        \"properties\" : \n     \
+      \   { \"type\" : \"Properties\",\n          \"identifier\" : \"MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\"\
+      ,\n          \"parentIdentifier\" : \"EO:EUM:DAT:MSG:HRSEVIRI\",\n         \
+      \ \"title\" : \"MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\",\n  \
+      \        \"date\" : \"2023-11-11T08:00:09.969Z\\/2023-11-11T08:12:42.335Z\"\
+      ,\n          \"updated\" : \"2023-11-11T08:13:42.277Z\",\n          \"acquisitionInformation\"\
+      \ : \n          [ \n            { \"platform\" : \n              { \"platformShortName\"\
+      \ : \"MSG3\" },\n              \"instrument\" : \n              { \"instrumentShortName\"\
+      \ : \"SEVIRI\" },\n              \"acquisitionParameters\" : \n            \
+      \  {  } } ],\n          \"productInformation\" : \n          { \"productType\"\
+      \ : \"MSG15\",\n            \"size\" : 174135 },\n          \"extraInformation\"\
+      \ : \n          { \"md5\" : \"b33bb9a82cdf18676fcc0db1d1e8a728\" },\n      \
+      \    \"links\" : \n          { \"type\" : \"Links\",\n            \"data\" :\
+      \ \n            [ \n              { \"type\" : \"Link\",\n                \"\
+      href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI\\/products\\/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\"\
+      ,\n                \"mediaType\" : \"application\\/zip\",\n                \"\
+      title\" : \"Product download\" } ],\n            \"alternates\" : \n       \
+      \     [ \n              { \"type\" : \"Link\",\n                \"href\" : \"\
+      https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI\\\
+      /products\\/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\\/metadata\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"Metadata\" },\n              \n              { \"type\" : \"Link\"\
+      ,\n                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI\\/products\\/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\\\
+      /metadata?format=json\",\n                \"mediaType\" : \"application\\/json\"\
+      ,\n                \"title\" : \"Metadata in JSON format\" } ],\n          \
+      \  \"sip-entries\" : \n            [ \n              { \"type\" : \"Link\",\n\
+      \                \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\\
+      /1.0.0\\/collections\\/EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI\\/products\\/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\\\
+      /entry?name=MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA.nat\",\n  \
+      \              \"mediaType\" : \"application\\/octet-stream\",\n           \
+      \     \"title\" : \"MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA.nat\"\
+      \ },\n              \n              { \"type\" : \"Link\",\n               \
+      \ \"href\" : \"https:\\/\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\\
+      /EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI\\/products\\/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\\\
+      /entry?name=EOPMetadata.xml\",\n                \"mediaType\" : \"application\\\
+      /xml\",\n                \"title\" : \"EOPMetadata.xml\" },\n              \n\
+      \              { \"type\" : \"Link\",\n                \"href\" : \"https:\\\
+      /\\/api.eumetsat.int\\/data\\/download\\/1.0.0\\/collections\\/EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI\\\
+      /products\\/MSG3-SEVI-MSG15-0100-NA-20231111081242.335000000Z-NA\\/entry?name=manifest.xml\"\
+      ,\n                \"mediaType\" : \"application\\/xml\",\n                \"\
+      title\" : \"manifest.xml\" } ] } } } ] }"
+    content_type: text/plain
+    headers:
+      access-control-allow-headers: Origin, Accept, X-Requested-With, Content-Type,
+        Access-Control-Request-Method, Access-Control-Request-Headers
+      access-control-allow-methods: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS,
+        CONNECT, PATCH
+      access-control-allow-origin: '*'
+      access-control-expose-headers: ''
+      access-control-max-age: '3600'
+      #content-type: application/json
+      date: Mon, 19 Aug 2024 12:58:59 GMT
+      strict-transport-security: max-age=15724800; includeSubDomains
+      transfer-encoding: chunked
+    method: GET
+    status: 200
+    url: https://api.eumetsat.int/data/search-products/1.0.0/os?format=json&pi=EO%3AEUM%3ADAT%3AMSG%3AHRSEVIRI&si=0&c=100&publication=%5B2023-11-11T08%3A00%3A00.000%2C2023-11-11T08%3A15%3A00.000%5D
