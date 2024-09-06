@@ -4,6 +4,7 @@ import datetime
 from freezegun import freeze_time
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
+
 from pytroll_watchers.dataspace_watcher import file_generator, file_publisher
 from pytroll_watchers.testing import load_oauth_responses
 

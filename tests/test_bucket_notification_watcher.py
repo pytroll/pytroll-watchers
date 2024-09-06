@@ -6,10 +6,11 @@ from unittest import mock
 import pytest
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
+from upath import UPath
+
 from pytroll_watchers import minio_notification_watcher
 from pytroll_watchers.publisher import SecurityError, fix_times
 from pytroll_watchers.testing import patched_bucket_listener  # noqa
-from upath import UPath
 
 sdr_file_pattern = ("sdr/SV{channel_name:3s}_{platform_name}_d{start_date:%Y%m%d}_t{start_time:%H%M%S%f}_"
                     "e{end_time:%H%M%S%f}_b{orbit_number:d}_c{processing_datetime:%Y%m%d%H%M%S%f}_cspp_dev.h5")

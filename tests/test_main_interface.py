@@ -8,6 +8,8 @@ import pytest
 import yaml
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
+from upath import UPath
+
 from pytroll_watchers.local_watcher import file_generator as local_generator
 from pytroll_watchers.local_watcher import file_publisher as local_publisher
 from pytroll_watchers.main_interface import (
@@ -19,7 +21,6 @@ from pytroll_watchers.main_interface import (
 from pytroll_watchers.minio_notification_watcher import file_generator as minio_generator
 from pytroll_watchers.minio_notification_watcher import file_publisher as minio_publisher
 from pytroll_watchers.testing import patched_bucket_listener, patched_local_events  # noqa
-from upath import UPath
 
 
 def test_getting_right_publisher():

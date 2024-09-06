@@ -4,8 +4,9 @@ import os
 from shutil import make_archive
 
 from posttroll.testing import patched_publisher
-from pytroll_watchers.publisher import file_publisher_from_generator
 from upath import UPath
+
+from pytroll_watchers.publisher import file_publisher_from_generator
 
 
 def test_unpacking(tmp_path):

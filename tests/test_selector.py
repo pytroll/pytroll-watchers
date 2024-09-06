@@ -5,6 +5,7 @@ import pytest
 import yaml
 from posttroll.message import Message
 from posttroll.testing import patched_publisher, patched_subscriber_recv
+
 from pytroll_watchers.selector import (
     TTLDict,
     _run_selector_with_managed_dict_server,

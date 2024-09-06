@@ -58,7 +58,18 @@ def file_publisher(fs_config, publisher_config, message_config):
 
 
 def file_generator(search_params, polling_interval, ds_auth, start_from=None):
-    """Search params must contain at least collection."""
+    """Search params must contain at least collection.
+
+    Args:
+        search_params: the dictionary of search parameters to request. Based on the opensearch API:
+          https://user.eumetsat.int/api-definitions/data-store-opensearch-api
+        polling_interval: how often to poll for new data. Can be provided as a timedelta or a dictionary of arguments
+          for timedelta.
+        ds_auth: either a dictionary with `netrc_host` (and optionally `netrc_file`), or a dictionary with `username`
+          and `password`.
+        start_from: a timedelta or dictionary of arguments to timedelta to specify how far in time to start fetching
+          data. `None` by default, which means the data will be no older that now.
+    """
     with suppress(TypeError):
         polling_interval = datetime.timedelta(**polling_interval)
     with suppress(TypeError):
