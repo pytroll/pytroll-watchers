@@ -5,6 +5,7 @@ import os
 import pytest
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
+
 from pytroll_watchers import local_watcher
 from pytroll_watchers.publisher import SecurityError
 from pytroll_watchers.testing import patched_local_events  # noqa

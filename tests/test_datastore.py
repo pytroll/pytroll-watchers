@@ -9,6 +9,7 @@ import yaml
 from freezegun import freeze_time
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
+
 from pytroll_watchers.datastore_watcher import (
     file_generator,
     file_publisher,
@@ -17,7 +18,7 @@ from pytroll_watchers.datastore_watcher import (
 )
 
 
-@pytest.fixture()
+@pytest.fixture
 def search_params():
     """Generate the search parameters for the tests."""
     polygon = ("POLYGON((9.08 60.00,16.25 59.77,17.50 63.06,21.83 66.02,26.41 65.75,22.22 60.78,28.90 60.82,30.54 60.01"
@@ -112,7 +113,7 @@ def test_datastore_file_generator(tmp_path, search_params):
     assert expected_token in path.storage_options["client_kwargs"]["headers"]["Authorization"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def search_params_geo():
     """Generate the search parameters for the tests."""
     collection = "EO:EUM:DAT:MSG:HRSEVIRI"
