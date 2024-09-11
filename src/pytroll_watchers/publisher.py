@@ -27,8 +27,8 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
         publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
         message_config: The information needed to complete the posttroll message generation. Will be amended
             with the file metadata, and passed directly to posttroll's Message constructor.
-            If it contains "archive_format", it is expected to have the archive type, and the contents of the archive
-            will be published as a "dataset".
+            If it contains "unpack", it is expected to have the archive type (eg "zip"), or "directory", and the
+            contents of the archive or directory will be published as a "dataset".
 
     Side effect:
         Publishes posttroll messages containing the location of the file with the following fields:
@@ -46,14 +46,13 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
     """  # noqa
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
-    archive_format = message_config.pop("archive_format", None)
+    unpack = message_config.pop("unpack", None)
     with closing(publisher):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
             amended_message_config.setdefault("data", {})
-
-            if archive_format:
-                dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack(file_item, archive_format)]
+            if unpack:
+                dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack_archive(file_item, unpack)]
                 amended_message_config["data"]["dataset"] = dataset
             else:
                 file_location = _build_file_location(file_item)
@@ -67,14 +66,14 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             publisher.send(str(msg))
 
 
-def unpack(path, archive_format):
+def unpack_archive(path, unpack):
     """Unpack the path and yield the extracted filenames."""
     import fsspec
-    fs = fsspec.get_filesystem_class(archive_format)(fsspec.open(path.path, **path.storage_options))
+    fs = fsspec.get_filesystem_class(unpack)(fsspec.open(path.path, **path.storage_options))
     files = fs.find("/")
     for fi in files:
         yield UPath(fi,
-                    protocol=archive_format,
+                    protocol=unpack,
                     target_protocol=path.protocol,
                     target_options=path.storage_options,
                     fo=path.as_uri())

@@ -26,7 +26,7 @@ in the message config part, for example::
    message_config:
      subject: /segment/viirs/l1b/
      atype: dataset
-     archive_format: zip
+     unpack: zip
      data:
        sensor: viirs
      aliases:

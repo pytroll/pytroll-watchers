@@ -26,7 +26,7 @@ def test_unpacking(tmp_path):
 
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/olci/l2/", atype="dataset", data=dict(sensor="olci"),
-                            archive_format="zip")
+                            unpack="zip")
 
     with patched_publisher() as messages:
         file_publisher_from_generator([[path, dict()]],
