@@ -122,7 +122,7 @@ def generate_download_links(filter_string, dataspace_auth, storage_options):
     resp = oauth.get(filter_string)
     metadatas = resp.get("value", [])
     for metadata in metadatas:
-        s3path = UPath("s3://" + metadata["S3Path"], **storage_options)
+        s3path = UPath("s3:/" + metadata["S3Path"], **storage_options)
         mda = dict()
         attributes = _construct_attributes_dict(metadata)
         mda["platform_name"] = attributes["platformShortName"].capitalize() + attributes["platformSerialIdentifier"]
