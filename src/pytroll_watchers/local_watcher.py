@@ -8,13 +8,10 @@ from pathlib import Path
 from urllib.parse import urlunparse
 
 from upath import UPath
-from upath._flavour import WrappedFileSystemFlavour
 
 from pytroll_watchers.backends.local import listen_to_local_events
 from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator, parse_metadata
 
-# This is a workaround for a bug in universal_pathlib, see
-WrappedFileSystemFlavour.protocol_config["netloc_is_anchor"].add("ssh")
 logger = logging.getLogger(__name__)
 
 
