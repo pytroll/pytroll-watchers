@@ -51,7 +51,10 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
             amended_message_config.setdefault("data", {})
-            if unpack:
+            if unpack == "directory":
+                dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack_dir(file_item)]
+                amended_message_config["data"]["dataset"] = dataset
+            elif unpack:
                 dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack_archive(file_item, unpack)]
                 amended_message_config["data"]["dataset"] = dataset
             else:
@@ -77,6 +80,15 @@ def unpack_archive(path, unpack):
                     target_protocol=path.protocol,
                     target_options=path.storage_options,
                     fo=path.as_uri())
+
+
+def unpack_dir(path):
+    """Unpack the directory and generate the files it contains (recursively)."""
+    files = path.fs.find(path.path)
+    for fi in files:
+        yield UPath(fi,
+                    protocol=path.protocol,
+                    **path.storage_options)
 
 
 def _build_file_location(file_item):
