@@ -8,13 +8,10 @@ from pathlib import Path
 from urllib.parse import urlunparse
 
 from upath import UPath
-from upath._flavour import WrappedFileSystemFlavour
 
 from pytroll_watchers.backends.local import listen_to_local_events
 from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator, parse_metadata
 
-# This is a workaround for a but in universal_pathlib, see
-WrappedFileSystemFlavour.protocol_config["netloc_is_anchor"].add("ssh")
 logger = logging.getLogger(__name__)
 
 
@@ -76,6 +73,8 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
                 continue
             if protocol is not None:
                 uri = urlunparse((protocol, None, str(path), None, None, None))
+                if storage_options is None:
+                    storage_options = dict()
                 yield UPath(uri, **storage_options), file_metadata
             else:
                 yield Path(path), file_metadata

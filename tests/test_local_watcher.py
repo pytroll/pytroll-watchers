@@ -97,7 +97,7 @@ def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
     message = Message(rawstr=messages[0])
     assert message.data["uri"] == f"file://{str(tmp_path)}/foo.txt"
     assert message.data["sensor"] == "viirs"
-    assert "fs" not in message.data
+    assert "filesystem" not in message.data
     assert f"Starting watch on '{local_settings['directory']}'" in caplog.text
 
 
