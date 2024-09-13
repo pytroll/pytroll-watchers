@@ -3,6 +3,7 @@
 import os
 from shutil import make_archive
 
+from posttroll.message import Message
 from posttroll.testing import patched_publisher
 from upath import UPath
 
@@ -52,7 +53,7 @@ def test_unpacking_directory(tmp_path):
 
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/olci/l2/", atype="dataset", data=dict(sensor="olci"),
-                            unpack="directory")
+                            unpack="directory", include_dir_in_uid=True)
 
     with patched_publisher() as messages:
         file_publisher_from_generator([[path, dict()]],
@@ -61,3 +62,5 @@ def test_unpacking_directory(tmp_path):
 
     assert "my_dir/file1" in messages[0]
     assert "my_dir/file2" in messages[0]
+    msg = Message.decode(messages[0])
+    assert msg.data["dataset"][0]["uid"].startswith("my_dir")

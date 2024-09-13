@@ -28,7 +28,9 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
         message_config: The information needed to complete the posttroll message generation. Will be amended
             with the file metadata, and passed directly to posttroll's Message constructor.
             If it contains "unpack", it is expected to have the archive type (eg "zip"), or "directory", and the
-            contents of the archive or directory will be published as a "dataset".
+            contents of the archive or directory will be published as a "dataset". For the case where "directory" is
+            used, it is also possible to set the boolean "include_dir_in_uid" to true so that the full relative path
+            of the file is provided.
 
     Side effect:
         Publishes posttroll messages containing the location of the file with the following fields:
@@ -47,12 +49,15 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
     unpack = message_config.pop("unpack", None)
+    include_dir = message_config.pop("include_dir_in_uid", None)
     with closing(publisher):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
             amended_message_config.setdefault("data", {})
             if unpack == "directory":
-                dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack_dir(file_item)]
+                dir_to_include = file_item.name if include_dir else None
+                dataset = [_build_file_location(unpacked_file, dir_to_include)
+                           for unpacked_file in unpack_dir(file_item)]
                 amended_message_config["data"]["dataset"] = dataset
             elif unpack:
                 dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack_archive(file_item, unpack)]
@@ -91,10 +96,14 @@ def unpack_dir(path):
                     **path.storage_options)
 
 
-def _build_file_location(file_item):
+def _build_file_location(file_item, include_dir=None):
     file_location = dict()
     file_location["uri"] = file_item.as_uri()
-    file_location["uid"] = file_item.name
+    if include_dir:
+        uid = include_dir + file_item.path.rsplit(include_dir, 1)[-1]
+    else:
+        uid = file_item.name
+    file_location["uid"] = uid
     with suppress(AttributeError):
         file_location["filesystem"] = json.loads(file_item.fs.to_json())
         file_location["path"] = file_item.path
