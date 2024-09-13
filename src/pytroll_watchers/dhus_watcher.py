@@ -21,11 +21,11 @@ An example configuration file to retrieve Sentinel 1 data from a DHuS instance:
     name: s1_watcher
   message_config:
     subject: /segment/s1/l1b/
-    atype: file
+    atype: dataset
+    unpack: zip
     aliases:
         sensor:
           SAR: SAR-C
-
 
 """
 
@@ -129,7 +129,7 @@ def generate_download_links(server, filter_params):
 
     for entry in entries["d"]["results"]:
         mda = dict()
-        path = UPath(entry["__metadata"]["media_src"])
+        path = UPath(entry["__metadata"]["media_src"], client_kwargs=dict(trust_env=True))
         mda["boundary"] = _extract_boundary_as_geojson(entry)
         attributes = _construct_attributes_dict(entry)
         mda["platform_name"] = attributes["Satellite name"].capitalize() + attributes["Satellite number"]
