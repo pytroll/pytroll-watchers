@@ -6,6 +6,37 @@ generates locations for the data on the S3 services (https://documentation.datas
 Note:
     The OData and S3 services require two different set of credentials.
 
+
+Example of configuration file to retrieve SAR data from dataspace:
+
+.. code-block:: yaml
+
+
+    backend: dataspace
+    fs_config:
+      filter_string: "contains(Name,'IW_GRDH')"
+      dataspace_auth:
+        netrc_host: catalogue.dataspace.copernicus.eu
+      storage_options:
+        profile: copernicus
+      polling_interval:
+        minutes: 10
+      start_from:
+        hours: 1
+    publisher_config:
+      name: s1_watcher
+      nameservers: false
+      port: 3000
+    message_config:
+      unpack: directory
+      include_dir_in_uid: true
+      subject: /segment/s1/l1b/
+      atype: file
+      aliases:
+        sensor:
+          SAR: SAR-C
+
+
 """
 
 import datetime
@@ -135,7 +166,7 @@ def generate_download_links(filter_string, dataspace_auth, storage_options):
         mda["orbit_number"] = int(attributes["orbitNumber"])
 
         for checksum in metadata["Checksum"]:
-            if checksum["Algorithm"] == "MD5":
+            if checksum.get("Algorithm") == "MD5":
                 mda["checksum"] = dict(algorithm=checksum["Algorithm"], hash=checksum["Value"])
                 break
         mda["size"] = int(metadata["ContentLength"])
