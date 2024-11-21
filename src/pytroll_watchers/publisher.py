@@ -6,6 +6,7 @@ import logging
 from contextlib import closing, suppress
 from copy import deepcopy
 
+from paramiko import SSHException
 from posttroll.message import Message
 from posttroll.publisher import create_publisher_from_dict_config
 from trollsift import parse
@@ -105,8 +106,17 @@ def _build_file_location(file_item, include_dir=None):
         uid = file_item.name
     file_location["uid"] = uid
     with suppress(AttributeError):
-        file_location["filesystem"] = json.loads(file_item.fs.to_json())
+        try:
+            file_location["filesystem"] = json.loads(file_item.fs.to_json())
+        except SSHException as ssh_exception:
+            if list(file_item.storage_options.keys()) == ["host"]:
+                file_location["filesystem"] = {"cls": "fsspec.implementations.sftp:SFTPFileSystem",
+                                               "protocol": "sftp", "args": [],
+                                               "host": file_item.storage_options["host"]}
+            else:
+                raise ssh_exception
         file_location["path"] = file_item.path
+
     return file_location
 
 

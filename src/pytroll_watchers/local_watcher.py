@@ -1,6 +1,22 @@
 """Watcher for non-remote file systems.
 
 Either using OS-based envents (like inotify on linux), or polling.
+
+An example configuration file to retrieve data from a directory.
+
+.. code-block:: yaml
+
+  backend: local
+  fs_config:
+    directory: /data
+    file pattern: "H-000-{orig_platform_name:4s}__-{orig_platform_name:4s}_{service:3s}____-{channel_name:_<9s}-\
+        {segment:_<9s}-{start_time:%Y%m%d%H%M}-{compression:1s}_"
+  publisher_config:
+    name: hrit_watcher
+  message_config:
+    subject: /segment/hrit/l1b/
+    atype: file
+
 """
 import logging
 import os
