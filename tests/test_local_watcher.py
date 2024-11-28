@@ -120,7 +120,7 @@ def test_publish_paths_forbids_passing_password(tmp_path, patched_local_events, 
                                              message_config=message_settings)
 
 
-def test_publish_paths_with_ssh(tmp_path, patched_local_events, caplog):  # noqa
+def test_publish_paths_with_ssh(tmp_path, patched_local_events):  # noqa
     """Test publishing paths with an ssh protocol."""
     filename = os.fspath(tmp_path / "foo.txt")
 
@@ -131,7 +131,6 @@ def test_publish_paths_with_ssh(tmp_path, patched_local_events, caplog):  # noqa
     publisher_settings = dict(nameservers=False, port=1979)
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
 
-    caplog.set_level("INFO")
     with patched_local_events([filename]):
         with patched_publisher() as published_messages:
             local_watcher.file_publisher(fs_config=local_settings,
