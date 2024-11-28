@@ -1,3 +1,25 @@
+## Version 0.4.0 (2024/11/28)
+
+
+### Pull Requests Merged
+
+#### Bugs fixed
+
+* [PR 29](https://github.com/pytroll/pytroll-watchers/pull/29) - Fix to many slashes in s3 path
+
+#### Features added
+
+* [PR 36](https://github.com/pytroll/pytroll-watchers/pull/36) - Fix filesystem serialisation to avoid connection
+* [PR 31](https://github.com/pytroll/pytroll-watchers/pull/31) - Allow including directory name in file names
+* [PR 30](https://github.com/pytroll/pytroll-watchers/pull/30) - Allow unpacking directories
+
+#### Documentation changes
+
+* [PR 27](https://github.com/pytroll/pytroll-watchers/pull/27) - Document the datastore watcher more
+
+In this release 5 pull requests were closed.
+
+
 ## Version 0.3.0 (2024/08/22)
 
 
