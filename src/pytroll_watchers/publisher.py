@@ -3,10 +3,10 @@
 import datetime
 import json
 import logging
-from contextlib import closing, suppress
+from contextlib import closing, contextmanager, suppress
 from copy import deepcopy
 
-from paramiko import SSHException
+import fsspec
 from posttroll.message import Message
 from posttroll.publisher import create_publisher_from_dict_config
 from trollsift import parse
@@ -105,19 +105,35 @@ def _build_file_location(file_item, include_dir=None):
     else:
         uid = file_item.name
     file_location["uid"] = uid
-    with suppress(AttributeError):
-        try:
-            file_location["filesystem"] = json.loads(file_item.fs.to_json())
-        except SSHException as ssh_exception:
-            if list(file_item.storage_options.keys()) == ["host"]:
-                file_location["filesystem"] = {"cls": "fsspec.implementations.sftp:SFTPFileSystem",
-                                               "protocol": "sftp", "args": [],
-                                               "host": file_item.storage_options["host"]}
-            else:
-                raise ssh_exception
+    with suppress(AttributeError):  # fileitem is not a UPath if it cannot access .fs
+        with dummy_connect(file_item):
+            file_location["filesystem"] = json.loads(file_item.fs.to_json(include_password=False))
+
         file_location["path"] = file_item.path
 
     return file_location
+
+
+@contextmanager
+def dummy_connect(file_item):
+    """Make the _connect method of the fsspec class a no-op.
+
+    This is for the case where only serialization of the filesystem is needed.
+    """
+    def _fake_connect(*_args, **_kwargs): ...
+
+    klass = fsspec.get_filesystem_class(file_item.protocol)
+    try:
+        original_connect = klass._connect
+    except AttributeError:
+        yield
+        return
+
+    klass._connect = _fake_connect
+    try:
+        yield
+    finally:
+        klass._connect = original_connect
 
 
 def apply_aliases(aliases, metadata):
