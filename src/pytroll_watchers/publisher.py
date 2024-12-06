@@ -5,6 +5,7 @@ import json
 import logging
 from contextlib import closing, contextmanager, suppress
 from copy import deepcopy
+from urllib.parse import unquote
 
 import fsspec
 from posttroll.message import Message
@@ -85,7 +86,7 @@ def unpack_archive(path, unpack):
                     protocol=unpack,
                     target_protocol=path.protocol,
                     target_options=path.storage_options,
-                    fo=path.as_uri())
+                    fo=as_uri(path))
 
 
 def unpack_dir(path):
@@ -99,7 +100,7 @@ def unpack_dir(path):
 
 def _build_file_location(file_item, include_dir=None):
     file_location = dict()
-    file_location["uri"] = file_item.as_uri()
+    file_location["uri"] = as_uri(file_item)
     if include_dir:
         uid = include_dir + file_item.path.rsplit(include_dir, 1)[-1]
     else:
@@ -112,6 +113,14 @@ def _build_file_location(file_item, include_dir=None):
         file_location["path"] = file_item.path
 
     return file_location
+
+def as_uri(file_item):
+    """Represent file item’s path as an unquoted uri."""
+    with suppress(AttributeError):
+        protocol = file_item.protocol
+        if protocol.startswith("http"):
+            return file_item.as_uri()
+    return unquote(file_item.as_uri())
 
 
 @contextmanager
