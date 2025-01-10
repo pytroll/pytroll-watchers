@@ -4,6 +4,14 @@ Either using OS-based envents (like inotify on linux), or polling.
 
 An example configuration file to retrieve data from a directory.
 
+For backwards compatibility with pytroll collector’s trollstalker, the message config can have the `no_fs` set to
+`true` to sent messages without filesystem information and without `file://` prepended to the file uri.
+
+It is also possible to make the local files sent as remote with the `protocol` and `storage_options` setting in the
+fs_config section. So instead of starting with `file://`, the generated uri can start with `ssh://myhost` for example,
+by setting `protocol: ssh` and `storage_options: {host: host}`. Note that this is incompatible with `no_fs`.
+
+
 .. code-block:: yaml
 
   backend: local

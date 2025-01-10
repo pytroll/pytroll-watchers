@@ -141,3 +141,42 @@ def test_publish_paths_with_ssh(tmp_path, patched_local_events):  # noqa
             message = Message(rawstr=published_messages[0])
             assert message.data["uri"].startswith("ssh://")
             assert message.data["filesystem"]["host"] == host
+
+
+def test_publish_no_fs(tmp_path, patched_local_events):  # noqa
+    """Test that the filesystem functionality can be switched off."""
+    filename = os.fspath(tmp_path / "foo.txt")
+
+
+    local_settings = dict(directory=tmp_path)
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"), no_fs=True)
+
+    with patched_local_events([filename]):
+        with patched_publisher() as published_messages:
+            local_watcher.file_publisher(fs_config=local_settings,
+                                         publisher_config=publisher_settings,
+                                         message_config=message_settings)
+            assert len(published_messages) == 1
+            message = Message(rawstr=published_messages[0])
+            assert message.data["uri"].startswith("/")  # or `os.sep` ?
+            assert "filesystem" not in message.data
+
+
+def test_publish_no_fs_errors_with_remote_files(tmp_path, patched_local_events):  # noqa
+    """Test publishing paths with an ssh protocol and no_fs."""
+    filename = os.fspath(tmp_path / "foo.txt")
+
+    host = "localhost"
+
+    local_settings = dict(directory=tmp_path, protocol="ssh",
+                          storage_options=dict(host=host))
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"), no_fs=True)
+
+    with patched_local_events([filename]):
+        with patched_publisher():
+            with pytest.raises(ValueError, match="no_fs"):
+                local_watcher.file_publisher(fs_config=local_settings,
+                                             publisher_config=publisher_settings,
+                                             message_config=message_settings)
