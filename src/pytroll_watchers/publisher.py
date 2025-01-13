@@ -51,7 +51,6 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
     unpack = message_config.pop("unpack", None)
-    no_fs = message_config.pop("no_fs", False)
     include_dir = message_config.pop("include_dir_in_uid", None)
     with closing(publisher):
         for file_item, file_metadata in generator:
@@ -59,15 +58,15 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             amended_message_config.setdefault("data", {})
             if unpack == "directory":
                 dir_to_include = file_item.name if include_dir else None
-                dataset = [_build_file_location(unpacked_file, dir_to_include, no_fs)
+                dataset = [_build_file_location(unpacked_file, dir_to_include)
                            for unpacked_file in unpack_dir(file_item)]
                 amended_message_config["data"]["dataset"] = dataset
             elif unpack:
-                dataset = [_build_file_location(unpacked_file, no_fs=no_fs)
+                dataset = [_build_file_location(unpacked_file)
                            for unpacked_file in unpack_archive(file_item, unpack)]
                 amended_message_config["data"]["dataset"] = dataset
             else:
-                file_location = _build_file_location(file_item, no_fs=no_fs)
+                file_location = _build_file_location(file_item)
                 amended_message_config["data"].update(file_location)
 
             aliases = amended_message_config.pop("aliases", {})
@@ -100,13 +99,12 @@ def unpack_dir(path):
                     **path.storage_options)
 
 
-def _build_file_location(file_item, include_dir=None, no_fs=False):
+def _build_file_location(file_item, include_dir=None):
     file_location = dict()
+    no_fs = not isinstance(file_item, UPath)
     with suppress(AttributeError):  # fileitem is not a UPath if it cannot access .fs
         with dummy_connect(file_item):
             file_location["filesystem"] = json.loads(file_item.fs.to_json(include_password=False))
-        if no_fs:
-            raise ValueError("Can’t have no_fs with remote files…")
 
         file_location["path"] = file_item.path
 
