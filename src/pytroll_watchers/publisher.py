@@ -101,14 +101,15 @@ def unpack_dir(path):
 
 def _build_file_location(file_item, include_dir=None):
     file_location = dict()
-    no_fs = not isinstance(file_item, UPath)
-    with suppress(AttributeError):  # fileitem is not a UPath if it cannot access .fs
+    try:
         with dummy_connect(file_item):
             file_location["filesystem"] = json.loads(file_item.fs.to_json(include_password=False))
 
+        file_location["uri"] = as_uri(file_item)
         file_location["path"] = file_item.path
+    except AttributeError:  # fileitem is not a UPath if it cannot access .fs
+        file_location["uri"] = str(file_item)
 
-    file_location["uri"] = str(file_item) if no_fs else as_uri(file_item)
     if include_dir:
         uid = include_dir + file_item.path.rsplit(include_dir, 1)[-1]
     else:
