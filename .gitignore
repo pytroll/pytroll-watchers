@@ -8,3 +8,8 @@ wheels/
 
 # venv
 .venv
+
+# pixi environments
+pixi.toml
+.pixi
+*.egg-info

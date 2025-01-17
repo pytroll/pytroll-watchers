@@ -62,7 +62,8 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
                            for unpacked_file in unpack_dir(file_item)]
                 amended_message_config["data"]["dataset"] = dataset
             elif unpack:
-                dataset = [_build_file_location(unpacked_file) for unpacked_file in unpack_archive(file_item, unpack)]
+                dataset = [_build_file_location(unpacked_file)
+                           for unpacked_file in unpack_archive(file_item, unpack)]
                 amended_message_config["data"]["dataset"] = dataset
             else:
                 file_location = _build_file_location(file_item)
@@ -100,19 +101,22 @@ def unpack_dir(path):
 
 def _build_file_location(file_item, include_dir=None):
     file_location = dict()
-    file_location["uri"] = as_uri(file_item)
+    try:
+        with dummy_connect(file_item):
+            file_location["filesystem"] = json.loads(file_item.fs.to_json(include_password=False))
+
+        file_location["uri"] = as_uri(file_item)
+        file_location["path"] = file_item.path
+    except AttributeError:  # fileitem is not a UPath if it cannot access .fs
+        file_location["uri"] = str(file_item)
+
     if include_dir:
         uid = include_dir + file_item.path.rsplit(include_dir, 1)[-1]
     else:
         uid = file_item.name
     file_location["uid"] = uid
-    with suppress(AttributeError):  # fileitem is not a UPath if it cannot access .fs
-        with dummy_connect(file_item):
-            file_location["filesystem"] = json.loads(file_item.fs.to_json(include_password=False))
-
-        file_location["path"] = file_item.path
-
     return file_location
+
 
 def as_uri(file_item):
     """Represent file item’s path as an unquoted uri."""

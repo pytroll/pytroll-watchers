@@ -4,6 +4,14 @@ Either using OS-based envents (like inotify on linux), or polling.
 
 An example configuration file to retrieve data from a directory.
 
+By default, files uris will not include any protocol, which means they will look like `/tmp/myfile`. If it is desired,
+the `protocol` setting in the `fs_config` can be set to `"file"` to make the uris look like `file:///tmp/myfile`.
+
+It is also possible to make the local files sent as remote with the `protocol` and `storage_options` settings in the
+`fs_config` section. The generated uri can thus start with `ssh://myhost` for example, by setting `protocol: ssh` and
+`storage_options: {host: "myhost"}`.
+
+
 .. code-block:: yaml
 
   backend: local
