@@ -171,9 +171,9 @@ def test_publish_paths(caplog, search_params):
                              ds_auth=dict(username="user5", password="pass5"))  # noqa
 
 
-            file_publisher(fs_config=ds_config,
-                           publisher_config=publisher_settings,
-                           message_config=message_settings)
+            file_publisher(dict(fs_config=ds_config,
+                                publisher_config=publisher_settings,
+                                message_config=message_settings))
     assert "uri" not in message_settings["data"]
     assert len(messages) == 5
     message = Message(rawstr=messages[0])

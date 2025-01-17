@@ -52,7 +52,7 @@ def publish_from_config(config):
     """
     backend = config["backend"]
     publisher = get_publisher_for_backend(backend)
-    return publisher(config["fs_config"], config["publisher_config"], config["message_config"])
+    return publisher(config)
 
 
 

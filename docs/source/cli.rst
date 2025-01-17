@@ -20,15 +20,23 @@ The command-line tool can be used by invoking `pytroll-watcher <config-file>`. A
        platform_name:
          npp: Suomi-NPP
 
-Unpacking of the file into it's component and subsequent publishing is achieved by passing the archive format
-in the message config part, for example::
+It is also possible to fetch the file locally before continuing, with some information it the data config section::
 
-   message_config:
-     subject: /segment/viirs/l1b/
-     atype: dataset
-     unpack: zip
-     data:
-       sensor: viirs
-     aliases:
-       platform_name:
-         npp: Suomi-NPP
+  data_config:
+    fetch:
+      destination: /data/received_files
+
+
+Unpacking of the file into it's component and subsequent publishing is achieved by passing the archive format
+in the data config part, for example::
+
+  data_config:
+    unpack:
+      format: zip
+
+or for the case of a directory::
+
+  data_config:
+    unpack:
+      format: directory
+      include_dir_in_uid: true

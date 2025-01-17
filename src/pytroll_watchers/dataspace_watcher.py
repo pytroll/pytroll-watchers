@@ -28,15 +28,15 @@ Example of configuration file to retrieve SAR data from dataspace:
       nameservers: false
       port: 3000
     message_config:
-      unpack: directory
-      include_dir_in_uid: true
       subject: /segment/s1/l1b/
       atype: file
       aliases:
         sensor:
           SAR: SAR-C
-
-
+    data_config:
+      unpack:
+        format: directory
+        include_dir_in_uid: true
 """
 
 import datetime
@@ -58,18 +58,18 @@ token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/
 logger = logging.getLogger(__name__)
 
 
-def file_publisher(fs_config, publisher_config, message_config):
+def file_publisher(config):
     """Publish files coming from local filesystem events.
 
     Args:
-        fs_config: the configuration for the filesystem watching, will be passed as argument to `file_generator`.
-        publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
-        message_config: The information needed to complete the posttroll message generation. Will be amended
-             with the file metadata, and passed directly to posttroll's Message constructor.
+        config: the configuration dictionary, containing in particular an fs_config section, which is the configuration
+        for the filesystem watching, will be passed as argument to `file_generator`. The other sections are passed
+        further to ``file_publisher_from_generator``.
     """
+    fs_config = config["fs_config"]
     logger.info(f"Starting watch on dataspace for '{fs_config['filter_string']}'")
     generator = file_generator(**fs_config)
-    return file_publisher_from_generator(generator, publisher_config, message_config)
+    return file_publisher_from_generator(generator, config)
 
 
 def file_generator(filter_string,
