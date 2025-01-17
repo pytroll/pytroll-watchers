@@ -112,9 +112,9 @@ def test_publish_paths(caplog):
                             storage_options=dict(profile="someprofile"))
 
 
-            file_publisher(fs_config=ds_config,
-                           publisher_config=publisher_settings,
-                           message_config=message_settings)
+            file_publisher(dict(fs_config=ds_config,
+                                publisher_config=publisher_settings,
+                                message_config=message_settings))
     assert "uri" not in message_settings["data"]
     assert len(messages) == 3
     message = Message(rawstr=messages[0])

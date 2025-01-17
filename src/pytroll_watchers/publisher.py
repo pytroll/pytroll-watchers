@@ -6,12 +6,15 @@ import logging
 from contextlib import closing, contextmanager, suppress
 from copy import deepcopy
 from urllib.parse import unquote
+from warnings import warn
 
 import fsspec
 from posttroll.message import Message
 from posttroll.publisher import create_publisher_from_dict_config
 from trollsift import parse
 from upath import UPath
+
+from pytroll_watchers.fetch import fetch_file
 
 logger = logging.getLogger(__name__)
 
@@ -20,19 +23,25 @@ class SecurityError(Exception):
     """An exception for breaking security rules."""
 
 
-def file_publisher_from_generator(generator, publisher_config, message_config):
+def file_publisher_from_generator(generator, config):
     """Publish files coming from local filesystem events.
 
     Args:
         generator: the generator to use for producing files. The generator must yield tuples of
             (filename, file_metadata).
-        publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
-        message_config: The information needed to complete the posttroll message generation. Will be amended
-            with the file metadata, and passed directly to posttroll's Message constructor.
-            If it contains "unpack", it is expected to have the archive type (eg "zip"), or "directory", and the
-            contents of the archive or directory will be published as a "dataset". For the case where "directory" is
-            used, it is also possible to set the boolean "include_dir_in_uid" to true so that the full relative path
-            of the file is provided.
+        config: the configuration containing the parameters to use for publishing data. It should contain the following
+                sections:
+                  - publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
+                  - message_config: The information needed to complete the posttroll message generation. Will be amended
+                      with the file metadata, and passed directly to posttroll's Message constructor.
+                  - data_config: The information about the processing to do on the uris before sending.
+                      The `fetch` section, if present, will trigger the fetching of the file locally before sendig the
+                      (adjusted) uri further. The parameter `destination` should be provided as the directory to put
+                      the downloaded files in.
+                      The `unpack` section that contains the packing `format` for the archive (eg "zip"), or
+                      "directory". The contents of the archive or directory will be published as a "dataset". For the case where
+                      "directory" is used, it is also possible to set the boolean "include_dir_in_uid" to true so that
+                      the full relative path of the file is provided (False by default).
 
     Side effect:
         Publishes posttroll messages containing the location of the file with the following fields:
@@ -48,27 +57,22 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
           - filesystem: `{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], "profile": "my_profile"}`
           - path: `/eodata/Sentinel-3/OLCI/OL_1_EFR___/2024/04/15/S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3/Oa02_radiance.nc`
     """  # noqa
+    publisher_config = config["publisher_config"]
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
+
+    message_config = config["message_config"]
     unpack = message_config.pop("unpack", None)
-    include_dir = message_config.pop("include_dir_in_uid", None)
+    if unpack is not None:
+        warn("The `unpack` option should be passed inside the `data_config` section", DeprecationWarning, stacklevel=1)
+
+    data_config = config.get("data_config", dict())
+
     with closing(publisher):
         for file_item, file_metadata in generator:
             amended_message_config = deepcopy(message_config)
             amended_message_config.setdefault("data", {})
-            if unpack == "directory":
-                dir_to_include = file_item.name if include_dir else None
-                dataset = [_build_file_location(unpacked_file, dir_to_include)
-                           for unpacked_file in unpack_dir(file_item)]
-                amended_message_config["data"]["dataset"] = dataset
-            elif unpack:
-                dataset = [_build_file_location(unpacked_file)
-                           for unpacked_file in unpack_archive(file_item, unpack)]
-                amended_message_config["data"]["dataset"] = dataset
-            else:
-                file_location = _build_file_location(file_item)
-                amended_message_config["data"].update(file_location)
-
+            amended_message_config["data"].update(prepare_data(file_item, data_config))
             aliases = amended_message_config.pop("aliases", {})
             apply_aliases(aliases, file_metadata)
             amended_message_config["data"].update(file_metadata)
@@ -77,9 +81,35 @@ def file_publisher_from_generator(generator, publisher_config, message_config):
             publisher.send(str(msg))
 
 
+def prepare_data(file_item, data_config):
+    """Prepare the data for further processing."""
+    fetch = data_config.pop("fetch", {})
+    if fetch:
+        file_item = fetch_file(file_item, fetch["destination"])
+
+    unpack_info = data_config.pop("unpack", {})
+    unpack = unpack_info.get("format", None)
+
+    include_dir = unpack_info.get("include_dir_in_uid", False)
+
+    metadata = dict()
+    if unpack == "directory":
+        dir_to_include = file_item.name if include_dir else None
+        dataset = [_build_file_location(unpacked_file, dir_to_include)
+            for unpacked_file in unpack_dir(file_item)]
+        metadata["dataset"] = dataset
+    elif unpack:
+        dataset = [_build_file_location(unpacked_file)
+            for unpacked_file in unpack_archive(file_item, unpack)]
+        metadata["dataset"] = dataset
+    else:
+        file_location = _build_file_location(file_item)
+        metadata.update(file_location)
+    return metadata
+
+
 def unpack_archive(path, unpack):
     """Unpack the path and yield the extracted filenames."""
-    import fsspec
     fs = fsspec.get_filesystem_class(unpack)(fsspec.open(path.path, **path.storage_options))
     files = fs.find("/")
     for fi in files:
