@@ -1,3 +1,27 @@
+## Version 0.5.0 (2025/01/22)
+
+### Issues Closed
+
+* [Issue 46](https://github.com/pytroll/pytroll-watchers/issues/46) - Improve documentation adding example on how to configure for watching for data in EUM Data Store ([PR 47](https://github.com/pytroll/pytroll-watchers/pull/47) by [@mraspaud](https://github.com/mraspaud))
+* [Issue 42](https://github.com/pytroll/pytroll-watchers/issues/42) - Adding fields to message data ([PR 44](https://github.com/pytroll/pytroll-watchers/pull/44) by [@mraspaud](https://github.com/mraspaud))
+* [Issue 41](https://github.com/pytroll/pytroll-watchers/issues/41) - URIs produced by pytroll-watches not understood by trollflow2/satpy ([PR 44](https://github.com/pytroll/pytroll-watchers/pull/44) by [@mraspaud](https://github.com/mraspaud))
+
+In this release 3 issues were closed.
+
+### Pull Requests Merged
+
+#### Bugs fixed
+
+* [PR 39](https://github.com/pytroll/pytroll-watchers/pull/39) - Suppress unwanted character encoding on local files
+
+#### Features added
+
+* [PR 47](https://github.com/pytroll/pytroll-watchers/pull/47) - Refactor to allow for the fetching capability ([46](https://github.com/pytroll/pytroll-watchers/issues/46))
+* [PR 44](https://github.com/pytroll/pytroll-watchers/pull/44) - Remove filesystem info for local files by default ([42](https://github.com/pytroll/pytroll-watchers/issues/42), [41](https://github.com/pytroll/pytroll-watchers/issues/41))
+
+In this release 3 pull requests were closed.
+
+
 ## Version 0.4.0 (2024/11/28)
 
 
