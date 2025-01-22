@@ -100,9 +100,9 @@ def test_publish_paths(patched_bucket_listener, caplog):  # noqa
     caplog.set_level("INFO")
     with patched_publisher() as messages:
        with patched_bucket_listener(records):
-              minio_notification_watcher.file_publisher(fs_config=s3_config,
-                                                        publisher_config=publisher_settings,
-                                                        message_config=message_settings)
+            minio_notification_watcher.file_publisher(dict(fs_config=s3_config,
+                                                           publisher_config=publisher_settings,
+                                                           message_config=message_settings))
     assert "uri" not in message_settings["data"]
     assert len(messages) == len(records)
     message = Message(rawstr=messages[0])
@@ -127,9 +127,9 @@ def test_publish_paths_forbids_passing_secret_key(patched_bucket_listener):  # n
     with patched_publisher():
         with patched_bucket_listener(records):
             with pytest.raises(SecurityError):
-                minio_notification_watcher.file_publisher(fs_config=s3_config,
-                                                        publisher_config=publisher_settings,
-                                                        message_config=message_settings)
+                minio_notification_watcher.file_publisher(dict(fs_config=s3_config,
+                                                               publisher_config=publisher_settings,
+                                                               message_config=message_settings))
 
 
 def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
@@ -142,9 +142,9 @@ def test_publish_paths_with_pattern(patched_bucket_listener):  # noqa
     message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
     with patched_publisher() as messages:
         with patched_bucket_listener(records):
-            minio_notification_watcher.file_publisher(fs_config=s3_config,
-                                                      publisher_config=publisher_settings,
-                                                      message_config=message_settings)
+            minio_notification_watcher.file_publisher(dict(fs_config=s3_config,
+                                                           publisher_config=publisher_settings,
+                                                           message_config=message_settings))
     message = Message(rawstr=messages[0])
     assert message.data["sensor"] == "viirs"
     assert message.data["platform_name"] == "npp"
@@ -161,9 +161,9 @@ def test_publish_paths_with_pattern_and_aliases(patched_bucket_listener):  # noq
                             aliases={"platform_name": {"npp": "Suomi-NPP"}})
     with patched_publisher() as messages:
        with patched_bucket_listener(records):
-              minio_notification_watcher.file_publisher(fs_config=s3_config,
-                                                        publisher_config=publisher_settings,
-                                                        message_config=message_settings)
+            minio_notification_watcher.file_publisher(dict(fs_config=s3_config,
+                                                           publisher_config=publisher_settings,
+                                                           message_config=message_settings))
     message = Message(rawstr=messages[0])
     assert message.data["sensor"] == "viirs"
     assert message.data["platform_name"] == "Suomi-NPP"
