@@ -1,3 +1,15 @@
+## Version 0.6.0 (2025/01/28)
+
+
+### Pull Requests Merged
+
+#### Features added
+
+* [PR 50](https://github.com/pytroll/pytroll-watchers/pull/50) - Expand file metadata scope
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.5.0 (2025/01/22)
 
 ### Issues Closed
