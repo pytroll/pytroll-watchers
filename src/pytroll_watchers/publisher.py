@@ -57,28 +57,46 @@ def file_publisher_from_generator(generator, config):
           - filesystem: `{"cls": "s3fs.core.S3FileSystem", "protocol": "s3", "args": [], "profile": "my_profile"}`
           - path: `/eodata/Sentinel-3/OLCI/OL_1_EFR___/2024/04/15/S3B_OL_1_EFR____20240415T074029_20240415T074329_20240415T094236_0179_092_035_1620_PS2_O_NR_003.SEN3/Oa02_radiance.nc`
     """  # noqa
-    publisher_config = config["publisher_config"]
+    publisher_config = config.pop("publisher_config")
     publisher = create_publisher_from_dict_config(publisher_config)
     publisher.start()
 
-    message_config = config["message_config"]
+
+    with closing(publisher):
+        for file_item, file_metadata in generator:
+            msg = _create_message(file_item, file_metadata, config)
+            logger.info(f"Sending {str(msg)}")
+            publisher.send(str(msg))
+
+
+def _create_message(file_item, file_metadata, config):
+    config = deepcopy(config)
+    message_config = config.pop("message_config", dict())
     unpack = message_config.pop("unpack", None)
     if unpack is not None:
         warn("The `unpack` option should be passed inside the `data_config` section", DeprecationWarning, stacklevel=1)
 
-    data_config = config.get("data_config", dict())
+    data_config = config.pop("data_config", dict())
 
-    with closing(publisher):
-        for file_item, file_metadata in generator:
-            amended_message_config = deepcopy(message_config)
-            amended_message_config.setdefault("data", {})
-            amended_message_config["data"].update(prepare_data(file_item, data_config))
-            aliases = amended_message_config.pop("aliases", {})
-            apply_aliases(aliases, file_metadata)
-            amended_message_config["data"].update(file_metadata)
-            msg = Message(**amended_message_config)
-            logger.info(f"Sending {str(msg)}")
-            publisher.send(str(msg))
+    if file_metadata and ("data" in file_metadata):
+        file_mda = deepcopy(file_metadata)
+        message_data = file_mda.pop("data")
+        message_parameters = file_mda
+    else:
+        message_data = file_metadata or dict()
+        message_parameters = dict()
+    message_parameters.update(message_config)
+    message_parameters.setdefault("data", {})
+
+    file_location_info = prepare_data(file_item, data_config)
+    message_parameters["data"].update(file_location_info)
+
+    aliases = message_parameters.pop("aliases", {})
+    apply_aliases(aliases, message_data)
+
+    message_parameters["data"].update(message_data)
+
+    return Message(**message_parameters)
 
 
 def prepare_data(file_item, data_config):

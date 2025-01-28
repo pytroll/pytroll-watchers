@@ -93,3 +93,36 @@ def test_unpacking_directory(tmp_path):
     assert "my_dir/file2" in messages[0]
     msg = Message.decode(messages[0])
     assert msg.data["dataset"][0]["uid"].startswith("my_dir")
+
+
+def test_publish_paths_with_fetching(tmp_path):
+    """Test publishing paths."""
+    basename = "foo+bar,baz_.txt"
+    filename = os.fspath(tmp_path / basename)
+    with open(filename, "w"):
+        pass
+
+    destination = tmp_path / "downloaded"
+    destination.mkdir()
+
+    publisher_settings = dict(nameservers=False, port=1979)
+    subject = "/hey/jude"
+    atype = "atomic"
+    message_settings = dict(atype="file", data=dict(sensor="viirs"))
+    data_config = dict(fetch=dict(destination=destination))
+
+    items = [(filename, dict(subject=subject, atype=atype,
+                             data=dict(mime="txt")))]
+
+    with patched_publisher() as messages:
+        config = dict(publisher_config=publisher_settings,
+                      message_config=message_settings,
+                      data_config=data_config)
+        file_publisher_from_generator(items, config)
+
+    assert "uri" not in message_settings["data"]
+    assert len(messages) == 1
+    message = Message(rawstr=messages[0])
+    assert message.subject == subject
+    assert message.type == "file"
+    assert message.data["sensor"] == "viirs"
