@@ -111,7 +111,8 @@ def generate_download_links(search_params, ds_auth):
     jres = session.get(request_params)
     headers={"Authorization": f"Bearer {session.token['access_token']}"}
     client_args = dict(headers=headers)
-    for feature in jres["features"]:
+    features = _get_features(jres)
+    for feature in features:
         links = feature["properties"]["links"]["data"]
         if len(links) != 1:
             raise ValueError("Don't know how to generate multiple files at the time.")
@@ -131,6 +132,17 @@ def generate_download_links(search_params, ds_auth):
         mda["product_type"] = str(collection)
         mda["checksum"] = dict(algorithm="md5", hash=feature["properties"]["extraInformation"]["md5"])
         yield path, mda
+
+
+def _get_features(jres):
+    """Get the features from the session request."""
+    try:
+        return jres["features"]
+    except KeyError:
+        if 'type' in jres and jres['type'] == 'ExceptionReport':
+            raise IOError(f"Failed getting features! {str(jres['exceptions'])}")
+        else:
+            raise
 
 
 class DatastoreOAuth2Session():
