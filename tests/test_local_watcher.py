@@ -79,7 +79,8 @@ def test_watchdog_generator_with_something_else(tmp_path):
 
 def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
     """Test publishing paths."""
-    filename = os.fspath(tmp_path / "foo.txt")
+    basename = "foo+bar,baz_.txt"
+    filename = os.fspath(tmp_path / basename)
 
     local_settings = dict(directory=tmp_path)
     publisher_settings = dict(nameservers=False, port=1979)
@@ -88,14 +89,14 @@ def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
     caplog.set_level("INFO")
     with patched_local_events([filename]):
         with patched_publisher() as messages:
-            local_watcher.file_publisher(fs_config=local_settings,
-                                         publisher_config=publisher_settings,
-                                         message_config=message_settings)
+            local_watcher.file_publisher(dict(fs_config=local_settings,
+                                              publisher_config=publisher_settings,
+                                              message_config=message_settings))
 
     assert "uri" not in message_settings["data"]
     assert len(messages) == 1
     message = Message(rawstr=messages[0])
-    assert message.data["uri"] == f"file://{str(tmp_path)}/foo.txt"
+    assert message.data["uri"] == f"{str(tmp_path)}/{basename}"
     assert message.data["sensor"] == "viirs"
     assert "filesystem" not in message.data
     assert f"Starting watch on '{local_settings['directory']}'" in caplog.text
@@ -115,9 +116,9 @@ def test_publish_paths_forbids_passing_password(tmp_path, patched_local_events, 
     with patched_local_events([filename]):
         with patched_publisher():
             with pytest.raises(SecurityError):
-                local_watcher.file_publisher(fs_config=local_settings,
-                                             publisher_config=publisher_settings,
-                                             message_config=message_settings)
+                local_watcher.file_publisher(dict(fs_config=local_settings,
+                                                  publisher_config=publisher_settings,
+                                                  message_config=message_settings))
 
 
 def test_publish_paths_with_ssh(tmp_path, patched_local_events):  # noqa
@@ -133,10 +134,29 @@ def test_publish_paths_with_ssh(tmp_path, patched_local_events):  # noqa
 
     with patched_local_events([filename]):
         with patched_publisher() as published_messages:
-            local_watcher.file_publisher(fs_config=local_settings,
-                                         publisher_config=publisher_settings,
-                                         message_config=message_settings)
+            local_watcher.file_publisher(dict(fs_config=local_settings,
+                                              publisher_config=publisher_settings,
+                                              message_config=message_settings))
             assert len(published_messages) == 1
             message = Message(rawstr=published_messages[0])
             assert message.data["uri"].startswith("ssh://")
             assert message.data["filesystem"]["host"] == host
+
+
+def test_publish_paths_with_file(tmp_path, patched_local_events):  # noqa
+    """Test publishing paths with a file protocol."""
+    filename = os.fspath(tmp_path / "foo.txt")
+
+    local_settings = dict(directory=tmp_path, protocol="file")
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/viirs/l1b/", atype="file", data=dict(sensor="viirs"))
+
+    with patched_local_events([filename]):
+        with patched_publisher() as published_messages:
+            local_watcher.file_publisher(dict(fs_config=local_settings,
+                                              publisher_config=publisher_settings,
+                                              message_config=message_settings))
+            assert len(published_messages) == 1
+            message = Message(rawstr=published_messages[0])
+            assert message.data["uri"].startswith("file://")
+            assert "filesystem" in message.data

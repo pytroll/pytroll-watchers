@@ -94,9 +94,9 @@ def test_publish_paths():
                          start_from=dict(hours=1))
 
 
-        file_publisher(fs_config=fs_config,
-                        publisher_config=publisher_settings,
-                        message_config=message_settings)
+        file_publisher(dict(fs_config=fs_config,
+                            publisher_config=publisher_settings,
+                            message_config=message_settings))
     message = Message(rawstr=messages[3])
 
     assert message.data["uid"] == "S1A_IW_GRDH_1SDV_20240429T065418_20240429T065443_053645_0683C0_8D1D.SAFE"

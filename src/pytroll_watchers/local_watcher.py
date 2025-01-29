@@ -4,6 +4,14 @@ Either using OS-based envents (like inotify on linux), or polling.
 
 An example configuration file to retrieve data from a directory.
 
+By default, files uris will not include any protocol, which means they will look like `/tmp/myfile`. If it is desired,
+the `protocol` setting in the `fs_config` can be set to `"file"` to make the uris look like `file:///tmp/myfile`.
+
+It is also possible to make the local files sent as remote with the `protocol` and `storage_options` settings in the
+`fs_config` section. The generated uri can thus start with `ssh://myhost` for example, by setting `protocol: ssh` and
+`storage_options: {host: "myhost"}`.
+
+
 .. code-block:: yaml
 
   backend: local
@@ -31,20 +39,20 @@ from pytroll_watchers.publisher import SecurityError, file_publisher_from_genera
 logger = logging.getLogger(__name__)
 
 
-def file_publisher(fs_config, publisher_config, message_config):
+def file_publisher(config):
     """Publish files coming from local filesystem events.
 
     Args:
-        fs_config: the configuration for the filesystem watching, will be passed as argument to `file_generator`.
-        publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
-        message_config: The information needed to complete the posttroll message generation. Will be amended
-             with the file metadata, and passed directly to posttroll's Message constructor.
+        config: the configuration dictionary, containing in particular an fs_config section, which is the configuration
+        for the filesystem watching, will be passed as argument to `file_generator`. The other sections are passed
+        further to ``file_publisher_from_generator``.
     """
+    fs_config = config["fs_config"]
     logger.info(f"Starting watch on '{fs_config['directory']}'")
     if "password" in fs_config.get("storage_options", []):
         raise SecurityError("A password cannot be published safely.")
     generator = file_generator(**fs_config)
-    return file_publisher_from_generator(generator, publisher_config, message_config)
+    return file_publisher_from_generator(generator, config)
 
 
 def file_generator(directory, observer_type="os", file_pattern=None, protocol=None, storage_options=None):

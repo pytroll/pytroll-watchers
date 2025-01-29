@@ -20,6 +20,30 @@ An example for getting links to MSG data::
 
     links = list(generate_download_links_since(search_params, ds_auth, yesterday))
 
+Another example, here a configuration file to pass to the CLI::
+
+    backend: datastore
+    fs_config:
+      search_params:
+        collection: "EO:EUM:DAT:0905"
+      polling_interval:
+        minutes: 5
+      start_from:
+        hours: 6
+      ds_auth:
+        netrc_host: api.eumetsat.int
+
+    publisher_config:
+      name: <my watcher publisher name>
+      nameservers: false
+      port: <my port number>
+    message_config:
+      subject: /my/datastore/watcher/topic
+      atype: file
+      data:
+        sensor: aws
+        platform_name: AWS1
+        variant: GDS
 """
 
 import datetime
@@ -43,18 +67,18 @@ data_url = "https://api.eumetsat.int/data"
 
 
 
-def file_publisher(fs_config, publisher_config, message_config):
+def file_publisher(config):
     """Publish files coming from local filesystem events.
 
     Args:
-        fs_config: the configuration for the filesystem watching, will be passed as argument to `file_generator`.
-        publisher_config: The configuration dictionary to pass to the posttroll publishing functions.
-        message_config: The information needed to complete the posttroll message generation. Will be amended
-             with the file metadata, and passed directly to posttroll's Message constructor.
+        config: the configuration dictionary, containing in particular an fs_config section, which is the configuration
+        for the filesystem watching, will be passed as argument to `file_generator`. The other sections are passed
+        further to ``file_publisher_from_generator``.
     """
+    fs_config = config["fs_config"]
     logger.info(f"Starting watch on datastore for '{fs_config['search_params']}'")
     generator = file_generator(**fs_config)
-    return file_publisher_from_generator(generator, publisher_config, message_config)
+    return file_publisher_from_generator(generator, config)
 
 
 def file_generator(search_params, polling_interval, ds_auth, start_from=None):

@@ -71,7 +71,7 @@ Examples of paths:
 Other metadata
 ==============
 
-Other metadata items are provided when possible:
+Other metadata items gatherer from the data service are provided when possible:
 
 * boundary: the geojson boundary of the data
 * platform_name
@@ -81,3 +81,22 @@ Other metadata items are provided when possible:
 * end_time
 * product_type
 * checksum
+
+For the "local" backend, this data comes from the configured file pattern. The other items in the file pattern will be
+included too.
+
+Customizing the messages published by pytroll-watcher
+=====================================================
+
+The messages sent with the publisher will contain the information mentioned above, but sometimes it can be necessary to
+provide additional static metadata. These can be added to the `message_config` of the yaml file passed to the
+pytroll-watcher script, eg::
+
+  ...
+  message_config:
+    subject: /segment/viirs/l1b/
+    atype: file
+    data:
+      sensor: viirs
+      var_platform_name: NOAA-20
+      var_agency: NOAA
