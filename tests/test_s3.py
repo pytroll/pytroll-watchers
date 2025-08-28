@@ -1,5 +1,6 @@
 """Test s3 file poller."""
 
+import logging
 import os
 from collections.abc import Generator
 from datetime import datetime, timedelta, timezone
@@ -132,3 +133,14 @@ def test_generate_download_links_since(endpoint: str, bucket: str, some_files):
     from pytroll_watchers.s3_poller import generate_download_links_since
     assert list(generate_download_links_since(bucket, start_from=datetime.now(timezone.utc),
                                               storage_options=dict(endpoint_url=endpoint))) == []
+
+def test_file_publisher(endpoint:str, bucket: str, some_files, caplog):
+    """Test the file publisher."""
+    from pytroll_watchers.s3_poller import file_publisher
+    config = dict(fs_config=dict(bucket_name=bucket,
+                                 storage_options=dict(endpoint_url=endpoint),
+                                 polling_interval=timedelta(0)),
+                  publisher_config=dict(name="s3"))
+    with caplog.at_level(logging.INFO):
+        file_publisher(config)
+    assert f"Starting polling on s3 for '{bucket}'" in caplog.text

@@ -62,7 +62,7 @@ logger = logging.getLogger(__name__)
 
 
 
-def file_publisher(config):
+def file_publisher(config: dict[str, Any]):
     """Publish files coming from local filesystem events.
 
     Args:
