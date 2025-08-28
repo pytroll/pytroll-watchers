@@ -4,6 +4,7 @@ import logging
 import os
 from collections.abc import Generator
 from datetime import datetime, timedelta, timezone
+from time import sleep
 
 import pytest
 from moto.moto_server.threaded_moto_server import ThreadedMotoServer
@@ -143,4 +144,5 @@ def test_file_publisher(endpoint:str, bucket: str, some_files, caplog):
                   publisher_config=dict(name="s3"))
     with caplog.at_level(logging.INFO):
         file_publisher(config)
+    sleep(0.2)
     assert f"Starting polling on s3 for '{bucket}'" in caplog.text
