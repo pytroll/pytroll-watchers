@@ -2,9 +2,10 @@
 
 import datetime
 import time
+from collections.abc import Generator
 
 
-def run_every(interval):
+def run_every(interval: datetime.timedelta) -> Generator[datetime.datetime]:
     """Generator that ticks every `interval`.
 
     Args:
