@@ -98,6 +98,22 @@ def test_file_generator(endpoint: str, bucket: str):
         for filename in ["f1", "f2"]:
             s3.rm(bucket + "/" + filename)
 
+def test_file_generator_with_dicts(endpoint: str, bucket: str):
+    """Test the file generator."""
+    from pytroll_watchers.s3_poller import file_generator
+    s3 = S3FileSystem(endpoint_url=endpoint)
+    gen = file_generator(bucket, start_from=dict(seconds=2),
+                         polling_interval=dict(seconds=0.01),
+                         storage_options=dict(endpoint_url=endpoint))
+    try:
+        for filename in ["f1", "f2"]:
+            create_file(s3, bucket + "/" + filename)
+            f, _ = next(gen)
+            assert f == UPath(bucket + "/" + filename, protocol="s3", endpoint_url=endpoint)
+    finally:
+        for filename in ["f1", "f2"]:
+            s3.rm(bucket + "/" + filename)
+
 def test_generate_download_links(endpoint: str, bucket: str, some_files):
     """Test link generation."""
     from pytroll_watchers.s3_poller import generate_download_links
