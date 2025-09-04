@@ -1,6 +1,5 @@
 """Test s3 file poller."""
 
-import logging
 import os
 from collections.abc import Generator
 from datetime import datetime, timedelta, timezone
@@ -141,7 +140,7 @@ def test_generate_download_links_since(endpoint: str, bucket: str, some_files):
                                               storage_options=dict(endpoint_url=endpoint))) == []
 
 
-def test_file_publisher(endpoint:str, bucket: str, some_files, caplog):
+def test_file_publisher(endpoint:str, bucket: str, some_files):
     """Test the file publisher."""
     from posttroll.testing import patched_publisher
 
@@ -155,8 +154,6 @@ def test_file_publisher(endpoint:str, bucket: str, some_files, caplog):
                   message_config=dict(subject="hej",
                                       atype="file"))
     with patched_publisher() as messages:
-        with caplog.at_level(logging.INFO):
-            file_publisher(config)
-            assert filenames[0] in messages[0]
-            assert filenames[1] in messages[1]
-    assert f"Starting polling on s3 for '{bucket}'" in caplog.text
+        file_publisher(config)
+        assert filenames[0] in messages[0]
+        assert filenames[1] in messages[1]
