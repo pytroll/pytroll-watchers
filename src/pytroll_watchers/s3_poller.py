@@ -118,18 +118,18 @@ def generate_download_links_since(bucket_name: str,
                                   start_from: datetime | None = None,
                                   storage_options: dict[str, Any] | None = None):
     """Generate download links since date."""
-    for f, mda in sorted(poll_files(bucket_name, file_pattern, start_from,**(storage_options or dict())).items(),
+    for f, mda in sorted(_poll_files(bucket_name, file_pattern, start_from,**(storage_options or dict())).items(),
                          key=(lambda x: x[1]["LastModified"])):
         s3path = UPath(f, protocol="s3", **(storage_options or dict()))
         yield s3path, mda
 
-def poll_files(bucket_name: str,
+def _poll_files(bucket_name: str,
                file_pattern: str | None = None,
                start_date: datetime | None = None,
                **storage_options: Any,
                ) -> dict[str, dict[str, str | datetime | list[str] | int]]:
     """Poll files from s3."""
-    s3 = s3fs.S3FileSystem(**storage_options)
+    s3 = s3fs.S3FileSystem(skip_instance_cache=True, **storage_options)
     if file_pattern:
         parser = Parser(file_pattern)
         file_pattern = parser.globify()

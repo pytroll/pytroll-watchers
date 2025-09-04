@@ -10,7 +10,7 @@ from moto.moto_server.threaded_moto_server import ThreadedMotoServer
 from s3fs import S3FileSystem
 from upath import UPath
 
-from pytroll_watchers.s3_poller import poll_files
+from pytroll_watchers.s3_poller import _poll_files
 
 filenames = ["sat_20250828T1000.dat", "sat_20250828T1010.dat"]
 file_pattern = "{platform_name}_{start_time:%Y%m%dT%H%M}.dat"
@@ -61,9 +61,7 @@ def create_file(s3: S3FileSystem, filename: str):
 @pytest.fixture
 def some_files(endpoint: str, bucket: str):
     """Create a couple of files."""
-    S3FileSystem.clear_instance_cache()
     s3 = S3FileSystem(endpoint_url=endpoint)
-    s3.invalidate_cache()
     for filename in filenames:
         create_file(s3, bucket + "/" + filename)
     yield
@@ -71,17 +69,21 @@ def some_files(endpoint: str, bucket: str):
     for filename in filenames:
         s3.rm_file(bucket + "/" + filename)
 
+
 def test_file_poll(endpoint: str, bucket: str, some_files):
     """Test polling."""
-    assert list(poll_files(bucket, endpoint_url=endpoint).keys()) == [bucket + "/" + f for f in filenames]
-    assert list(poll_files(bucket, "sat_{time}", endpoint_url=endpoint).keys()) == [bucket + "/" + f for f in filenames]
-    assert list(poll_files(bucket, filenames[0], endpoint_url=endpoint).keys()) == [bucket + "/" + filenames[0]]
+    assert list(_poll_files(bucket, endpoint_url=endpoint).keys()) == [bucket + "/" + f for f in filenames]
+    assert list(_poll_files(bucket, "sat_{time}",
+                            endpoint_url=endpoint).keys()) == [bucket + "/" + f for f in filenames]
+    assert list(_poll_files(bucket, filenames[0], endpoint_url=endpoint).keys()) == [bucket + "/" + filenames[0]]
+
 
 def test_poll_files_since(endpoint: str, bucket: str, some_files):
     """Test polling since."""
     before = datetime.now(timezone.utc) - timedelta(seconds=2)
-    assert list(poll_files(bucket, start_date=before, endpoint_url=endpoint)) == [bucket + "/" + f for f in filenames]
-    assert list(poll_files(bucket, start_date=datetime.now(timezone.utc), endpoint_url=endpoint)) == []
+    assert list(_poll_files(bucket, start_date=before, endpoint_url=endpoint)) == [bucket + "/" + f for f in filenames]
+    assert list(_poll_files(bucket, start_date=datetime.now(timezone.utc), endpoint_url=endpoint)) == []
+
 
 def test_file_generator(endpoint: str, bucket: str):
     """Test the file generator."""
@@ -90,14 +92,16 @@ def test_file_generator(endpoint: str, bucket: str):
     gen = file_generator(bucket, start_from=timedelta(seconds=2),
                          polling_interval=timedelta(seconds=0.01),
                          storage_options=dict(endpoint_url=endpoint))
+    filenames = [f"f{num}.file" for num in range(10)]
     try:
-        for filename in ["f1", "f2"]:
+        for filename in filenames:
             create_file(s3, bucket + "/" + filename)
             f, _ = next(gen)
             assert f == UPath(bucket + "/" + filename, protocol="s3", endpoint_url=endpoint)
     finally:
-        for filename in ["f1", "f2"]:
+        for filename in filenames:
             s3.rm(bucket + "/" + filename)
+
 
 def test_file_generator_with_dicts(endpoint: str, bucket: str):
     """Test the file generator."""
@@ -115,6 +119,7 @@ def test_file_generator_with_dicts(endpoint: str, bucket: str):
         for filename in ["f1", "f2"]:
             s3.rm(bucket + "/" + filename)
 
+
 def test_generate_download_links(endpoint: str, bucket: str, some_files):
     """Test link generation."""
     from pytroll_watchers.s3_poller import generate_download_links
@@ -128,19 +133,30 @@ def test_generate_download_links(endpoint: str, bucket: str, some_files):
         assert mda["platform_name"] == "sat"
         assert mda["start_time"] in (datetime(2025, 8, 28, 10, 0), datetime(2025, 8, 28, 10, 10))
 
+
 def test_generate_download_links_since(endpoint: str, bucket: str, some_files):
     """Test link generation from date."""
     from pytroll_watchers.s3_poller import generate_download_links_since
     assert list(generate_download_links_since(bucket, start_from=datetime.now(timezone.utc),
                                               storage_options=dict(endpoint_url=endpoint))) == []
 
+
 def test_file_publisher(endpoint:str, bucket: str, some_files, caplog):
     """Test the file publisher."""
+    from posttroll.testing import patched_publisher
+
     from pytroll_watchers.s3_poller import file_publisher
+
     config = dict(fs_config=dict(bucket_name=bucket,
                                  storage_options=dict(endpoint_url=endpoint),
+                                 start_from=dict(seconds=2),
                                  polling_interval=timedelta(0)),
-                  publisher_config=dict(name="s3"))
-    with caplog.at_level(logging.INFO):
-        file_publisher(config)
-    assert caplog.text
+                  publisher_config=dict(name="s3"),
+                  message_config=dict(subject="hej",
+                                      atype="file"))
+    with patched_publisher() as messages:
+        with caplog.at_level(logging.INFO):
+            file_publisher(config)
+            assert filenames[0] in messages[0]
+            assert filenames[1] in messages[1]
+    assert f"Starting polling on s3 for '{bucket}'" in caplog.text
