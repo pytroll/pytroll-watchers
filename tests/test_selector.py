@@ -1,7 +1,6 @@
 """Tests for the selector."""
 import time
 
-import pytest
 import yaml
 from posttroll.message import Message
 from posttroll.testing import patched_publisher, patched_subscriber_recv
@@ -9,40 +8,13 @@ from posttroll.testing import patched_publisher, patched_subscriber_recv
 from pytroll_watchers.selector import (
     TTLDict,
     _run_selector_with_managed_dict_server,
-    _started_redis_server,
     cli,
     run_selector,
 )
 
 
-def test_ttldict_multiple_redis_instances(tmp_path):
-    """Test the TTLDict."""
-    ttl = 300
-    key = "uid_multiple"
-    value = b"some stuff"
-    other_value = b"some other important stuff"
-    port = 7321
-    with _started_redis_server(port=port, directory=tmp_path / "redis_1"):
-        sel = TTLDict(ttl, port=port)
-
-        sel[key] = value
-        assert sel[key] == value
-        sel[key] = other_value
-        assert sel[key] == value
-    with _started_redis_server(port=port, directory=tmp_path / "redis_2"):
-        with pytest.raises(KeyError):
-            sel[key]
-
-
-def test_redis_server_validates_directory(tmp_path):
-    """Test the TTLDict."""
-    port = 7321
-    with _started_redis_server(port=port, directory=str(tmp_path / "redis_1")):
-        assert True
-
-
-def test_run_selector_that_starts_redis_on_given_port(tmp_path):
-    """Test running a selector that also starts a redis server."""
+def test_run_selector(tmp_path):
+    """Test running a selector."""
     uid = "IVCDB_j03_d20240419_t1114110_e1115356_b07465_c20240419113435035578_cspp_dev.h5"
     sdr_file = tmp_path / "sdr" / uid
     create_data_file(sdr_file)
@@ -64,7 +36,7 @@ def test_run_selector_that_starts_redis_on_given_port(tmp_path):
                             nameservers=False,
                             port=1999)
 
-    selector_config = dict(ttl=1, host="localhost", port=6388)
+    selector_config = dict(ttl=1)
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
@@ -95,19 +67,12 @@ def test_run_selector_ignores_non_file_messages(tmp_path):
                             nameservers=False,
                             port=2000)
 
-    selector_config = dict(ttl=1, host="localhost", port=6298)
+    selector_config = dict(ttl=1)
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
             run_selector(selector_config, subscriber_config, publisher_config)
     assert len(published_messages) == 0
-
-
-@pytest.fixture(scope="module")
-def _redis_server():
-    """Start a redis server."""
-    with _started_redis_server():
-        yield
 
 
 def create_data_file(path):
@@ -156,18 +121,16 @@ def test_run_selector_on_single_file_messages(tmp_path):
                             port=1999,
                             nameservers=False)
 
-    selector_config = dict(ttl=1, host="localhost", port=6309)
+    selector_config = dict(ttl=1)
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
-            with _started_redis_server(port=6309):
-                _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
+            _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
     assert len(published_messages) == 2
     assert published_messages[0] == msg1
     assert published_messages[1] == msg3
 
 
-@pytest.mark.usefixtures("_redis_server")
 def test_ttldict():
     """Test the TTLDict."""
     ttl = 1
@@ -182,6 +145,7 @@ def test_ttldict():
     sel[key] = other_value
     assert sel[key] == value
     time.sleep(ttl + 0.1)
+    assert key not in sel
     sel[key] = other_value
     assert sel[key] == other_value
 
@@ -209,9 +173,7 @@ def test_cli(tmp_path):
                             nameservers=False,
                             port=1999)
 
-    redis_dir = tmp_path / "redis_dir"
-
-    selector_config = dict(ttl=1, port=6389, directory=str(redis_dir))
+    selector_config = dict(ttl=1)
     config = dict(publisher_config=publisher_config,
                   subscriber_config=subscriber_config,
                   selector_config=selector_config)
