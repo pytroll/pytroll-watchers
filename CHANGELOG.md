@@ -1,3 +1,18 @@
+## Version 0.7.0 (2025/09/05)
+
+
+### Pull Requests Merged
+
+#### Features added
+
+* [PR 72](https://github.com/pytroll/pytroll-watchers/pull/72) - Update python versions
+* [PR 71](https://github.com/pytroll/pytroll-watchers/pull/71) - Remove Selector dependency on redis
+* [PR 69](https://github.com/pytroll/pytroll-watchers/pull/69) - Add S3 polling backend
+* [PR 51](https://github.com/pytroll/pytroll-watchers/pull/51) - Better exception handling when access to datastore is denied/rejected
+
+In this release 4 pull requests were closed.
+
+
 ## Version 0.6.0 (2025/01/28)
 
 
