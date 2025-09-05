@@ -28,7 +28,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        sudo apt install -y redis-server
         python -m pip install --upgrade pip
         python -m pip install pytest pytest-cov freezegun responses moto flask flask-cors
         python -m pip install git+https://github.com/gorakhargosh/watchdog
