@@ -162,11 +162,11 @@ def _get_features(jres):
     """Get the features from the session request."""
     try:
         return jres["features"]
-    except KeyError:
-        if 'type' in jres and jres['type'] == 'ExceptionReport':
-            raise IOError(f"Failed getting features! {str(jres['exceptions'])}")
+    except KeyError as exc:
+        if "type" in jres and jres["type"] == "ExceptionReport":
+            raise IOError(f"Failed getting features! {str(jres['exceptions'])}") from None
         else:
-            raise
+            raise AttributeError("Failed getting features from jason result!") from exc
 
 
 class DatastoreOAuth2Session():
