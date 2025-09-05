@@ -14,8 +14,9 @@ def run_every(interval):
     Yields:
         The time of the next tick.
     """
+    next_check = datetime.datetime.now(datetime.timezone.utc)
     while True:
-        next_check = datetime.datetime.now(datetime.timezone.utc) + interval
+        next_check += interval
         yield next_check
         to_wait = max(next_check.timestamp() - time.time(), 0)
         time.sleep(to_wait)
