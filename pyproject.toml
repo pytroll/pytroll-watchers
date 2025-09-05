@@ -28,6 +28,7 @@ minio = "pytroll_watchers.minio_notification_watcher"
 dataspace = "pytroll_watchers.dataspace_watcher"
 datastore = "pytroll_watchers.datastore_watcher"
 dhus = "pytroll_watchers.dhus_watcher"
+s3 = "pytroll_watchers.s3_poller"
 
 [project.urls]
 "Documentation" = "https://pytroll-watchers.readthedocs.io/en/latest/"
@@ -41,7 +42,8 @@ dataspace = ["oauthlib", "requests_oauthlib", "s3fs"]
 datastore = ["oauthlib", "requests_oauthlib", "aiohttp"]
 dhus = ["defusedxml", "requests", "aiohttp"]
 selector = ["redis"]
-tests = ["redis-server", "freezegun", "responses", "pytroll-watchers[minio,local,publishing,ssh,dataspace,datastore,dhus,selector]"]
+s3 = ["s3fs"]
+tests = ["redis-server", "freezegun", "responses", "moto[all]", "pytroll-watchers[minio,local,publishing,ssh,dataspace,datastore,dhus,selector,s3]"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
