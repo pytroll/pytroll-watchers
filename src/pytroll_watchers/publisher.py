@@ -3,8 +3,10 @@
 import datetime
 import json
 import logging
+from collections.abc import Generator
 from contextlib import closing, contextmanager, suppress
 from copy import deepcopy
+from typing import Any
 from urllib.parse import unquote
 from warnings import warn
 
@@ -23,7 +25,8 @@ class SecurityError(Exception):
     """An exception for breaking security rules."""
 
 
-def file_publisher_from_generator(generator, config):
+def file_publisher_from_generator(generator: Generator[tuple[UPath, dict[str, Any]]],
+                                  config: dict[str, Any]) -> None:
     """Publish files coming from local filesystem events.
 
     Args:

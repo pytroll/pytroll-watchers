@@ -11,6 +11,11 @@ Minio bucket notification watcher
 .. automodule:: pytroll_watchers.minio_notification_watcher
    :members:
 
+S3 bucket notification watcher
+------------------------------
+.. automodule:: pytroll_watchers.s3_poller
+   :members:
+
 Copernicus dataspace watcher
 ----------------------------
 .. automodule:: pytroll_watchers.dataspace_watcher
