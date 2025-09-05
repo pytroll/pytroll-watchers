@@ -36,7 +36,7 @@ def test_run_selector(tmp_path):
                             nameservers=False,
                             port=1999)
 
-    selector_config = dict(ttl=1)
+    selector_config = dict(ttl=0.1)
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
@@ -67,7 +67,7 @@ def test_run_selector_ignores_non_file_messages(tmp_path):
                             nameservers=False,
                             port=2000)
 
-    selector_config = dict(ttl=1)
+    selector_config = dict(ttl=0.1)
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
@@ -121,7 +121,7 @@ def test_run_selector_on_single_file_messages(tmp_path):
                             port=1999,
                             nameservers=False)
 
-    selector_config = dict(ttl=1)
+    selector_config = dict(ttl=0.1)
 
     with patched_subscriber_recv(messages):
         with patched_publisher() as published_messages:
@@ -133,7 +133,7 @@ def test_run_selector_on_single_file_messages(tmp_path):
 
 def test_ttldict():
     """Test the TTLDict."""
-    ttl = 1
+    ttl = 0.1
     key = "uid_1"
     value = b"some stuff"
     other_value = b"some other important stuff"
@@ -173,7 +173,7 @@ def test_cli(tmp_path):
                             nameservers=False,
                             port=1999)
 
-    selector_config = dict(ttl=1)
+    selector_config = dict(ttl=0.1)
     config = dict(publisher_config=publisher_config,
                   subscriber_config=subscriber_config,
                   selector_config=selector_config)
