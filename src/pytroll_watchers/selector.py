@@ -7,9 +7,6 @@ only one of each file is needed for further processing.
 
 To check if two messages refer to the same data, the *uid* metadata of the messages is used.
 
-At the moment, this module makes use of redis as a refined dictionary for keeping track of the received files. Hence a
-redis server instance will be started along with some of the functions here, and with the cli.
-
 A command-line script is also made available by this module. It is called ``pytroll-selector``::
 
     usage: pytroll-selector [-h] [-l LOG_CONFIG] config
@@ -48,13 +45,9 @@ what to pass to it.
 
 import argparse
 import logging
-import time
-from contextlib import closing, contextmanager
-from functools import cache
-from pathlib import Path
-from subprocess import Popen
+from contextlib import closing
+from threading import Timer
 
-import redis
 import yaml
 from posttroll.publisher import create_publisher_from_dict_config
 from posttroll.subscriber import create_subscriber_from_dict_config
@@ -63,10 +56,6 @@ from pytroll_watchers.main_interface import configure_logging
 
 logger = logging.getLogger(__name__)
 
-@cache
-def _connect_to_redis(**kwargs):
-    return redis.Redis(**kwargs)
-
 
 class TTLDict:
     """A simple dictionary-like object that discards items older than a time-to-live.
@@ -74,32 +63,27 @@ class TTLDict:
     Not thread-safe.
 
     Args:
-        ttl: the time to live of the stored items in integer seconds or as a timedelta instance. Cannot be less
-            than 1 second.
-        redis_params: the keyword arguments to pass to the underlying :py:class:`~redis.Redis` instance.
-
+        ttl: the time to live of the stored items in seconds.
     """
 
-    def __init__(self, ttl=300, **redis_params):
+    def __init__(self, ttl=300):
         """Set up the instance.
 
         Args:
-            ttl: the time to live of the stored items in integer seconds or as a timedelta instance. Cannot be less
-              than 1 second.
-            redis_params: the keyword arguments to pass to the underlying :py:class:`~redis.Redis` instance.
+            ttl: the time to live of the stored items in seconds.
         """
-        self._redis = _connect_to_redis(**redis_params)
+        self._data = dict()
         self._ttl = ttl
 
     def __getitem__(self, key):
         """Get the value corresponding to *key*."""
-        return self._redis[key]
+        return self._data[key]
 
     def __setitem__(self, key, value):
         """Set the *value* corresponding to *key*."""
-        res = self._redis.get(key)
-        if not res:
-            self._redis.set(key, value, ex=self._ttl)
+        if key not in self._data:
+            self._data[key] = value
+            Timer(self._ttl, self._data.pop, (key, None)).start()
 
     def __contains__(self, key):
         """Check if key is already present."""
@@ -117,9 +101,7 @@ def running_selector(selector_config, subscriber_config):
     Duplicate in this context means messages referring to the same file (even if stored in different locations).
 
     Args:
-        selector_config: a dictionary of arguments to pass to the underlying redis instance, see
-          :py:class:`~redis.Redis`. You can also provide a ttl as an int
-          (seconds) or timedelta instance, otherwise it defaults to 300 seconds (5 minutes).
+        selector_config: a dictionary providing a ttl in seconds, otherwise it defaults to 300 seconds (5 minutes).
         subscriber_config: a dictionary of arguments to pass to
           :py:func:`~posttroll.subscriber.create_subscriber_from_dict_config`.
 
@@ -174,11 +156,9 @@ def run_selector(selector_config, subscriber_config, publisher_config):
     Messages that refer to new files will be published.
 
     Args:
-        selector_config: a dictionary of arguments to pass to the underlying redis instance, see
-          :py:class:`~redis.Redis`. You can also provide a *ttl* for the
-          selector as an int (seconds) or timedelta instance, so that incoming messages are forgotten after that time.
+        selector_config: A dictionary providing a *ttl* for the
+          selector as seconds, so that incoming messages are forgotten after that time.
           If not provided, the ttl defaults to 300 seconds (5 minutes).
-          Also, you can provide a *directory* for the underlying datastructure to store the data in.
         subscriber_config: a dictionary of arguments to pass to
           :py:func:`~posttroll.subscriber.create_subscriber_from_dict_config`. The subscribtion is used as a source for
           messages to process.
@@ -187,27 +167,7 @@ def run_selector(selector_config, subscriber_config, publisher_config):
           messages.
 
     """
-    with _started_redis_server(port=selector_config.get("port"), directory=selector_config.pop("directory", None)):
-        _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
-
-
-@contextmanager
-def _started_redis_server(port=None, directory=None):
-    command = ["redis-server"]
-    if port:
-        port = str(int(port))  # using int first here prevents arbitrary strings to be passed to Popen
-        command += ["--port", port]
-    if directory:
-        directory = Path(directory)
-        directory.mkdir(parents=True, exist_ok=True)
-        command += ["--dir", directory]
-    proc = Popen(command)  # noqa:S603  port is validated and directory is a Path
-    time.sleep(.25)
-    try:
-        yield
-    finally:
-        proc.terminate()
-        proc.wait(3)
+    _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config)
 
 
 def cli(args=None):
