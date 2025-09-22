@@ -1,3 +1,15 @@
+## Version 0.8.0 (2025/09/22)
+
+
+### Pull Requests Merged
+
+#### Features added
+
+* [PR 77](https://github.com/pytroll/pytroll-watchers/pull/77) - Relicense to Apache Version 2
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.7.0 (2025/09/05)
 
 
