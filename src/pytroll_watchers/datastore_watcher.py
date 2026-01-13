@@ -50,7 +50,9 @@ import datetime
 import logging
 import netrc
 import time
+from collections.abc import Generator
 from contextlib import suppress
+from typing import Any, final
 
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
@@ -67,7 +69,7 @@ data_url = "https://api.eumetsat.int/data"
 
 
 
-def file_publisher(config):
+def file_publisher(config: dict[str, Any]):
     """Publish files coming from local filesystem events.
 
     Args:
@@ -81,11 +83,11 @@ def file_publisher(config):
     return file_publisher_from_generator(generator, config)
 
 
-def file_generator(search_params, polling_interval, ds_auth, start_from=None):
+def file_generator(search_params, polling_interval, ds_auth, start_from=None) -> Generator[UPath, dict[str, Any]]:
     """Search params must contain at least collection.
 
     Args:
-        search_params: the dictionary of search parameters to request. Based on the opensearch API:
+        search_params: the dictionary of search parameters to request. Based on the OpenSearch API:
           https://user.eumetsat.int/api-definitions/data-store-opensearch-api
         polling_interval: how often to poll for new data. Can be provided as a timedelta or a dictionary of arguments
           for timedelta.
@@ -101,16 +103,18 @@ def file_generator(search_params, polling_interval, ds_auth, start_from=None):
     if start_from is None:
         start_from = datetime.timedelta(0)
 
-    last_pub_date = datetime.datetime.now(datetime.timezone.utc) - start_from
+    last_pub_date: datetime.datetime = datetime.datetime.now(datetime.timezone.utc) - start_from
     for next_check in run_every(polling_interval):
         new_pub_date =  datetime.datetime.now(datetime.timezone.utc)
-        yield from generate_download_links_since(search_params, ds_auth, last_pub_date)
+        yield from generate_download_links_since(search_params, ds_auth, start_from=last_pub_date)
         logger.info("Finished polling.")
         if next_check > datetime.datetime.now(datetime.timezone.utc):
             logger.info(f"Next iteration at {next_check}")
             last_pub_date = new_pub_date
 
-def generate_download_links_since(search_params, ds_auth, start_from):
+def generate_download_links_since(search_params: dict[str, Any],
+                                  ds_auth: dict[str, str],
+                                  start_from: datetime.datetime) -> Generator[UPath, dict[str, Any]]:
     """Generate download links for data that was published since `start_from`."""
     str_pub_start = start_from.isoformat(timespec="milliseconds")
     search_params = search_params.copy()
@@ -118,7 +122,7 @@ def generate_download_links_since(search_params, ds_auth, start_from):
     yield from generate_download_links(search_params, ds_auth)
 
 
-def generate_download_links(search_params, ds_auth):
+def generate_download_links(search_params: dict[str, Any], ds_auth: dict[str, str]) -> Generator[UPath, dict[str, Any]]:
     """Generate download links provide search parameter and authentication."""
     session = DatastoreOAuth2Session(ds_auth)
     collection = search_params.pop("collection")
@@ -169,6 +173,7 @@ def _get_features(jres):
             raise AttributeError("Failed getting features from jason result!") from exc
 
 
+@final
 class DatastoreOAuth2Session():
     """An oauth2 session for eumetsat datastore."""
 
@@ -206,7 +211,7 @@ class DatastoreOAuth2Session():
         return self._oauth.token
 
 
-def _get_credentials(ds_auth):
+def _get_credentials(ds_auth: dict[str, str]) -> tuple[str, str]:
     """Get credentials from the ds_auth dictionary."""
     try:
         creds = ds_auth["username"], ds_auth["password"]

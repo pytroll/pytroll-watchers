@@ -131,7 +131,7 @@ def prepare_data(file_item, data_config):
 
 def unpack_archive(path, unpack):
     """Unpack the path and yield the extracted filenames."""
-    fs = fsspec.get_filesystem_class(unpack)(fsspec.open(path.path, **path.storage_options))
+    fs = fsspec.get_filesystem_class(unpack)(path.path, target_options=path.storage_options)
     files = fs.find("/")
     for fi in files:
         yield UPath(fi,

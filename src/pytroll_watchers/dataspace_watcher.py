@@ -44,7 +44,7 @@ import logging
 import netrc
 import time
 from contextlib import suppress
-from functools import lru_cache
+from functools import cache
 
 from oauthlib.oauth2 import LegacyApplicationClient
 from requests_oauthlib import OAuth2Session
@@ -145,19 +145,22 @@ def generate_download_links_since(filter_string, dataspace_auth, last_publicatio
     yield from generate_download_links(filter_string_with_pub_limit, dataspace_auth, storage_options)
 
 
-def generate_download_links(filter_string, dataspace_auth, storage_options):
+def generate_download_links(filter_string: str, dataspace_auth, storage_options):
     """Generate download links for a given filter_string."""
     if storage_options is None:
         storage_options = {}
-    oauth = _get_auth(**dataspace_auth)
-    resp = oauth.get(filter_string)
+    oauth = get_oauth(**dataspace_auth)
+
+    url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter={filter_string}&$expand=Attributes"
+    resp = oauth.get(url)
     metadatas = resp.get("value", [])
     for metadata in metadatas:
         s3path = UPath("s3:/" + metadata["S3Path"], **storage_options)
         mda = dict()
         attributes = _construct_attributes_dict(metadata)
-        mda["platform_name"] = attributes["platformShortName"].capitalize() + attributes["platformSerialIdentifier"]
-        mda["sensor"] = attributes["instrumentShortName"].lower()
+        mda["platform_name"] = (attributes["platformShortName"].capitalize() +
+                                attributes.get("platformSerialIdentifier", ""))
+        mda["sensor"] = attributes.get("instrumentShortName", "").lower()
         mda["PublicationDate"] = metadata["PublicationDate"]
         mda["boundary"] = metadata["GeoFootprint"]
         mda["product_type"] = attributes["productType"]
@@ -181,8 +184,9 @@ def _construct_attributes_dict(entry):
     return attributes
 
 
-@lru_cache(maxsize=1)
-def _get_auth(**dataspace_auth):
+@cache
+def get_oauth(**dataspace_auth):
+    """Get the OAuth'ed session."""
     oauth = CopernicusOAuth2Session(dataspace_auth)
     return oauth
 
@@ -202,15 +206,23 @@ class CopernicusOAuth2Session():
         self._oauth.register_compliance_hook("access_token_response", compliance_hook)
         self._token_user, self._token_pass = dataspace_credentials
 
-    def get(self, filter_string):
+    def get(self, url):
         """Run a get request."""
         self.fetch_token()
-        url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter={filter_string}&$expand=Attributes"
         return self._oauth.get(url).json()
+
+    def post(self, url, payload):
+        """Post a payload."""
+        self.fetch_token()
+        return self._oauth.post(url, json=payload).json()
+
+    def has_valid_token(self):
+        """Do we have a valid token."""
+        return self._oauth.token and self._oauth.token["expires_at"] > time.time()
 
     def fetch_token(self):
         """Fetch the token."""
-        if not self._oauth.token or self._oauth.token["expires_at"] <= time.time():
+        if not self.has_valid_token():
             self._oauth.fetch_token(token_url=token_url,
                                     username=self._token_user,
                                     password=self._token_pass)

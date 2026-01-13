@@ -5,7 +5,12 @@ description = "Utility functions and scripts to watch for new files on local or 
 authors = [
     { name = "Martin Raspaud", email = "martin.raspaud@smhi.se" }
 ]
-dependencies = ["universal-pathlib>=0.2.5", "trollsift", "pyyaml", "geojson"]
+dependencies = [
+    "universal-pathlib>=0.2.5",
+ "trollsift",
+ "pyyaml",
+ "geojson",
+]
 readme = "README.md"
 requires-python = ">= 3.11"
 license = "Apache-2.0"
