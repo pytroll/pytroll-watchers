@@ -4,7 +4,6 @@
 import datetime as dt
 
 import responses
-import responses._recorder
 from freezegun import freeze_time
 from posttroll.message import Message
 from posttroll.testing import patched_publisher

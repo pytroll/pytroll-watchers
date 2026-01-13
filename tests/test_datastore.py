@@ -182,7 +182,7 @@ def test_publish_paths(caplog, search_params):
     assert message.data["sensor"] == "olci"
     assert message.data["filesystem"] == {
         "cls": "fsspec.implementations.http:HTTPFileSystem",
-        "protocol": "https",
+        "protocol": "http",
         "args": [],
         "encoded": True,
         "client_kwargs": {"headers": {"Authorization": "Bearer eceba4e1-95e6-3526-8c42-c3c9dc14ff5c"}},
