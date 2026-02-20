@@ -48,7 +48,7 @@ datastore = ["oauthlib", "requests_oauthlib", "aiohttp"]
 dhus = ["defusedxml", "requests", "aiohttp"]
 selector = []
 s3 = ["s3fs"]
-tests = ["freezegun", "responses", "moto[all]", "flask", "flask-cors", "pytroll-watchers[minio,local,publishing,ssh,dataspace,datastore,dhus,selector,s3]"]
+tests = ["freezegun", "responses", "moto[all]", "flask", "flask-cors", "pytest-timeout", "pytroll-watchers[minio,local,publishing,ssh,dataspace,datastore,dhus,selector,s3]"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]

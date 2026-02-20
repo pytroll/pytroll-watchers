@@ -128,7 +128,7 @@ def generate_download_links_since(filter_string, dataspace_auth, last_publicatio
     """Generate download links for data that was published since a given `last publication_date`.
 
     Example:
-        To fetch download link since yesterday, using netrc-stored credentials, and an aws s3 profile:
+        To fetch download link since yesterday, using netrc-stored credentials, and an AWS S3 profile:
 
         >>> from pytroll_watchers.dataspace_watcher import generate_download_links_since
         >>> filter_string = "contains(Name,'OL_1_EFR')"
