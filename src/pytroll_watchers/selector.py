@@ -83,15 +83,16 @@ class TTLDict:
         """Set the *value* corresponding to *key*."""
         if key not in self._data:
             self._data[key] = value
-            Timer(self._ttl, self._data.pop, (key, None)).start()
+            timer = Timer(self._ttl, self._expire, (key,))
+            timer.daemon = True
+            timer.start()
+
+    def _expire(self, key):
+        self._data.pop(key, None)
 
     def __contains__(self, key):
         """Check if key is already present."""
-        try:
-            _ = self[key]
-            return True
-        except KeyError:
-            return False
+        return key in self._data
 
 
 def running_selector(selector_config, subscriber_config):
@@ -128,14 +129,17 @@ def _data_messages(subscriber_config):
 
     with closing(subscriber):
         for msg in subscriber.recv():
-            if msg.type != "file":
+            if msg.type not in ["file", "dataset"]:
                 continue
             yield msg
 
 
 def unique_key(msg):
     """Identify the content of the message with a unique key."""
-    return msg.data["uid"]
+    try:
+        return msg.data["uid"]
+    except KeyError:
+        return tuple(sorted(map(lambda x: x["uid"], msg.data["dataset"])))
 
 
 def _run_selector_with_managed_dict_server(selector_config, subscriber_config, publisher_config):
