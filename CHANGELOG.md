@@ -1,3 +1,17 @@
+## Version 0.9.0 (2026/03/11)
+
+
+### Pull Requests Merged
+
+#### Features added
+
+* [PR 91](https://github.com/pytroll/pytroll-watchers/pull/91) - Add support for datasets is selector
+* [PR 90](https://github.com/pytroll/pytroll-watchers/pull/90) - Allow local backend to include a directory in the pattern
+* [PR 87](https://github.com/pytroll/pytroll-watchers/pull/87) - Add some type hints
+
+In this release 3 pull requests were closed.
+
+
 ## Version 0.8.0 (2025/09/22)
 
 
