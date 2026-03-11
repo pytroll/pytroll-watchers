@@ -100,3 +100,11 @@ pytroll-watcher script, eg::
       sensor: viirs
       var_platform_name: NOAA-20
       var_agency: NOAA
+
+
+Message subject interpolation
+=============================
+
+The subject of the message will be interpolated using the message data.
+For example, the data contains `platform_name="mysat"` and the subject is defined as
+`/some/data/stream/{platform_name}`, the final subject of the message will be `/some/data/stream/mysat`.

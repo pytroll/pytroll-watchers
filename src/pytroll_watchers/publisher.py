@@ -98,6 +98,7 @@ def _create_message(file_item, file_metadata, config):
     apply_aliases(aliases, message_data)
 
     message_parameters["data"].update(message_data)
+    message_parameters["subject"] = message_parameters["subject"].format(**message_parameters["data"])
 
     return Message(**message_parameters)
 
