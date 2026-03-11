@@ -65,7 +65,7 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
             "polling" for detecting changes through polling, or the actual watchdog class to use as observer.
             Defaults to "os".
         file_pattern: The trollsift pattern to use for matching and extracting metadata from the filename.
-            This must not include the directory.
+            This can include a directory.
         protocol (optional): In case the file has to be advertised with another protocol than "file".
         storage_options: The storage options for the other protocol. Will be ignored if protocol is None.
 

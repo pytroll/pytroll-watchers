@@ -48,15 +48,10 @@ datastore = ["oauthlib", "requests_oauthlib", "aiohttp"]
 dhus = ["defusedxml", "requests", "aiohttp"]
 selector = []
 s3 = ["s3fs"]
-tests = ["freezegun", "responses", "moto[all]", "flask", "flask-cors", "pytroll-watchers[minio,local,publishing,ssh,dataspace,datastore,dhus,selector,s3]"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
-
-[tool.rye]
-managed = true
-dev-dependencies = []
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -69,7 +64,6 @@ source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
 version-file = "src/pytroll_watchers/version.py"
-
 
 [tool.ruff]
 line-length = 120
@@ -88,3 +82,20 @@ convention = "google"
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
+
+[dependency-groups]
+tests = [
+    "pytest",
+    "pytest-cov",
+    "freezegun",
+    "responses",
+    "moto[all]",
+    "flask",
+    "flask-cors",
+]
+
+dev = [
+    "pytroll-watchers[minio,local,publishing,ssh,dataspace,datastore,dhus,selector,s3]",
+    "feedparser>=6.0.12",
+    "truststore>=0.10.4",
+]

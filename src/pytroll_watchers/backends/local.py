@@ -104,7 +104,7 @@ def _create_watchdog_observer(directory, function_to_run, glob_pattern, observer
     observer = observer_class()
     handler = handler_class(function_to_run, os.path.join(directory, glob_pattern))
 
-    observer.schedule(handler, directory)
+    observer.schedule(handler, directory, recursive=True)
 
     return observer
 

@@ -27,6 +27,29 @@ def test_watchdog_generator_with_os(tmp_path, patched_local_events):  # noqa
     assert metadata["product"] == "foo"
 
 
+@pytest.mark.timeout(2)
+def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
+    """Test the local watcher can have a directory included in the pattern."""
+    basedir1 = tmp_path / "s3a"
+    basedir1.mkdir()
+    basedir2 = tmp_path / "s3b"
+    basedir2.mkdir()
+    filename1 = basedir1 / "20200428_1000_foo3a.tif"
+    filename2 = basedir2 / "20200428_1000_foo3b.tif"
+
+    fname_pattern = "s3{satnum}/{start_time:%Y%m%d_%H%M}_{product}.tif"
+
+    from pytroll_watchers.backends.local import listen_to_local_events
+    with listen_to_local_events(tmp_path, fname_pattern) as event_generator:
+        filename1.touch()
+        path = next(event_generator)
+        assert path == str(filename1)
+
+        filename2.touch()
+        path = next(event_generator)
+        assert path == str(filename2)
+
+
 def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # noqa
     """Test a watchdog generator."""
     filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
