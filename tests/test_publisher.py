@@ -124,6 +124,8 @@ def test_unpacking_tar_over_sftp(tmp_path):
 
     assert len(messages) == 1
     assert "tar://file1.nc" in messages[0]
+    assert "host" in messages[0]
+    assert "filesystem" in messages[0]
 
 
 def make_clean_tar(source_dir, dest_tar):
