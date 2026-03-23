@@ -27,14 +27,13 @@ It is also possible to make the local files sent as remote with the `protocol` a
 
 """
 import logging
-import os
 from pathlib import Path
 from urllib.parse import urlunparse
 
 from upath import UPath
 
 from pytroll_watchers.backends.local import listen_to_local_events
-from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator, parse_metadata
+from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator
 
 logger = logging.getLogger(__name__)
 
@@ -87,14 +86,8 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
         UPath("ssh:///tmp/20200428_1000_foo.tif")  # .storage_options will show the host.
 
     """
-    file_metadata = {}
-    pattern = os.path.join(directory, file_pattern) if file_pattern is not None else None
     with listen_to_local_events(directory, file_pattern, observer_type) as events:
-        for path in events:
-            try:
-                file_metadata = parse_metadata(pattern, path)
-            except ValueError:
-                continue
+        for path, file_metadata in events:
             if protocol is not None:
                 uri = urlunparse((protocol, None, str(path), None, None, None))
                 if storage_options is None:
