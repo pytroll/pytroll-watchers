@@ -25,6 +25,19 @@ It is also possible to make the local files sent as remote with the `protocol` a
     subject: /segment/hrit/l1b/
     atype: file
 
+Moreover, it is possible to have the file pattern provided as a list in case multiple format are possible, eg:
+
+
+.. code-block:: yaml
+
+  backend: local
+  fs_config:
+    directory: /data
+    file pattern:
+      - "H-000-{start_time:%Y%m%d%H%M}.nc"
+      - "H-000-{start_time:%Y%m%d%H%M}.NC"
+  ...
+
 """
 import logging
 from pathlib import Path
