@@ -1,10 +1,9 @@
 """Common functions for publishing messages."""
 
 import datetime
-import json
 import logging
 from collections.abc import Iterable
-from contextlib import closing, contextmanager, suppress
+from contextlib import closing, suppress
 from copy import deepcopy
 from typing import Any
 from urllib.parse import unquote
@@ -151,12 +150,19 @@ def unpack_dir(path):
                     **path.storage_options)
 
 
+def _filesystem_info(file_item):
+    """Get filesystem serialization info from a UPath without connecting."""
+    klass = fsspec.get_filesystem_class(file_item.protocol)
+    instance = object.__new__(klass)
+    instance.storage_options = file_item.storage_options
+    instance.storage_args = ()
+    return instance.to_dict(include_password=False)
+
+
 def _build_file_location(file_item, include_dir=None):
     file_location = dict()
     try:
-        with _dummy_connect(file_item):
-            file_location["filesystem"] = json.loads(file_item.fs.to_json(include_password=False))
-
+        file_location["filesystem"] = _filesystem_info(file_item)
         file_location["uri"] = as_uri(file_item)
         file_location["path"] = file_item.path
     except AttributeError:  # fileitem is not a UPath if it cannot access .fs
@@ -177,35 +183,6 @@ def as_uri(file_item):
         if protocol.startswith("http"):
             return file_item.as_uri()
     return unquote(file_item.as_uri())
-
-
-@contextmanager
-def _dummy_connect(file_item):
-    """Make the _connect method of the fsspec class a no-op.
-
-    This is for the case where only serialization of the filesystem is needed.
-    Patches both the top-level protocol and the target_protocol (if present),
-    so that wrapped filesystems like tar-over-sftp do not attempt real connections.
-    """
-    def _fake_connect(*_args, **_kwargs): ...
-
-    protocols = [file_item.protocol]
-    target_protocol = file_item.storage_options.get("target_protocol")
-    if target_protocol:
-        protocols.append(target_protocol)
-
-    patches = {}
-    for protocol in protocols:
-        klass = fsspec.get_filesystem_class(protocol)
-        if hasattr(klass, "_connect"):
-            patches[klass] = klass._connect
-            klass._connect = _fake_connect
-
-    try:
-        yield
-    finally:
-        for klass, original in patches.items():
-            klass._connect = original
 
 
 def apply_aliases(aliases, metadata):

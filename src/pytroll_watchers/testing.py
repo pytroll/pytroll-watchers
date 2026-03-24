@@ -22,10 +22,11 @@ def patched_local_events(monkeypatch):
     """
     @contextmanager
     def _patched_local_events(paths):
-        def fake_iterator(_):
+        def fake_iterator(*args):
+            del args
             return paths
         from pytroll_watchers.backends import local
-        monkeypatch.setattr(local, "_iterate_over_queue", fake_iterator)
+        monkeypatch.setattr(local, "generate_local_events", fake_iterator)
         yield
     return _patched_local_events
 

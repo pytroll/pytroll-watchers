@@ -26,6 +26,28 @@ def test_watchdog_generator_with_os(tmp_path, patched_local_events):  # noqa
     assert str(path) == filename
     assert metadata["product"] == "foo"
 
+def test_watchdog_generator_with_list_of_patterns(tmp_path, patched_local_events):  # noqa
+    """Test a watchdog generator."""
+    filename1 = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    filename2 = os.fspath(tmp_path / "bla_31060.nc")
+
+    with patched_local_events([filename1, filename2]):
+        fname_pattern = ["{start_time:%Y%m%d_%H%M}_{product}.tif",
+                         "{product}_{orbit:5d}.nc",
+                         ]
+
+        generator = local_watcher.file_generator(tmp_path,
+                                                "os",
+                                                file_pattern=fname_pattern)
+    path, metadata = next(generator)
+
+    assert str(path) == filename1
+    assert metadata["product"] == "foo"
+
+    path, metadata = next(generator)
+
+    assert str(path) == filename2
+    assert metadata["product"] == "bla"
 
 @pytest.mark.timeout(2)
 def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
@@ -34,20 +56,19 @@ def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
     basedir1.mkdir()
     basedir2 = tmp_path / "s3b"
     basedir2.mkdir()
-    filename1 = basedir1 / "20200428_1000_foo3a.tif"
-    filename2 = basedir2 / "20200428_1000_foo3b.tif"
+    filename1 = str(basedir1 / "20200428_1000_foo3a.tif")
+    filename2 = str(basedir2 / "20200428_1000_foo3b.tif")
 
     fname_pattern = "s3{satnum}/{start_time:%Y%m%d_%H%M}_{product}.tif"
 
-    from pytroll_watchers.backends.local import listen_to_local_events
-    with listen_to_local_events(tmp_path, fname_pattern) as event_generator:
-        filename1.touch()
-        path = next(event_generator)
-        assert path == str(filename1)
+    with patched_local_events([filename1, filename2]):
+        from pytroll_watchers.backends.local import listen_to_local_events
+        with listen_to_local_events(tmp_path, fname_pattern) as event_generator:
+            path, _ = next(event_generator)
+            assert path == filename1
 
-        filename2.touch()
-        path = next(event_generator)
-        assert path == str(filename2)
+            path, _ = next(event_generator)
+            assert path == filename2
 
 
 def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # noqa
