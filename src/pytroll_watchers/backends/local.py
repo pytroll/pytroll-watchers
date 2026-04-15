@@ -6,10 +6,11 @@ from contextlib import contextmanager
 from functools import partial
 from queue import Queue
 
-from trollsift import globify
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 from watchdog.observers.polling import PollingObserver
+
+from pytroll_watchers.publisher import parse_metadata
 
 
 @contextmanager
@@ -26,33 +27,53 @@ def listen_to_local_events(directory, file_pattern=None, observer_type="os"):
     Yields:
         A generator of filenames.
     """
-    queue = Queue()
-    def function_to_run(filename):
-        queue.put(filename)
+    if file_pattern is None:
+        yield ((event, dict()) for event in generate_local_events(directory, observer_type))
+    else:
+        if isinstance(file_pattern, str):
+            file_patterns = [file_pattern]
+        else:
+            file_patterns = file_pattern
+        yield generate_events_with_metadata(directory, file_patterns, observer_type)
 
-    extra_args = {}
-    if file_pattern:
-        extra_args["glob_pattern"] = globify(str(file_pattern))
+
+def generate_events_with_metadata(directory, file_patterns, observer_type):
+    """Generate tuples of (event, metadata)."""
+    for filename in generate_local_events(directory, observer_type):
+        for pattern in file_patterns:
+            try:
+                file_metadata = parse_metadata(os.path.join(directory, pattern), filename)
+            except ValueError:
+                continue
+            else:
+                yield filename, file_metadata
+                break
+
+
+def generate_local_events(directory, observer_type):
+    """Generate local events."""
+    queue = Queue()
 
     if observer_type == "os":
-        obs = _create_watchdog_os_observer(str(directory), function_to_run, **extra_args)
+        obs = _create_watchdog_os_observer(directory, queue)
     elif observer_type == "polling":
-        obs = _create_watchdog_polling_observer(str(directory), function_to_run, **extra_args)
+        obs = _create_watchdog_polling_observer(directory, queue)
     else:
         raise ValueError("Observer type can be either 'os' or 'polling'.")
 
     obs.start()
-    yield _iterate_over_queue(queue)
-    obs.stop()
+    try:
+        yield from _iterate_over_queue(queue)
+    finally:
+        obs.stop()
 
 
-def _create_watchdog_polling_observer(directory, function_to_run, glob_pattern="*", timeout=1.0):
+def _create_watchdog_polling_observer(directory, queue, timeout=1.0):
     """Create a watchdog polling observer on directory.
 
     Args:
         directory: the directory to watch for events.
-        function_to_run: the function to run on detected files. Takes a single argument: the full path to the file.
-        glob_pattern: the globbing pattern to use for filtering files. Defaults to "*"
+        queue: the queue to append events to.
         timeout: the timeout to use for polling, in seconds.
 
     Returns:
@@ -60,16 +81,15 @@ def _create_watchdog_polling_observer(directory, function_to_run, glob_pattern="
     """
     observer_class = partial(PollingObserver, timeout=timeout)
     handler_class = _WatchdogCreationHandler
-    return _create_watchdog_observer(directory, function_to_run, glob_pattern, observer_class, handler_class)
+    return _create_watchdog_observer(directory, queue, observer_class, handler_class)
 
 
-def _create_watchdog_os_observer(directory, function_to_run, glob_pattern="*", timeout=1.0):
+def _create_watchdog_os_observer(directory, queue, timeout=1.0):
     """Create a watchdog os-dependent observer on directory.
 
     Args:
         directory: the directory to watch for events.
-        function_to_run: the function to run on detected files. Takes a single argument: the full path to the file.
-        glob_pattern: the globbing pattern to use for filtering files. Defaults to "*"
+        queue: the queue to append events to.
         timeout: the timeout to use for detecting, in seconds.
 
     Returns:
@@ -77,7 +97,7 @@ def _create_watchdog_os_observer(directory, function_to_run, glob_pattern="*", t
     """
     observer_class = partial(Observer, timeout=timeout, generate_full_events=True)
     handler_class = _WatchdogChangeHandler
-    return _create_watchdog_observer(directory, function_to_run, glob_pattern, observer_class, handler_class)
+    return _create_watchdog_observer(directory, queue, observer_class, handler_class)
 
 
 def _iterate_over_queue(queue):
@@ -88,13 +108,12 @@ def _iterate_over_queue(queue):
     return iter(queue.get, None)
 
 
-def _create_watchdog_observer(directory, function_to_run, glob_pattern, observer_class, handler_class):
+def _create_watchdog_observer(directory, queue, observer_class, handler_class):
     """Create a watchdog observer.
 
     Args:
         directory: the directory to watch for events.
-        glob_pattern: the globbing pattern to use for filtering files
-        function_to_run: the function to run on detected files. Takes a single argument: the full path to the file.
+        queue: the queue to append events to.
         observer_class: the class to instanciate as observer.
         handler_class: the class to use as handler.
 
@@ -102,6 +121,12 @@ def _create_watchdog_observer(directory, function_to_run, glob_pattern, observer
         The instanciated observer object.
     """
     observer = observer_class()
+
+    def function_to_run(filename):
+        queue.put(filename)
+
+    glob_pattern = "*"
+
     handler = handler_class(function_to_run, os.path.join(directory, glob_pattern))
 
     observer.schedule(handler, directory, recursive=True)
