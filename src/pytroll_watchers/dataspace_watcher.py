@@ -4,7 +4,10 @@ It polls the catalogue using OData for new data (https://documentation.dataspace
 generates locations for the data on the S3 services (https://documentation.dataspace.copernicus.eu/APIs/S3.html).
 
 Note:
-    The OData and S3 services require two different set of credentials.
+    The OData and S3 services require two different set of credentials. OData credentials can be passed as
+    "username" and "password" in the configuration file, as "OAUTH_USERNAME" and "OAUTH_PASSWORD" in the environment
+    or in a netrc file pointed to by the config's "netrc_file" (optional for `~/.netrc`) and "netrc_host".
+    S3 credentials can be passed through the standard AWS config files or environment variables.
 
 
 Example of configuration file to retrieve SAR data from dataspace:
@@ -41,7 +44,6 @@ Example of configuration file to retrieve SAR data from dataspace:
 
 import datetime
 import logging
-import netrc
 import time
 from contextlib import suppress
 from functools import cache
@@ -50,7 +52,7 @@ from oauthlib.oauth2 import LegacyApplicationClient
 from requests_oauthlib import OAuth2Session
 from upath import UPath
 
-from pytroll_watchers.common import fromisoformat, run_every
+from pytroll_watchers.common import fromisoformat, get_oauth_credentials, run_every
 from pytroll_watchers.publisher import file_publisher_from_generator
 
 client_id = "cdse-public"
@@ -197,7 +199,7 @@ class CopernicusOAuth2Session():
 
     def __init__(self, dataspace_auth):
         """Set up the session."""
-        dataspace_credentials = _get_credentials(dataspace_auth)
+        dataspace_credentials = get_oauth_credentials(dataspace_auth)
         self._oauth = OAuth2Session(client=LegacyApplicationClient(client_id=client_id))
         def compliance_hook(response):
             response.raise_for_status()
@@ -226,13 +228,3 @@ class CopernicusOAuth2Session():
             self._oauth.fetch_token(token_url=token_url,
                                     username=self._token_user,
                                     password=self._token_pass)
-
-
-def _get_credentials(ds_auth):
-    """Get credentials from the ds_auth dictionary."""
-    try:
-        creds = ds_auth["username"], ds_auth["password"]
-    except KeyError:
-        username, _, password = netrc.netrc(ds_auth.get("netrc_file")).authenticators(ds_auth["netrc_host"])
-        creds = (username, password)
-    return creds

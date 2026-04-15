@@ -6,6 +6,12 @@ Note:
     The links produced can only be downloaded with a valid token. A token comes with the links, but
     has only a limited validity time (maybe 5 minutes).
 
+Note:
+    OAuth credentials can be passed as
+    "username" and "password" in the configuration file, as "OAUTH_USERNAME" and "OAUTH_PASSWORD" in the environment
+    or in a netrc file pointed to by the config's "netrc_file" (optional for `~/.netrc`) and "netrc_host".
+
+
 An example for getting links to MSG data::
 
     from pytroll_watchers.datastore_watcher import generate_download_links_since
@@ -45,10 +51,8 @@ Another example, here a configuration file to pass to the CLI::
         platform_name: AWS1
         variant: GDS
 """
-
 import datetime
 import logging
-import netrc
 import time
 from collections.abc import Generator
 from contextlib import suppress
@@ -58,7 +62,7 @@ from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 from upath import UPath
 
-from pytroll_watchers.common import fromisoformat, run_every
+from pytroll_watchers.common import fromisoformat, get_oauth_credentials, run_every
 from pytroll_watchers.publisher import file_publisher_from_generator
 from pytroll_watchers.version import version
 
@@ -179,7 +183,7 @@ class DatastoreOAuth2Session():
 
     def __init__(self, datastore_auth):
         """Set up the session."""
-        client_id, client_secret = _get_credentials(datastore_auth)
+        client_id, client_secret = get_oauth_credentials(datastore_auth)
         self._oauth = OAuth2Session(client=BackendApplicationClient(client_id=client_id))
         def compliance_hook(response):
             response.raise_for_status()
@@ -209,13 +213,3 @@ class DatastoreOAuth2Session():
                                     client_secret=self._token_secret,
                                     include_client_id=True)
         return self._oauth.token
-
-
-def _get_credentials(ds_auth: dict[str, str]) -> tuple[str, str]:
-    """Get credentials from the ds_auth dictionary."""
-    try:
-        creds = ds_auth["username"], ds_auth["password"]
-    except KeyError:
-        username, _, password = netrc.netrc(ds_auth.get("netrc_file")).authenticators(ds_auth["netrc_host"])
-        creds = (username, password)
-    return creds

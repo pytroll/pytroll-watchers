@@ -2,14 +2,16 @@
 
 import fnmatch
 import os
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from functools import partial
-from queue import Queue
+from queue import Empty, Queue
 
 from trollsift import globify
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 from watchdog.observers.polling import PollingObserver
+
+from pytroll_watchers.common import TERM_EVENT
 
 
 @contextmanager
@@ -85,7 +87,9 @@ def _iterate_over_queue(queue):
 
     This is it's own function so that it can be mocked during tests.
     """
-    return iter(queue.get, None)
+    while not TERM_EVENT.is_set():
+        with suppress(Empty):
+            yield queue.get(timeout=1)
 
 
 def _create_watchdog_observer(directory, function_to_run, glob_pattern, observer_class, handler_class):
