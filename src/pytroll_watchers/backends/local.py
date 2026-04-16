@@ -2,14 +2,15 @@
 
 import fnmatch
 import os
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from functools import partial
-from queue import Queue
+from queue import Empty, Queue
 
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 from watchdog.observers.polling import PollingObserver
 
+from pytroll_watchers.common import TERM_EVENT
 from pytroll_watchers.publisher import parse_metadata
 
 
@@ -105,7 +106,9 @@ def _iterate_over_queue(queue):
 
     This is it's own function so that it can be mocked during tests.
     """
-    return iter(queue.get, None)
+    while not TERM_EVENT.is_set():
+        with suppress(Empty):
+            yield queue.get(timeout=1)
 
 
 def _create_watchdog_observer(directory, queue, observer_class, handler_class):
