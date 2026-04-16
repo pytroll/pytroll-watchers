@@ -1,3 +1,25 @@
+## Version 0.10.0 (2026/04/16)
+
+### Issues Closed
+
+* [Issue 81](https://github.com/pytroll/pytroll-watchers/issues/81) - Accept multiple optional file patterns ([PR 96](https://github.com/pytroll/pytroll-watchers/pull/96) by [@mraspaud](https://github.com/mraspaud))
+
+In this release 1 issue was closed.
+
+### Pull Requests Merged
+
+#### Bugs fixed
+
+* [PR 102](https://github.com/pytroll/pytroll-watchers/pull/102) - Hear sigterm and allow env-based credentials
+* [PR 96](https://github.com/pytroll/pytroll-watchers/pull/96) - Fix accessing the filesystem info ([81](https://github.com/pytroll/pytroll-watchers/issues/81))
+
+#### Features added
+
+* [PR 102](https://github.com/pytroll/pytroll-watchers/pull/102) - Hear sigterm and allow env-based credentials
+
+In this release 3 pull requests were closed.
+
+
 ## Version 0.9.0 (2026/03/11)
 
 
