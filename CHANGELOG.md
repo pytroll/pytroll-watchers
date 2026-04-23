@@ -1,3 +1,15 @@
+## Version 0.11.0 (2026/04/23)
+
+
+### Pull Requests Merged
+
+#### Features added
+
+* [PR 104](https://github.com/pytroll/pytroll-watchers/pull/104) - Add attributes from dataspace in metadata
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.10.0 (2026/04/16)
 
 ### Issues Closed
