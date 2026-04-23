@@ -32,7 +32,8 @@ def test_dataspace_watcher():
         assert metadata["end_time"] == datetime.datetime(2024, 4, 15, 7, 43, 29, 480000, tzinfo=datetime.timezone.utc)
         assert metadata["boundary"]["coordinates"][0][0] == [67.8172, 69.3862]
         assert metadata["orbit_number"] == 31107
-
+        assert metadata["timeliness"] == "NR"
+        assert "orbitNumber" not in metadata
 
 @freeze_time(datetime.datetime.now(datetime.timezone.utc))
 def test_dataspace_watcher_without_storage_options():

@@ -160,15 +160,16 @@ def generate_download_links(filter_string: str, dataspace_auth, storage_options)
         s3path = UPath("s3:/" + metadata["S3Path"], **storage_options)
         mda = dict()
         attributes = _construct_attributes_dict(metadata)
-        mda["platform_name"] = (attributes["platformShortName"].capitalize() +
-                                attributes.get("platformSerialIdentifier", ""))
-        mda["sensor"] = attributes.get("instrumentShortName", "").lower()
-        mda["PublicationDate"] = metadata["PublicationDate"]
+        mda["platform_name"] = (attributes.pop("platformShortName").capitalize() +
+                                attributes.pop("platformSerialIdentifier", ""))
+        mda["sensor"] = attributes.pop("instrumentShortName", "").lower()
+        mda["product_type"] = attributes.pop("productType")
+        mda["start_time"] = fromisoformat(attributes.pop("beginningDateTime"))
+        mda["end_time"] = fromisoformat(attributes.pop("endingDateTime"))
+        mda["orbit_number"] = int(attributes.pop("orbitNumber"))
+        mda.update(attributes)
         mda["boundary"] = metadata["GeoFootprint"]
-        mda["product_type"] = attributes["productType"]
-        mda["start_time"] = fromisoformat(attributes["beginningDateTime"])
-        mda["end_time"] = fromisoformat(attributes["endingDateTime"])
-        mda["orbit_number"] = int(attributes["orbitNumber"])
+        mda["PublicationDate"] = metadata["PublicationDate"]
 
         for checksum in metadata["Checksum"]:
             if checksum.get("Algorithm") == "MD5":
