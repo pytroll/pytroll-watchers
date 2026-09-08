@@ -226,3 +226,33 @@ def test_publish_interpolates_topic(tmp_path):
 
     message = Message(rawstr=messages[0])
     assert message.subject == "/some/data/stream/mysat"
+
+
+def test_unpacking_tar_can_include_dir_in_uid(tmp_path):
+    """Test that the package directory can be included in the uids of an unpacked archive.
+
+    Packages like SAFE/SEN3 name their members generically (eg `xfdumanifest.xml`), so the uid is only unique
+    if the package directory is part of it.
+    """
+    package = "S3A_OL_2_WFR____20260905T085117_20260905T085417.SEN3"
+    member = tmp_path / "to_tar" / package / "xfdumanifest.xml"
+    member.parent.mkdir(parents=True)
+    member.write_text("manifest")
+
+    tar_file = tmp_path / "archived.tar"
+    make_clean_tar(tmp_path / "to_tar", tar_file)
+
+    path = UPath("file://" + str(tar_file))
+
+    publisher_settings = dict(nameservers=False, port=1979)
+    message_settings = dict(subject="/segment/olci/l2/", atype="dataset", data=dict(sensor="olci"))
+    data_config = dict(unpack=dict(format="tar", include_dir_in_uid=True))
+
+    with patched_publisher() as messages:
+        file_publisher_from_generator([[path, dict()]],
+                                      dict(publisher_config=publisher_settings,
+                                           message_config=message_settings,
+                                           data_config=data_config))
+
+    msg = Message.decode(messages[0])
+    assert msg.data["dataset"][0]["uid"] == package + "/xfdumanifest.xml"
