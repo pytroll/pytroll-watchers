@@ -41,9 +41,11 @@ def file_publisher_from_generator(generator: Iterable[tuple[UPath, dict[str, Any
                       (adjusted) uri further. The parameter `destination` should be provided as the directory to put
                       the downloaded files in.
                       The `unpack` section that contains the packing `format` for the archive (eg "zip"), or
-                      "directory". The contents of the archive or directory will be published as a "dataset". For the case where
-                      "directory" is used, it is also possible to set the boolean "include_dir_in_uid" to true so that
-                      the full relative path of the file is provided (False by default).
+                      "directory". The contents of the archive or directory will be published as a "dataset".
+                      It is also possible to set the boolean "include_dir_in_uid" to true so that the full relative
+                      path of the file is provided as uid instead of just its basename (False by default). This is
+                      needed for packages whose members have generic names (eg SAFE/SEN3, where every package
+                      contains a file called "xfdumanifest.xml"), since a bare basename does not identify the data.
 
     Side effect:
         Publishes posttroll messages containing the location of the file with the following fields:
@@ -115,18 +117,34 @@ def prepare_data(file_item, data_config):
 
     metadata = dict()
     if unpack == "directory":
-        dir_to_include = file_item.name if include_dir else None
-        dataset = [_build_file_location(unpacked_file, dir_to_include)
+        dataset = [_build_file_location(unpacked_file, _uid_within_dir(unpacked_file, file_item.name, include_dir))
             for unpacked_file in unpack_dir(file_item)]
         metadata["dataset"] = dataset
     elif unpack:
-        dataset = [_build_file_location(unpacked_file)
+        dataset = [_build_file_location(unpacked_file, _uid_within_archive(unpacked_file, include_dir))
             for unpacked_file in unpack_archive(file_item, unpack)]
         metadata["dataset"] = dataset
     else:
         file_location = _build_file_location(file_item)
         metadata.update(file_location)
     return metadata
+
+
+def _uid_within_dir(file_item, dirname, include_dir):
+    """Build the uid of a file unpacked from a directory."""
+    if not include_dir:
+        return file_item.name
+    return dirname + file_item.path.rsplit(dirname, 1)[-1]
+
+
+def _uid_within_archive(file_item, include_dir):
+    """Build the uid of a file unpacked from an archive.
+
+    The path of an archive member is already relative to the archive root, so it can be used as is.
+    """
+    if not include_dir:
+        return file_item.name
+    return file_item.path.lstrip("/")
 
 
 def unpack_archive(path, unpack):
@@ -159,7 +177,7 @@ def _filesystem_info(file_item):
     return instance.to_dict(include_password=False)
 
 
-def _build_file_location(file_item, include_dir=None):
+def _build_file_location(file_item, uid=None):
     file_location = dict()
     try:
         file_location["filesystem"] = _filesystem_info(file_item)
@@ -168,11 +186,7 @@ def _build_file_location(file_item, include_dir=None):
     except AttributeError:  # fileitem is not a UPath if it cannot access .fs
         file_location["uri"] = str(file_item)
 
-    if include_dir:
-        uid = include_dir + file_item.path.rsplit(include_dir, 1)[-1]
-    else:
-        uid = file_item.name
-    file_location["uid"] = uid
+    file_location["uid"] = uid or file_item.name
     return file_location
 
 
