@@ -15,7 +15,7 @@ from pytroll_watchers.publisher import parse_metadata
 
 
 @contextmanager
-def listen_to_local_events(directory, file_pattern=None, observer_type="os"):
+def listen_to_local_events(directory, file_pattern=None, observer_type="os", trigger="closed"):
     """Listen to local events.
 
     This context manager returns a generator producing filenames that are detected locally.
@@ -24,23 +24,25 @@ def listen_to_local_events(directory, file_pattern=None, observer_type="os"):
         directory: The directory to watch for changes.
         file_pattern: the (trollsift) pattern to use globbing the events and filter them.
         observer_type: how to watch for events ("os" or "minio")
+        trigger: what event announces a file with the "os" observer: "closed" (default) when it is closed after
+            writing, or "created" as soon as it is created, possibly before it is completely written.
 
     Yields:
         A generator of filenames.
     """
     if file_pattern is None:
-        yield ((event, dict()) for event in generate_local_events(directory, observer_type))
+        yield ((event, dict()) for event in generate_local_events(directory, observer_type, trigger))
     else:
         if isinstance(file_pattern, str):
             file_patterns = [file_pattern]
         else:
             file_patterns = file_pattern
-        yield generate_events_with_metadata(directory, file_patterns, observer_type)
+        yield generate_events_with_metadata(directory, file_patterns, observer_type, trigger)
 
 
-def generate_events_with_metadata(directory, file_patterns, observer_type):
+def generate_events_with_metadata(directory, file_patterns, observer_type, trigger):
     """Generate tuples of (event, metadata)."""
-    for filename in generate_local_events(directory, observer_type):
+    for filename in generate_local_events(directory, observer_type, trigger):
         for pattern in file_patterns:
             try:
                 file_metadata = parse_metadata(os.path.join(directory, pattern), filename)
@@ -51,12 +53,12 @@ def generate_events_with_metadata(directory, file_patterns, observer_type):
                 break
 
 
-def generate_local_events(directory, observer_type):
+def generate_local_events(directory, observer_type, trigger="closed"):
     """Generate local events."""
     queue = Queue()
 
     if observer_type == "os":
-        obs = _create_watchdog_os_observer(directory, queue)
+        obs = _create_watchdog_os_observer(directory, queue, trigger)
     elif observer_type == "polling":
         obs = _create_watchdog_polling_observer(directory, queue)
     else:
@@ -85,19 +87,23 @@ def _create_watchdog_polling_observer(directory, queue, timeout=1.0):
     return _create_watchdog_observer(directory, queue, observer_class, handler_class)
 
 
-def _create_watchdog_os_observer(directory, queue, timeout=1.0):
+def _create_watchdog_os_observer(directory, queue, trigger, timeout=1.0):
     """Create a watchdog os-dependent observer on directory.
 
     Args:
         directory: the directory to watch for events.
         queue: the queue to append events to.
+        trigger: the event announcing a file, "created" or "closed".
         timeout: the timeout to use for detecting, in seconds.
 
     Returns:
         The instanciated observer object.
     """
+    try:
+        handler_class = _OS_HANDLERS_BY_TRIGGER[trigger]
+    except KeyError:
+        raise ValueError("Trigger can be either 'created' or 'closed'.") from None
     observer_class = partial(Observer, timeout=timeout, generate_full_events=True)
-    handler_class = _WatchdogChangeHandler
     return _create_watchdog_observer(directory, queue, observer_class, handler_class)
 
 
@@ -176,9 +182,13 @@ class _WatchdogCreationHandler(_WatchdogHandler):
     """Trigger processing on filesystem events that create a file (moving, creation)."""
 
     def on_created(self, event):
-        """Process file closing."""
+        """Process file creation."""
         self.fun(event.src_path)
 
     def on_moved(self, event):
         """Process a file being moved to the destination directory."""
         self.fun(event.dest_path)
+
+
+_OS_HANDLERS_BY_TRIGGER = {"created": _WatchdogCreationHandler,
+                           "closed": _WatchdogChangeHandler}

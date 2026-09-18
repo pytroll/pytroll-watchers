@@ -38,6 +38,26 @@ Moreover, it is possible to have the file pattern provided as a list in case mul
       - "H-000-{start_time:%Y%m%d%H%M}.NC"
   ...
 
+By default, the "os" observer announces a file when it is closed after being written, so the file is complete when
+the message is sent. For processing that can start on a file still being written (eg by following it as it grows),
+the `trigger` setting in the `fs_config` can be set to `"created"`, to announce files as soon as they are created:
+
+.. code-block:: yaml
+
+  backend: local
+  fs_config:
+    directory: /data
+    file pattern: "tf{start_time:%Y%j%H%M%S}.{satellite}"
+    trigger: created
+  publisher_config:
+    name: tf_watcher
+  message_config:
+    subject: /segment/raw/started/
+    atype: file
+
+Files moved into the watched directory are announced in both cases, as they are complete when they appear. Since
+consumers of such messages cannot assume the file is complete, it is advised to publish them with a dedicated subject.
+
 """
 import logging
 from pathlib import Path
@@ -67,7 +87,8 @@ def file_publisher(config):
     return file_publisher_from_generator(generator, config)
 
 
-def file_generator(directory, observer_type="os", file_pattern=None, protocol=None, storage_options=None):
+def file_generator(directory, observer_type="os", file_pattern=None, protocol=None, storage_options=None,
+                   trigger="closed"):
     """Generate new files appearing in the watched directory.
 
     Args:
@@ -80,6 +101,10 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
             This can include a directory.
         protocol (optional): In case the file has to be advertised with another protocol than "file".
         storage_options: The storage options for the other protocol. Will be ignored if protocol is None.
+        trigger: What event announces a file with the "os" observer. With "closed" (the default), a file is announced
+            when it is closed after writing. With "created", it is announced as soon as it is created, which allows
+            processing to start while the file is still being written. Files moved into the directory are always
+            announced.
 
     Returns:
         A tuple of Path or UPath and file metadata.
@@ -99,7 +124,7 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
         UPath("ssh:///tmp/20200428_1000_foo.tif")  # .storage_options will show the host.
 
     """
-    with listen_to_local_events(directory, file_pattern, observer_type) as events:
+    with listen_to_local_events(directory, file_pattern, observer_type, trigger) as events:
         for path, file_metadata in events:
             if protocol is not None:
                 uri = urlunparse((protocol, None, str(path), None, None, None))

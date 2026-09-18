@@ -1,6 +1,8 @@
 """Test the local watcher."""
 
 import os
+import threading
+import time
 
 import pytest
 from posttroll.message import Message
@@ -25,6 +27,50 @@ def test_watchdog_generator_with_os(tmp_path, patched_local_events):  # noqa
 
     assert str(path) == filename
     assert metadata["product"] == "foo"
+
+
+def _start_fetching_next(generator):
+    """Start fetching the next item of a generator in the background.
+
+    Returns a function waiting at most `timeout` seconds for that item, re-raising what the generator raised.
+    The fetching thread is a daemon, so a generator that never yields cannot hang the test session.
+    """
+    outcome = {}
+
+    def fetch_next():
+        try:
+            outcome["item"] = next(generator)
+        except Exception as err:
+            outcome["error"] = err
+
+    fetcher = threading.Thread(target=fetch_next, daemon=True)
+    fetcher.start()
+
+    def wait_for_next(timeout):
+        fetcher.join(timeout)
+        if fetcher.is_alive():
+            raise TimeoutError(f"No item from the generator within {timeout} seconds")
+        if "error" in outcome:
+            raise outcome["error"]
+        return outcome["item"]
+
+    return wait_for_next
+
+
+def test_os_watcher_yields_files_still_being_written_when_triggering_on_creation(tmp_path):
+    """Test the os watcher announces a file as soon as it is created, before it is closed."""
+    filename = tmp_path / "20200428_1000_foo.tif"
+    generator = local_watcher.file_generator(tmp_path, "os",
+                                             file_pattern="{start_time:%Y%m%d_%H%M}_{product}.tif",
+                                             trigger="created")
+
+    wait_for_next_file = _start_fetching_next(generator)
+    time.sleep(0.2)
+    with open(filename, "w"):
+        path, _ = wait_for_next_file(timeout=2)
+
+    assert path == filename
+
 
 def test_watchdog_generator_with_list_of_patterns(tmp_path, patched_local_events):  # noqa
     """Test a watchdog generator."""
@@ -119,6 +165,16 @@ def test_watchdog_generator_with_something_else(tmp_path):
 
     with pytest.raises(ValueError, match="'os' or 'polling'"):
         next(generator)
+
+
+def test_watchdog_generator_rejects_unknown_trigger(tmp_path):
+    """Test the watcher refuses a trigger it does not know, instead of silently falling back to another one."""
+    generator = local_watcher.file_generator(tmp_path, "os", trigger="opened")
+
+    wait_for_next_file = _start_fetching_next(generator)
+
+    with pytest.raises(ValueError, match="'created' or 'closed'"):
+        wait_for_next_file(timeout=2)
 
 
 def test_publish_paths(tmp_path, patched_local_events, caplog):  # noqa
