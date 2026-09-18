@@ -82,6 +82,18 @@ def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
     assert str(path) == filename2
 
 
+def test_listen_to_local_events_yields_paths_with_metadata(tmp_path, patched_local_events):  # noqa
+    """Test the public listen_to_local_events still provides the paths with their metadata."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+
+    with patched_local_events([filename]):
+        with local.listen_to_local_events(tmp_path, "{start_time:%Y%m%d_%H%M}_{product}.tif") as events:
+            path, metadata = next(events)
+
+    assert path == filename
+    assert metadata["product"] == "foo"
+
+
 def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # noqa
     """Test a watchdog generator."""
     filename = os.fspath(tmp_path / "20200428_1000_foo.tif")

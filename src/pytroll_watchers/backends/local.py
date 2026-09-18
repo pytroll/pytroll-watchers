@@ -15,6 +15,24 @@ from pytroll_watchers.publisher import parse_metadata
 
 
 @contextmanager
+def listen_to_local_events(directory, file_pattern=None, observer_type="os"):
+    """Listen to local events.
+
+    This context manager returns a generator producing filenames that are detected locally.
+
+    Args:
+        directory: The directory to watch for changes.
+        file_pattern: the (trollsift) pattern to use globbing the events and filter them.
+        observer_type: how to watch for events ("os" or "polling")
+
+    Yields:
+        A generator of filenames.
+    """
+    with watch_local_directory(directory, observer_type) as paths:
+        yield add_metadata(paths, directory, file_pattern)
+
+
+@contextmanager
 def watch_local_directory(directory, observer_type="os", trigger="closed"):
     """Watch a local directory for new files.
 
