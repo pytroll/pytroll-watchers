@@ -1,12 +1,14 @@
 """Test the local watcher."""
 
 import os
+from contextlib import nullcontext
 
 import pytest
 from posttroll.message import Message
 from posttroll.testing import patched_publisher
 
 from pytroll_watchers import local_watcher
+from pytroll_watchers.backends import local
 from pytroll_watchers.publisher import SecurityError
 from pytroll_watchers.testing import patched_local_events  # noqa
 
@@ -25,6 +27,17 @@ def test_watchdog_generator_with_os(tmp_path, patched_local_events):  # noqa
 
     assert str(path) == filename
     assert metadata["product"] == "foo"
+
+
+@pytest.mark.timeout(5)
+def test_watching_a_directory_catches_files_created_right_after_entering(tmp_path):
+    """Test the watch is already active when entering the context, so no file created afterwards is missed."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+
+    with local.watch_local_directory(tmp_path, "os", trigger="created") as paths:
+        with open(filename, "w"):
+            assert next(paths) == filename
+
 
 def test_watchdog_generator_with_list_of_patterns(tmp_path, patched_local_events):  # noqa
     """Test a watchdog generator."""
@@ -49,7 +62,6 @@ def test_watchdog_generator_with_list_of_patterns(tmp_path, patched_local_events
     assert str(path) == filename2
     assert metadata["product"] == "bla"
 
-@pytest.mark.timeout(2)
 def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
     """Test the local watcher can have a directory included in the pattern."""
     basedir1 = tmp_path / "s3a"
@@ -62,13 +74,71 @@ def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
     fname_pattern = "s3{satnum}/{start_time:%Y%m%d_%H%M}_{product}.tif"
 
     with patched_local_events([filename1, filename2]):
-        from pytroll_watchers.backends.local import listen_to_local_events
-        with listen_to_local_events(tmp_path, fname_pattern) as event_generator:
-            path, _ = next(event_generator)
-            assert path == filename1
+        generator = local_watcher.file_generator(tmp_path, file_pattern=fname_pattern)
 
-            path, _ = next(event_generator)
-            assert path == filename2
+    path, _ = next(generator)
+    assert str(path) == filename1
+
+    path, _ = next(generator)
+    assert str(path) == filename2
+
+
+def test_listen_to_local_events_yields_paths_with_metadata(tmp_path, patched_local_events):  # noqa
+    """Test the public listen_to_local_events still provides the paths with their metadata."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+
+    with patched_local_events([filename]):
+        with local.listen_to_local_events(tmp_path, "{start_time:%Y%m%d_%H%M}_{product}.tif") as events:
+            path, metadata = next(events)
+
+    assert path == filename
+    assert metadata["product"] == "foo"
+
+
+def test_generate_local_events_yields_the_new_paths(tmp_path, monkeypatch):
+    """Test the public generate_local_events provides the paths of the new files in the watched directory."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    monkeypatch.setattr(local, "watch_local_directory", lambda *args: nullcontext(enter_result=[filename]))
+
+    events = local.generate_local_events(tmp_path, "os")
+
+    assert next(events) == filename
+
+
+def test_generate_events_with_metadata_yields_paths_with_metadata(tmp_path, patched_local_events):  # noqa
+    """Test the public generate_events_with_metadata still provides the paths with their metadata."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+
+    with patched_local_events([filename]):
+        events = local.generate_events_with_metadata(tmp_path, ["{start_time:%Y%m%d_%H%M}_{product}.tif"], "os")
+
+        path, metadata = next(events)
+
+    assert path == filename
+    assert metadata["product"] == "foo"
+
+
+@pytest.mark.timeout(5)
+def test_file_generator_gets_its_paths_from_generate_local_events(tmp_path, monkeypatch):
+    """Test patching generate_local_events controls the paths file_generator sees, as code downstream relies on."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    monkeypatch.setattr(local, "generate_local_events", lambda *args: [filename])
+
+    path, _ = next(local_watcher.file_generator(tmp_path))
+
+    assert str(path) == filename
+
+
+@pytest.mark.timeout(5)
+def test_listen_to_local_events_gets_its_paths_from_generate_local_events(tmp_path, monkeypatch):
+    """Test patching generate_local_events controls the paths listen_to_local_events sees, as downstream expects."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    monkeypatch.setattr(local, "generate_local_events", lambda *args: [filename])
+
+    with local.listen_to_local_events(tmp_path) as events:
+        path, _ = next(events)
+
+    assert path == filename
 
 
 def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # noqa
@@ -118,6 +188,15 @@ def test_watchdog_generator_with_something_else(tmp_path):
                                              file_pattern=fname_pattern)
 
     with pytest.raises(ValueError, match="'os' or 'polling'"):
+        next(generator)
+
+
+@pytest.mark.timeout(5)
+def test_watchdog_generator_rejects_unknown_trigger(tmp_path):
+    """Test the watcher refuses a trigger it does not know, instead of silently falling back to another one."""
+    generator = local_watcher.file_generator(tmp_path, "os", trigger="opened")
+
+    with pytest.raises(ValueError, match="'created' or 'closed'"):
         next(generator)
 
 
