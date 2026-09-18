@@ -1,3 +1,19 @@
+## Version 0.12.0 (2026/09/18)
+
+
+### Pull Requests Merged
+
+#### Bugs fixed
+
+* [PR 112](https://github.com/pytroll/pytroll-watchers/pull/112) - Include dir in uid for archive members when asked
+
+#### Features added
+
+* [PR 113](https://github.com/pytroll/pytroll-watchers/pull/113) - Add a creation trigger to the local watcher
+
+In this release 2 pull requests were closed.
+
+
 ## Version 0.11.0 (2026/04/23)
 
 
