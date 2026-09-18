@@ -124,12 +124,12 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
         UPath("ssh:///tmp/20200428_1000_foo.tif")  # .storage_options will show the host.
 
     """
-    with local.watch_local_directory(directory, observer_type, trigger) as paths:
-        for path, file_metadata in local.add_metadata(paths, directory, file_pattern):
-            if protocol is not None:
-                uri = urlunparse((protocol, None, str(path), None, None, None))
-                if storage_options is None:
-                    storage_options = dict()
-                yield UPath(uri, **storage_options), file_metadata
-            else:
-                yield Path(path), file_metadata
+    paths = local.generate_local_events(directory, observer_type, trigger)
+    for path, file_metadata in local.add_metadata(paths, directory, file_pattern):
+        if protocol is not None:
+            uri = urlunparse((protocol, None, str(path), None, None, None))
+            if storage_options is None:
+                storage_options = dict()
+            yield UPath(uri, **storage_options), file_metadata
+        else:
+            yield Path(path), file_metadata

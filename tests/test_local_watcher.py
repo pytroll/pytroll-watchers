@@ -1,6 +1,7 @@
 """Test the local watcher."""
 
 import os
+from contextlib import nullcontext
 
 import pytest
 from posttroll.message import Message
@@ -94,14 +95,14 @@ def test_listen_to_local_events_yields_paths_with_metadata(tmp_path, patched_loc
     assert metadata["product"] == "foo"
 
 
-def test_generate_local_events_yields_the_new_paths(tmp_path, patched_local_events):  # noqa
-    """Test the public generate_local_events still provides the paths of the new files."""
+def test_generate_local_events_yields_the_new_paths(tmp_path, monkeypatch):
+    """Test the public generate_local_events provides the paths of the new files in the watched directory."""
     filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    monkeypatch.setattr(local, "watch_local_directory", lambda *args: nullcontext(enter_result=[filename]))
 
-    with patched_local_events([filename]):
-        events = local.generate_local_events(tmp_path, "os")
+    events = local.generate_local_events(tmp_path, "os")
 
-        assert next(events) == filename
+    assert next(events) == filename
 
 
 def test_generate_events_with_metadata_yields_paths_with_metadata(tmp_path, patched_local_events):  # noqa
@@ -115,6 +116,29 @@ def test_generate_events_with_metadata_yields_paths_with_metadata(tmp_path, patc
 
     assert path == filename
     assert metadata["product"] == "foo"
+
+
+@pytest.mark.timeout(5)
+def test_file_generator_gets_its_paths_from_generate_local_events(tmp_path, monkeypatch):
+    """Test patching generate_local_events controls the paths file_generator sees, as code downstream relies on."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    monkeypatch.setattr(local, "generate_local_events", lambda *args: [filename])
+
+    path, _ = next(local_watcher.file_generator(tmp_path))
+
+    assert str(path) == filename
+
+
+@pytest.mark.timeout(5)
+def test_listen_to_local_events_gets_its_paths_from_generate_local_events(tmp_path, monkeypatch):
+    """Test patching generate_local_events controls the paths listen_to_local_events sees, as downstream expects."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+    monkeypatch.setattr(local, "generate_local_events", lambda *args: [filename])
+
+    with local.listen_to_local_events(tmp_path) as events:
+        path, _ = next(events)
+
+    assert path == filename
 
 
 def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # noqa

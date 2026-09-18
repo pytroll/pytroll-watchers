@@ -28,8 +28,7 @@ def listen_to_local_events(directory, file_pattern=None, observer_type="os"):
     Yields:
         A generator of filenames.
     """
-    with watch_local_directory(directory, observer_type) as paths:
-        yield add_metadata(paths, directory, file_pattern)
+    yield add_metadata(generate_local_events(directory, observer_type), directory, file_pattern)
 
 
 @contextmanager
@@ -61,9 +60,9 @@ def generate_events_with_metadata(directory, file_patterns, observer_type):
     yield from add_metadata(generate_local_events(directory, observer_type), directory, file_patterns)
 
 
-def generate_local_events(directory, observer_type):
+def generate_local_events(directory, observer_type, trigger="closed"):
     """Generate local events."""
-    with watch_local_directory(directory, observer_type) as paths:
+    with watch_local_directory(directory, observer_type, trigger) as paths:
         yield from paths
 
 
