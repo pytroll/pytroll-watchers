@@ -15,60 +15,61 @@ from pytroll_watchers.publisher import parse_metadata
 
 
 @contextmanager
-def listen_to_local_events(directory, file_pattern=None, observer_type="os", trigger="closed"):
-    """Listen to local events.
+def watch_local_directory(directory, observer_type="os", trigger="closed"):
+    """Watch a local directory for new files.
 
-    This context manager returns a generator producing filenames that are detected locally.
+    The watch is active as soon as the context is entered, so no file appearing afterwards is missed.
 
     Args:
         directory: The directory to watch for changes.
-        file_pattern: the (trollsift) pattern to use globbing the events and filter them.
-        observer_type: how to watch for events ("os" or "minio")
+        observer_type: how to watch for events ("os" or "polling").
         trigger: what event announces a file with the "os" observer: "closed" (default) when it is closed after
             writing, or "created" as soon as it is created, possibly before it is completely written.
 
     Yields:
-        A generator of filenames.
+        A generator of the paths of the new files.
+    """
+    queue = Queue()
+    observer = _create_observer(directory, queue, observer_type, trigger)
+    observer.start()
+    try:
+        yield _iterate_over_queue(queue)
+    finally:
+        observer.stop()
+
+
+def add_metadata(paths, directory, file_pattern=None):
+    """Generate tuples of (path, metadata), skipping the paths that match none of the file patterns.
+
+    Args:
+        paths: The paths to add metadata to.
+        directory: The directory the file patterns are relative to.
+        file_pattern: The (trollsift) pattern, or list of patterns, to parse the metadata with. The first matching
+            pattern is used. If None, all paths are kept, with empty metadata.
     """
     if file_pattern is None:
-        yield ((event, dict()) for event in generate_local_events(directory, observer_type, trigger))
-    else:
-        if isinstance(file_pattern, str):
-            file_patterns = [file_pattern]
-        else:
-            file_patterns = file_pattern
-        yield generate_events_with_metadata(directory, file_patterns, observer_type, trigger)
-
-
-def generate_events_with_metadata(directory, file_patterns, observer_type, trigger):
-    """Generate tuples of (event, metadata)."""
-    for filename in generate_local_events(directory, observer_type, trigger):
-        for pattern in file_patterns:
+        yield from ((path, dict()) for path in paths)
+        return
+    if isinstance(file_pattern, str):
+        file_pattern = [file_pattern]
+    for path in paths:
+        for pattern in file_pattern:
             try:
-                file_metadata = parse_metadata(os.path.join(directory, pattern), filename)
+                file_metadata = parse_metadata(os.path.join(directory, pattern), path)
             except ValueError:
                 continue
             else:
-                yield filename, file_metadata
+                yield path, file_metadata
                 break
 
 
-def generate_local_events(directory, observer_type, trigger="closed"):
-    """Generate local events."""
-    queue = Queue()
-
+def _create_observer(directory, queue, observer_type, trigger):
+    """Create the observer of type `observer_type` on directory."""
     if observer_type == "os":
-        obs = _create_watchdog_os_observer(directory, queue, trigger)
-    elif observer_type == "polling":
-        obs = _create_watchdog_polling_observer(directory, queue)
-    else:
-        raise ValueError("Observer type can be either 'os' or 'polling'.")
-
-    obs.start()
-    try:
-        yield from _iterate_over_queue(queue)
-    finally:
-        obs.stop()
+        return _create_watchdog_os_observer(directory, queue, trigger)
+    if observer_type == "polling":
+        return _create_watchdog_polling_observer(directory, queue)
+    raise ValueError("Observer type can be either 'os' or 'polling'.")
 
 
 def _create_watchdog_polling_observer(directory, queue, timeout=1.0):

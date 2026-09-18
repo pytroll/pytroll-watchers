@@ -65,7 +65,7 @@ from urllib.parse import urlunparse
 
 from upath import UPath
 
-from pytroll_watchers.backends.local import listen_to_local_events
+from pytroll_watchers.backends import local
 from pytroll_watchers.publisher import SecurityError, file_publisher_from_generator
 
 logger = logging.getLogger(__name__)
@@ -124,8 +124,8 @@ def file_generator(directory, observer_type="os", file_pattern=None, protocol=No
         UPath("ssh:///tmp/20200428_1000_foo.tif")  # .storage_options will show the host.
 
     """
-    with listen_to_local_events(directory, file_pattern, observer_type, trigger) as events:
-        for path, file_metadata in events:
+    with local.watch_local_directory(directory, observer_type, trigger) as paths:
+        for path, file_metadata in local.add_metadata(paths, directory, file_pattern):
             if protocol is not None:
                 uri = urlunparse((protocol, None, str(path), None, None, None))
                 if storage_options is None:
