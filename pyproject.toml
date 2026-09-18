@@ -87,6 +87,7 @@ max-complexity = 10
 tests = [
     "pytest",
     "pytest-cov",
+    "pytest-timeout",
     "freezegun",
     "responses",
     "moto[all]",
