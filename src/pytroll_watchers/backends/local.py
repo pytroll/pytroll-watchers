@@ -56,6 +56,17 @@ def watch_local_directory(directory, observer_type="os", trigger="closed"):
         observer.stop()
 
 
+def generate_events_with_metadata(directory, file_patterns, observer_type):
+    """Generate tuples of (event, metadata)."""
+    yield from add_metadata(generate_local_events(directory, observer_type), directory, file_patterns)
+
+
+def generate_local_events(directory, observer_type):
+    """Generate local events."""
+    with watch_local_directory(directory, observer_type) as paths:
+        yield from paths
+
+
 def add_metadata(paths, directory, file_pattern=None):
     """Generate tuples of (path, metadata), skipping the paths that match none of the file patterns.
 

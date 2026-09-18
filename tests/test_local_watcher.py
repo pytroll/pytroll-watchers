@@ -94,6 +94,29 @@ def test_listen_to_local_events_yields_paths_with_metadata(tmp_path, patched_loc
     assert metadata["product"] == "foo"
 
 
+def test_generate_local_events_yields_the_new_paths(tmp_path, patched_local_events):  # noqa
+    """Test the public generate_local_events still provides the paths of the new files."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+
+    with patched_local_events([filename]):
+        events = local.generate_local_events(tmp_path, "os")
+
+        assert next(events) == filename
+
+
+def test_generate_events_with_metadata_yields_paths_with_metadata(tmp_path, patched_local_events):  # noqa
+    """Test the public generate_events_with_metadata still provides the paths with their metadata."""
+    filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
+
+    with patched_local_events([filename]):
+        events = local.generate_events_with_metadata(tmp_path, ["{start_time:%Y%m%d_%H%M}_{product}.tif"], "os")
+
+        path, metadata = next(events)
+
+    assert path == filename
+    assert metadata["product"] == "foo"
+
+
 def test_watchdog_generator_with_protocol(tmp_path, patched_local_events):  # noqa
     """Test a watchdog generator."""
     filename = os.fspath(tmp_path / "20200428_1000_foo.tif")
