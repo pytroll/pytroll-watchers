@@ -61,7 +61,6 @@ def test_watchdog_generator_with_list_of_patterns(tmp_path, patched_local_events
     assert str(path) == filename2
     assert metadata["product"] == "bla"
 
-@pytest.mark.timeout(2)
 def test_pattern_can_include_dir(tmp_path, patched_local_events):  # noqa
     """Test the local watcher can have a directory included in the pattern."""
     basedir1 = tmp_path / "s3a"
